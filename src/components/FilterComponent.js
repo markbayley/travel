@@ -3,6 +3,9 @@ import { Button } from "@material-ui/core";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { makeStyles } from "@material-ui/styles";
 import PersonIcon from "@material-ui/icons/Person";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Badge from "@material-ui/core/Badge";
 
 export default function FilterComponent({ items, setFilteredFlags }) {
   const classes = useStyles();
@@ -75,7 +78,7 @@ export default function FilterComponent({ items, setFilteredFlags }) {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: "2em" }}>
       <Button
         variant={id === 0 ? "contained" : "outlined"}
         onClick={filterAllCountries}
@@ -189,6 +192,19 @@ export default function FilterComponent({ items, setFilteredFlags }) {
         }}
       >
         <PersonIcon />+
+      </Button>
+      <Button
+        variant={id === 7 ? "contained" : "outlined"}
+        onClick={highPopulation}
+        disableElevation
+        style={{
+          marginTop: 10,
+          marginRight: 30,
+        }}
+      >
+        <Badge badgeContent={3} color="secondary">
+          <FavoriteIcon />
+        </Badge>
       </Button>
     </div>
   );

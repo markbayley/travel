@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyCEUxdZCcAMXWbOS8YNgr45ogT5E5aloDU",
   authDomain: "chat-2e7fe.firebaseapp.com",
@@ -149,7 +147,7 @@ export const SignIn = () => {
   );
 };
 
-const Message = () => {
+export const Message = () => {
   const [user] = useAuthState(auth);
 
   function SendMessage({ scroll }) {

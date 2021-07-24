@@ -10,18 +10,19 @@ import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
+import { red, cyan } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
   media: {
-    height: 0,
+    height: 200,
     paddingTop: "56.25%", // 16:9
   },
   expand: {
@@ -32,15 +33,17 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   avatar: {
-    backgroundColor: red[500],
+    border: '1px solid cyan',
   },
+  icon: {
+    color: '#fff'
+  }
 }));
 
-const FlagsCard = ({
-
-  
-  
-
+const FlagsCard = ({ 
+  searchedTravel,
+  searchedFlags,
+  travel,
   flag,
   capital,
   population,
@@ -60,61 +63,60 @@ const FlagsCard = ({
       .then((response) => {
         DetailRequest(false);
         ShowDetail(response[0]);
-        console.log(response, "response - flagcard");
+        console.log(response[0], "response[0] - flagcard");
       })
       .catch(({ message }) => {
         DetailRequest(false);
       });
   };
 
-  const classes = useStyles();
 
-  // console.log(children, 'children')
+  const classes = useStyles();
 
   return (
     <Card onClick={() => clickHandler()} className={classes.root}>
+      <CardMedia
+        className={classes.media}
+        image={travel}
+        title={capital}
+        style={{ position: "relative" }}
+      >
+        {" "}
+        <CardActions
+          disableSpacing
+          style={{ position: "absolute", top: 0, right: 0 }}
+        >
+          <IconButton className={classes.icon} aria-label="add to favorites">
+            {" "}
+            <MoreVertIcon />
+          </IconButton>
+          {/* <IconButton className={classes.icon} aria-label="share">
+           <FavoriteBorderIcon />
+          </IconButton> */}
+          {/* <IconButton className={classes.icon} aria-label="show more">
+            <ExpandMoreIcon />
+          </IconButton> */}
+        </CardActions>
+      </CardMedia>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            <img src={flag} alt="flag" />
+            <img src={flag} alt="flag" width="70px" />
           </Avatar>
         }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
+        action={
+          <IconButton aria-label="settings">
+            <ShareIcon />
+          </IconButton>
+        }
         title={name}
         subheader={region}
       />
-      <CardMedia
-        className={classes.media}
-        image={flag}
-        title={capital}
-      />
-      {/* {children.map((items, index) => (
-        <Card
-          key={index}
-          {...items}
-        />
-      ))} */}
-
       {/* <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           This impressive paella is a perfect party dish and a fun meal to cook.
         </Typography>
       </CardContent> */}
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton className={classes.expand} aria-label="show more">
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
     </Card>
     // <li onClick={() => clickHandler()}>
     //   <article className="card" key={alpha3code}>

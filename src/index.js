@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './App'
 import App2 from './App2'
 import Template from './Template'
+import Time from './Time'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
     {/* <App2 /> */}
-    {/* <Template /> */}
+    <Template />
+    {/* <Time /> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

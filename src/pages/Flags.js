@@ -8,6 +8,7 @@ import Loader from "../components/Loader";
 import "../api/FetchApi.scss";
 import FilterComponent from "../components/FilterComponent";
 import TravelCard from "../components/TravelCard";
+import jsonData from "./../country.json";
 
 function Flags() {
   const [items, setItems] = useState([]);
@@ -18,6 +19,8 @@ function Flags() {
   const [detail, setShowDetail] = useState(false);
   const [detailRequest, setDetailRequest] = useState(false);
   const [filteredFlags, setFilteredFlags] = useState([]);
+
+  const [filteredTravel, setFilteredTravel] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -40,7 +43,7 @@ function Flags() {
         setError(message);
         setLoading(false);
       });
-  }, [q]);
+  }, []);
 
   const searchedFlags = items.filter((item) =>
     item?.name.toLowerCase().includes(q)
@@ -54,6 +57,35 @@ function Flags() {
     setFilteredFlags(searchedFlags);
   }, [setQuery, q]);
 
+
+  //Travel
+  const searchedTravel = jsonData.filter((item) =>
+    item?.country.toLowerCase().includes(q)
+  );
+
+  useEffect(() => {
+    setFilteredTravel(jsonData);
+  }, []);
+
+  useEffect(() => {
+    setFilteredTravel(searchedTravel);
+  }, [setQuery, q]);
+
+
+
+  searchedTravel.map((child) => {
+    for (let parent of searchedFlags) {
+      if (parent.name === child.country) {
+        if (!parent.children) {
+          parent.children = [];
+        }
+        parent.children.push(child);
+      }
+    }
+  });
+
+  console.log(searchedFlags, 'searchedFlags')
+
   return (
     <div className="wrapper">
       <FilterComponent items={items} setFilteredFlags={setFilteredFlags} />
@@ -62,15 +94,40 @@ function Flags() {
         {loading && <Loader />}
         {filteredFlags !== null &&
           filteredFlags.length > 0 &&
-          filteredFlags.map((result, index) => (
-              <FlagsCard
-                ShowDetail={setShowDetail}
-                DetailRequest={setDetailRequest}
-                ActivateModal={setActivateModal}
-                key={index}
-                {...result}
-              />
-          ))}
+          filteredFlags.map((items) => {
+            return (
+              <>
+                <FlagsCard
+                  ShowDetail={setShowDetail}
+                  DetailRequest={setDetailRequest}
+                  ActivateModal={setActivateModal}
+                  // key={index}
+                  {...items}
+                  {...items.borders}
+                />
+                {/* <div>{items.borders[0]}</div> */}
+                {/* <div>
+                  {items.children.map((items) => {
+                    return (
+                      <div >
+                            {items.status}
+                      </div>
+                    );
+                  })}
+                </div> */}
+                {/* 
+                 <div>
+                  {items.borders.map((border, i) => {
+                    return (
+                      <div key={i}>
+                        <p> {border}</p>
+                      </div>
+                    );
+                  })}
+                </div> */}
+              </>
+            );
+          })}
       </ul>
       <Modal
         title={detail.name + " " + "(" + detail.region + ")"}

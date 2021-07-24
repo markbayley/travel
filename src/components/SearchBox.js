@@ -18,11 +18,10 @@ const SearchBox = ({ searchHandler, q, setQuery }) => {
         </Col>
       </Row> */}
       <SearchBar
-        disableElevation
         style={{
           width: "280px",
-          margin: "20px 40px 20px 0px",
-          backgroundColor: "#efefef",
+          margin: "0px 40px 0px 0px",
+          backgroundColor: "#fff",
           boxShadow: "none",
        
         }}
