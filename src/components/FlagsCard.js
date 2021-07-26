@@ -20,7 +20,13 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    transition: "all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1)",
+    "&:hover": {
+      transform: 'scale(1.05)',
+    },
   },
+
+
   media: {
     height: 200,
     paddingTop: "56.25%", // 16:9
@@ -33,11 +39,11 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   avatar: {
-    border: '1px solid cyan',
+    border: "1px solid cyan",
   },
   icon: {
-    color: '#fff'
-  }
+    color: "#fff",
+  },
 }));
 
 const FlagsCard = ({ 
@@ -57,24 +63,24 @@ const FlagsCard = ({
     ActivateModal(true);
     DetailRequest(true);
 
-    fetch(`https://restcountries.eu/rest/v2/name/${name}`)
+      fetch(`https://restcountries.eu/rest/v2/name/${name}`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {
         DetailRequest(false);
         ShowDetail(response[0]);
-        console.log(response[0], "response[0] - flagcard");
+        console.log(response[0], "response[0] - flagcard");     
       })
       .catch(({ message }) => {
         DetailRequest(false);
-      });
+      });   
   };
 
-
+  
   const classes = useStyles();
 
   return (
-    <Card onClick={() => clickHandler()} className={classes.root}>
+    <Card onClick={() => clickHandler()} className={classes.root} >
       <CardMedia
         className={classes.media}
         image={travel}
@@ -93,9 +99,6 @@ const FlagsCard = ({
           {/* <IconButton className={classes.icon} aria-label="share">
            <FavoriteBorderIcon />
           </IconButton> */}
-          {/* <IconButton className={classes.icon} aria-label="show more">
-            <ExpandMoreIcon />
-          </IconButton> */}
         </CardActions>
       </CardMedia>
       <CardHeader
@@ -112,33 +115,12 @@ const FlagsCard = ({
         title={name}
         subheader={region}
       />
-      {/* <CardContent>
+      <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           This impressive paella is a perfect party dish and a fun meal to cook.
         </Typography>
-      </CardContent> */}
+      </CardContent>
     </Card>
-    // <li onClick={() => clickHandler()}>
-    //   <article className="card" key={alpha3code}>
-    //     <div className="card-image" style={{height: '150px'}}>
-    //       <img src={flag} alt="flag"/>
-    //     </div>
-    //     <div className="card-content">
-    //       <h3 className="card-name">{name}</h3>
-    //       <ol className="card-list">
-    //         <li>
-    //           Population: <span>{(population / 1000000).toFixed(2) + "m"}</span>
-    //         </li>
-    //         <li>
-    //           Region: <span>{region}</span>
-    //         </li>
-    //         <li>
-    //           Capital: <span>{capital}</span>
-    //         </li>
-    //       </ol>
-    //     </div>
-    //   </article>
-    // </li>
   );
 };
 

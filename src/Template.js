@@ -7,9 +7,7 @@ import FlagsDetail from "./components/FlagsDetail";
 import Loader from "./components/Loader";
 import "./api/FetchApi.scss";
 import FilterComponent from "./components/FilterComponent";
-import TravelCard from "./components/TravelCard";
 import jsonData from "./country.json";
-import Divider from "@material-ui/core/Divider";
 import { ChatBox } from './components/ChatBox';
 import { Cart } from "./components/ChatBox";
 import { Profile } from "./components/ChatBox";
@@ -31,6 +29,7 @@ function Flags() {
     setLoading(true);
     setError(null);
     // setData(null);
+
     fetch(`https://restcountries.eu/rest/v2/all`)
       .then((resp) => resp)
       .then((resp) => resp.json())
@@ -75,6 +74,8 @@ function Flags() {
     setFilteredTravel(searchedTravel);
   }, [setQuery, q]);
 
+   
+
   searchedTravel.map((child) => {
     for (let parent of searchedFlags) {
       if (parent.name === child.country) {
@@ -87,6 +88,8 @@ function Flags() {
   });
 
   console.log(searchedFlags, "searchedFlags");
+  console.log(searchedTravel, "searchedTravel");
+ 
 
   return (
     <div className="wrapper">
@@ -127,49 +130,17 @@ function Flags() {
         {loading && <Loader />}
         {filteredFlags !== null &&
           filteredFlags.length > 0 &&
-          filteredFlags.map((items) => {
+          filteredFlags.map((items, i) => {
             return (
-              <>
                 <FlagsCard
                   ShowDetail={setShowDetail}
                   DetailRequest={setDetailRequest}
                   ActivateModal={setActivateModal}
-                  // key={i}
+                  key={i}
                   {...items}
                   {...items.borders}
                   {...items.travel}
                 />
-                {/* <ul>
-                  {items.travel.map((item) => {
-                    return (
-                    <div> {item.status}</div>
-                    );
-                  })}
-                </ul> */}
-                {/* <div key={i}>
-                  <div>{items.children}</div>
-                </div> */}
-                {/* <div>{items.borders[0]}</div> */}
-                {/* <div>
-                  {items.children.map((items) => {
-                    return (
-                      <div >
-                            {items.status}
-                      </div>
-                    );
-                  })}
-                </div> */}
-                {/* 
-                 <div>
-                  {items.borders.map((border, i) => {
-                    return (
-                      <div key={i}>
-                        <p> {border}</p>
-                      </div>
-                    );
-                  })}
-                </div> */}
-              </>
             );
           })}
       </ul>

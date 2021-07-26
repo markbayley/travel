@@ -23,7 +23,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/GB.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "United Kingdom",
+    "country": "United Kingdom of Great Britain and Northern Ireland",
     "description": "",
     "moreDetails": "Quarantine required"
   },
@@ -101,6 +101,13 @@
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/AE.jpg?w=350&f=auto",
     "status": "Restricted",
     "country": "United Arab Emirates",
+    "description": "Vaccinated allowed with conditions",
+    "moreDetails": "Test required"
+  },
+  {
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/US.jpg?w=600&f=auto",
+    "status": "Restricted",
+    "country": "United States of America",
     "description": "Vaccinated allowed with conditions",
     "moreDetails": "Test required"
   },
@@ -226,7 +233,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/RU.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Russia",
+    "country": "Russian Federation",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -338,7 +345,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/XK.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "Kosovo",
+    "country": "Republic of Kosovo",
     "description": "No major restrictions in place",
     "moreDetails": ""
   },
@@ -352,14 +359,14 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/MK.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "North Macedonia",
+    "country": "Macedonia (the former Yugoslav Republic of)",
     "description": "No major restrictions in place",
     "moreDetails": ""
   },
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/TZ.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "Tanzania",
+    "country": "Tanzania, United Republic of",
     "description": "No major restrictions in place",
     "moreDetails": ""
   },
@@ -387,7 +394,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/PM.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "St Pierre and Miquelon",
+    "country": "Saint Pierre and Miquelon",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -415,7 +422,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/KR.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "South Korea",
+    "country": "Korea (Republic of)",
     "description": "",
     "moreDetails": "Quarantine required"
   },
@@ -499,7 +506,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/VN.jpg?w=600&f=auto",
     "status": "Closed",
-    "country": "Vietnam",
+    "country": "Viet Nam",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -555,7 +562,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/CV.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "Cape Verde",
+    "country": "Cabo Verde",
     "description": "",
     "moreDetails": "Test required"
   },
@@ -597,7 +604,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/BO.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "Bolivia",
+    "country": "Bolivia (Plurinational State of)",
     "description": "",
     "moreDetails": "Quarantine required"
   },
@@ -751,7 +758,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/IR.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "Iran",
+    "country": "Iran (Islamic Republic of)",
     "description": "",
     "moreDetails": "Test required"
   },
@@ -786,7 +793,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/MD.jpg?w=600&f=auto",
     "status": "Open",
-    "country": "Moldova",
+    "country": "Moldova (Republic of)",
     "description": "Vaccinated allowed",
     "moreDetails": ""
   },
@@ -884,7 +891,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/SX.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Sint Maarten (Dutch Part)",
+    "country": "Saint Martin (French part)",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -975,7 +982,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/LC.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "St Lucia",
+    "country": "Saint Lucia",
     "description": "",
     "moreDetails": "Quarantine required"
   },
@@ -1010,7 +1017,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/LA.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Laos",
+    "country": "Lao People's Democratic Republic",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1024,7 +1031,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/MF.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "Saint Martin (French Part)",
+    "country": "Martinique",
     "description": "No major restrictions in place",
     "moreDetails": ""
   },
@@ -1157,7 +1164,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/CI.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "Ivory coast",
+    "country": "Côte d'Ivoire",
     "description": "",
     "moreDetails": "Test required"
   },
@@ -1178,7 +1185,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/KN.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "St Kitts and Nevis",
+    "country": "Saint Kitts and Nevis",
     "description": "Vaccinated allowed with conditions",
     "moreDetails": "Quarantine required"
   },
@@ -1234,14 +1241,14 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/VE.jpg?w=600&f=auto",
     "status": "Closed",
-    "country": "Venezuela",
+    "country": "Venezuela (Bolivarian Republic of)",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/VI.jpg?w=600&f=auto",
     "status": "Open",
-    "country": "Virgin Islands, U.S.",
+    "country": "Virgin Islands (U.S.)",
     "description": "No major restrictions in place",
     "moreDetails": ""
   },
@@ -1283,7 +1290,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/FM.jpg?w=600&f=auto",
     "status": "Closed",
-    "country": "Micronesia",
+    "country": "Micronesia (Federated States of)",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1297,7 +1304,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/VA.jpg?w=600&f=auto",
     "status": "Restricted",
-    "country": "Vatican City",
+    "country": "Holy See",
     "description": "",
     "moreDetails": ""
   },
@@ -1318,7 +1325,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/BN.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Brunei",
+    "country": "Brunei Darussalam",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1339,7 +1346,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/FK.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Falkland Islands",
+    "country": "Falkland Islands (Malvinas)",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1367,7 +1374,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/KP.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "North Korea",
+    "country": "Korea (Democratic People's Republic of)",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1381,14 +1388,14 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/SH.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "St Helena, Ascension and Tristan da Cunha",
+    "country": "Saint Helena, Ascension and Tristan da Cunha",
     "description": "",
     "moreDetails": "Quarantine required"
   },
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/VC.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "St Vincent and the Grenadines",
+    "country": "Saint Vincent and the Grenadines",
     "description": "",
     "moreDetails": "Quarantine required"
   },
@@ -1416,7 +1423,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/PS.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Palestine",
+    "country": "Palestine, State of",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1437,7 +1444,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/VG.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "Virgin Islands, British",
+    "country": "Virgin Islands (British)",
     "description": "Vaccinated allowed with conditions",
     "moreDetails": "Quarantine required"
   },
@@ -1493,7 +1500,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/MQ.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Martinique",
+    "country": "Sint Maarten (Dutch part)",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1535,7 +1542,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/CD.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "Democratic Republic Of The Congo",
+    "country": "Congo (Democratic Republic of the)",
     "description": "",
     "moreDetails": "Test required"
   },
@@ -1556,7 +1563,7 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/BL.jpg?w=350&f=auto",
     "status": "Open",
-    "country": "St Barthélemy",
+    "country": "Saint Barthélemy",
     "description": "",
     "moreDetails": "Test required"
   },
@@ -1591,14 +1598,14 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/CG.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "Republic Of The Congo",
+    "country": "Congo",
     "description": "",
     "moreDetails": "Test required"
   },
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/HM.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Heard Island and Mcdonald Islands",
+    "country": "Heard Island and McDonald Islands",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
@@ -1612,14 +1619,14 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/PN.jpg?w=350&f=auto",
     "status": "Closed",
-    "country": "Pitcairn Islands",
+    "country": "Pitcairn",
     "description": "Tourists not allowed",
     "moreDetails": ""
   },
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/GS.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "South Georgia Island",
+    "country": "South Georgia and the South Sandwich Islands",
     "description": "",
     "moreDetails": "Quarantine required"
   },
@@ -1731,8 +1738,18 @@
   {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/SZ.jpg?w=350&f=auto",
     "status": "Restricted",
-    "country": "Eswatini",
+    "country": "Swaziland",
     "description": "",
     "moreDetails": "Quarantine required"
+  },
+   {
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/GU.jpg?w=350&f=auto",
+    "status": "Open",
+    "country": "United States Minor Outlying Islands",
+    "description": "No major restrictions in place",
+    "moreDetails": ""
   }
 ]
+
+
+
