@@ -1,16 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App'
-import App2 from './App2'
 import Template from './Template'
-import Time from './Time'
+import Flags from './pages/Flags';
+import App from './App'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <App2 /> */}
     <Template />
-    {/* <Time /> */}
+    {/* <Flags /> */}
+    {/* <App /> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

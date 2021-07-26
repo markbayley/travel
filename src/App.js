@@ -14,6 +14,7 @@ import Users from "./pages/Users"
 import Contact from "./pages/Contact"
 import Action from './components/Action'
 import Travel from './pages/Travel'
+import Template from './Template'
 
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
           <Route path="/movies" component={Movies} />
           <Route path="/cocktails" component={Cocktails} />
           <Route path="/users" component={Users} />
-          <Route path="/travel" component={Travel} />
+          <Route path="/travel" component={Template} />
 
           <Route path="/contact" component={Contact} />
         </Switch>

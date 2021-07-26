@@ -2,6 +2,58 @@ import React, { useState, useEffect } from "react";
 import "./Contact.css";
 import firebase from "firebase";
 import { db } from '../components/ChatBox'
+import { Button } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Badge from "@material-ui/core/Badge";
+import IconButton from "@material-ui/core/IconButton";
+
+
+export const Favorite = () => {
+  const [favorite, setFavorite] = useState([]);
+  const [loader, setLoader] = useState(false);  
+
+  const [count, setCount] = useState(0);
+
+  const handleFavorite = (e) => {
+    setLoader(true);
+
+    db.collection("favorites")
+      .add({
+        favorite: favorite,
+      })
+      .then(() => {
+        setLoader(false);
+        alert("Added to favorites👍");
+      })
+      .catch((error) => {
+        alert(error.message);
+        setLoader(false);
+      });
+
+      setFavorite([]);
+      console.log(favorite, 'fav')
+      setCount(count + 1);
+  }
+
+  return (
+    <IconButton
+      variant="outlined"
+      onClick={handleFavorite}
+      disableElevation
+      value={favorite}
+      style={{
+        marginTop: 10,
+        marginRight: 30,
+      }}
+    >
+      <Badge badgeContent={count} color="secondary">
+        <FavoriteIcon />
+      </Badge>
+    </IconButton>
+  );
+
+}
 
 const Contact = () => {
   const [name, setName] = useState("");

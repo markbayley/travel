@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Layout, Alert, Modal, Button } from "antd";
+import React, { useEffect, useState, useMemo } from "react";
+import { Layout, Alert, Button, Modal } from "antd";
 import { Grid, Typography } from "@material-ui/core";
 import SearchBox from "./components/SearchBox";
 import FlagsCard from "./components/FlagsCard";
@@ -8,10 +8,11 @@ import Loader from "./components/Loader";
 import "./api/FetchApi.scss";
 import FilterComponent from "./components/FilterComponent";
 import jsonData from "./country.json";
-import { ChatBox } from './components/ChatBox';
+import { ChatBox } from "./components/ChatBox";
 import { Cart } from "./components/ChatBox";
 import { Profile } from "./components/ChatBox";
-import Action from "./components/Action"
+import Action from "./components/Action";
+import Pagination from "./components/Pagination";
 
 function Flags() {
   const [items, setItems] = useState([]);
@@ -37,7 +38,6 @@ function Flags() {
         if (response.Response === "False") {
           setError(response.Error);
         } else {
-          console.log(response, "response -flags");
           setItems(response);
           console.log(response, "response -flags");
         }
@@ -49,6 +49,7 @@ function Flags() {
       });
   }, []);
 
+  //Flags
   const searchedFlags = items.filter((item) =>
     item?.name.toLowerCase().includes(q)
   );
@@ -74,7 +75,6 @@ function Flags() {
     setFilteredTravel(searchedTravel);
   }, [setQuery, q]);
 
-   
 
   searchedTravel.map((child) => {
     for (let parent of searchedFlags) {
@@ -87,9 +87,12 @@ function Flags() {
     }
   });
 
+  // const searchedFlags = useMemo(() => {
+  // return items.filter((item) => { item?.name.toLowerCase().includes(q);
+  //   })}, [q]);
+
   console.log(searchedFlags, "searchedFlags");
   console.log(searchedTravel, "searchedTravel");
- 
 
   return (
     <div className="wrapper">
@@ -103,7 +106,7 @@ function Flags() {
         <Grid item xs={12} sm={3}>
           <SearchBox searchHandler={setQuery} q={q} setQuery={setQuery} />
         </Grid>
-        <Grid item xs={6} sm={6} ></Grid>
+        <Grid item xs={6} sm={6}></Grid>
         <Grid
           item
           xs={6}
@@ -132,20 +135,21 @@ function Flags() {
           filteredFlags.length > 0 &&
           filteredFlags.map((items, i) => {
             return (
-                <FlagsCard
-                  ShowDetail={setShowDetail}
-                  DetailRequest={setDetailRequest}
-                  ActivateModal={setActivateModal}
-                  key={i}
-                  {...items}
-                  {...items.borders}
-                  {...items.travel}
-                />
+              <FlagsCard
+                ShowDetail={setShowDetail}
+                DetailRequest={setDetailRequest}
+                ActivateModal={setActivateModal}
+                key={i}
+                {...items}
+                {...items.borders}
+                {...items.travel}
+              />
             );
           })}
       </ul>
       <Modal
-        title={detail.name + " " + "(" + detail.region + ")"}
+        style={{ padding: "0px" }}
+        // title={detail.name + " " + "(" + detail.region + ")"}
         centered
         visible={activateModal}
         onCancel={() => setActivateModal(false)}
@@ -154,7 +158,8 @@ function Flags() {
       >
         {detailRequest === false ? <FlagsDetail {...detail} /> : <Loader />}
       </Modal>
-      <Action />
+      {/* <Action /> */}
+      <Pagination />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Badge from "@material-ui/core/Badge";
+import { Favorite } from '../pages/Contact'
 
 export default function FilterComponent({ items, setFilteredFlags }) {
   const classes = useStyles();
@@ -193,6 +194,7 @@ export default function FilterComponent({ items, setFilteredFlags }) {
       >
         <PersonIcon />+
       </Button>
+     
       <Button
         variant={id === 7 ? "contained" : "outlined"}
         onClick={highPopulation}

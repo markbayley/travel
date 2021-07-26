@@ -80,7 +80,7 @@ const FlagsCard = ({
   const classes = useStyles();
 
   return (
-    <Card onClick={() => clickHandler()} className={classes.root} >
+    <Card onClick={() => clickHandler()} className={classes.root}>
       <CardMedia
         className={classes.media}
         image={travel}
@@ -92,10 +92,10 @@ const FlagsCard = ({
           disableSpacing
           style={{ position: "absolute", top: 0, right: 0 }}
         >
-          <IconButton className={classes.icon} aria-label="add to favorites">
+          {/* <IconButton className={classes.icon} aria-label="add to favorites">
             {" "}
             <MoreVertIcon />
-          </IconButton>
+          </IconButton> */}
           {/* <IconButton className={classes.icon} aria-label="share">
            <FavoriteBorderIcon />
           </IconButton> */}
@@ -109,17 +109,17 @@ const FlagsCard = ({
         }
         action={
           <IconButton aria-label="settings">
-            <ShareIcon />
+            <MoreVertIcon />
           </IconButton>
         }
         title={name}
-        subheader={region}
-      />
-      <CardContent>
+        subheader={region + " " +  "(" +  ((population / 1000000).toFixed(2)) + "m)" }
+      /> 
+      {/* <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook.
+          This impressive paella is perfect.
         </Typography>
-      </CardContent>
+      </CardContent> */}
     </Card>
   );
 };

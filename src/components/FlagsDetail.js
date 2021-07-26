@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
@@ -15,7 +15,13 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { Message } from './ChatBox'
+import { Message } from "./ChatBox";
+// import { Favorite } from "../pages/Contact";
+import { Favorites } from "../components/Favorites";
+import ImageCarousel from "./ImageCarousel";
+import "./ImageCarousel.css";
+
+const superagent = require("superagent");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,23 +46,118 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FlagsDetail = ({ code, flag, population, region, name, capital, travel }) => {
 
-   const classes = useStyles();
+   const clientID =
+     "8e31e45f4a0e8959d456ba2914723451b8262337f75bcea2e04ae535491df16d";
 
-    const [expanded, setExpanded] = React.useState(false);
+   const simpleGet = (options) => {
+     superagent.get(options.url).then(function (res) {
+       if (options.onSuccess) options.onSuccess(res);
+     });
+   };
 
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
+
+const FlagsDetail = ({
+  code,
+  flag,
+  population,
+  region,
+  name,
+  capital,
+  travel,
+}) => {
+  const classes = useStyles();
+
+  const [expanded, setExpanded] = useState(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+  const [images, setImages] = useState();
+
+
+
+
+   let [photos, setPhotos] = useState([]);
+   let [query, setQuery] = useState("");
+   const queryInput = useRef(null);
+
+  const numberOfPhotos = 10;
+  const url =
+    "https://api.unsplash.com/photos/random/?count=" +
+    numberOfPhotos +
+    "&client_id=" +
+    clientID;
+
+    useEffect(() => {
+      const photosUrl = name ? `${url}&query=${name}` : url;
+
+      simpleGet({
+        url: photosUrl,
+        onSuccess: (res) => {
+          setPhotos(res.body);
+        },
+      });
+    }, [name, url]);
+
+    const searchPhotos = (e) => {
+      e.preventDefault();
+      setQuery(name.current.value);
     };
+
+  // useEffect(() => {
+  //   setImages(
+  //     Array.from(Array(10).keys()).map((id) => ({
+  //       id,
+  //       url: `https://api.unsplash.com/photos/random/?count=10&client_id=PvvWIfrMMfNqoEEuVve3X6KE1gksd31-C1Pn-SP3yL4`,
+  //       // url: `https://picsum.photos/1000?random=${id}`,
+  //     }))
+  //   );
+  // }, []);
+
+  console.log(photos, 'photos')
 
   return (
     <>
+      {/* <div className="box">
+      <form
+        id="unsplash-search"
+        className="unsplash-search form"
+        onSubmit={searchPhotos}
+      >
+        <label>
+          Search Photos on Unsplash
+          <input
+            ref={queryInput}
+            placeholder="Try 'dogs' or 'coffee'!"
+            type="search"
+            className="input"
+            defaultValue=""
+            style={{ marginBottom: 20 }}
+          />
+        </label>
+      </form>
+
+      <ul className="photo-grid">
+        {photos.map(photo => {
+          return (
+            <li key={photo.id}>
+              <img
+                src={photo.urls.regular} width="250px"
+                onSuccessfulClipboardCopy={() => {
+                  // showUserMessage();
+                  // pingUnsplash(photo.links.download_location);
+                }}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </div> */}
       <Card className={classes.root}>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe">
-              <img src={flag} alt="flag" />
+              <img src={flag} alt="flag" width="75px" />
             </Avatar>
           }
           action={
@@ -64,22 +165,23 @@ const FlagsDetail = ({ code, flag, population, region, name, capital, travel }) 
               <MoreVertIcon />
             </IconButton>
           }
-          title={capital}
-          subheader={(population / 1000000).toFixed(2) + "m"}
+          title={name + ' (' + region + ')'}
+          subheader={"Population:" + (population / 1000000).toFixed(2) + " million"}
         />
-        <CardMedia className={classes.media} image={flag} />
+        {/* <CardMedia className={classes.media} image={flag} /> */}
+        <ImageCarousel photos={photos} />
 
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+            {name} is located in {region}, and has a population of {(population / 1000000).toFixed(2) + " million"} people. The capital city is {capital}.
+            The photos above were taken by travellers and locals in this country.
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
+          {/* <IconButton aria-label="add to favorites"> */}
+          {/* <FavoriteIcon /> */}
+          <Favorites />
+          {/* </IconButton> */}
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
@@ -106,18 +208,6 @@ const FlagsDetail = ({ code, flag, population, region, name, capital, travel }) 
         </Collapse>
       </Card>
     </>
-    // <FlagsCard flag={flag} region={region} peeeopulation={population} name={name}/>
-    // <Row style={{ height: "100%" }}>
-    //   <img
-    //     style={{ width: "100%" }}
-    //     src={
-    //       flag === "N/A"
-    //         ? "https://placehold.it/198x264&text=Image+Not+Found"
-    //         : flag
-    //     }
-    //     alt={name}
-    //   />
-    // </Row>
   );
 };
 
