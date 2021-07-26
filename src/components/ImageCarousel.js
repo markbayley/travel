@@ -2,8 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import IconButton from "@material-ui/core/IconButton";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Badge from "@material-ui/core/Badge";
+import Avatar from "@material-ui/core/Avatar";
+import { ImportantDevices } from "@material-ui/icons";
 
-const ImageCarousel = ({ photos }) => {
+const ImageCarousel = ({ photos, flag, name }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState();
   const carouselItemsRef = useRef([]);
@@ -27,7 +31,7 @@ const ImageCarousel = ({ photos }) => {
       if (carouselItemsRef?.current[newIdx]) {
         carouselItemsRef?.current[newIdx]?.scrollIntoView({
           inline: "center",
-          behavior: "smooth"
+          behavior: "smooth",
         });
       }
     }
@@ -57,14 +61,88 @@ const ImageCarousel = ({ photos }) => {
     <div className="carousel-container">
       <div
         className="selected-image"
-        style={{ backgroundImage: `url(${selectedImage?.urls.regular})` }}
-      />
-      <h4>
-        <em style={{ textTransform: "capitalize" }}>
-          "{selectedImage?.alt_description}"
-        </em>{" "}
-        by {selectedImage?.user.name}
-        <strong style={{float: "right"}}>{selectedImage?.location.name}</strong>
+        style={{
+          position: "relative",
+          backgroundImage: `url(${selectedImage?.urls.regular})`,
+        }}
+      >
+        {/* <strong
+          style={{
+            float: "left",
+            zIndex: 10,
+            margin: '10px'
+          }}
+        >
+          <img
+            src={flag}
+            alt="flag"
+            width="25px"
+            style={{ marginBottom: "3px" }}
+          />{" "}
+          {selectedImage?.location.name
+            ? selectedImage?.location.name
+            : "Unknown"}
+        </strong> */}
+        <IconButton
+          button
+          aria-label="share"
+          style={{ position: "absolute", top: 10, right: 10, color: "#fff" }}
+        >
+          <Badge
+            badgeContent={selectedImage?.likes}
+            style={{ marginBottom: "25px", marginRight: "-25px" }}
+          ></Badge>
+          <FavoriteBorderIcon />
+        </IconButton>
+      </div>
+      <h4
+        style={{
+          textTransform: "capitalize",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          wrap: "nowrap",
+        }}
+      >
+        <em>
+          "
+          {selectedImage?.alt_description
+            ? selectedImage?.alt_description
+            : "Unititled"}
+          "
+        </em>
+        <img
+          src={selectedImage?.user.profile_image.small}
+          alt="avatar"
+          style={{
+            borderRadius: "15px",
+            border: "1px solid gold",
+            width: "20px",
+            height: "20px",
+            margin: "0px 5px 5px 5px",
+          }}
+        />
+        {selectedImage?.user.name}
+        <strong
+          style={{
+            float: "right",
+          }}
+        >
+          {selectedImage?.location.city
+            ? selectedImage?.location.city
+            : "Unknown"}
+          , {name}
+          <img
+            src={flag}
+            alt="flag"
+            height="17px"
+            style={{
+              marginBottom: "3px",
+              border: "1px solid gold",
+              marginLeft: "5px",
+            }}
+          />{" "}
+        </strong>
       </h4>
 
       <div className="carousel">

@@ -20,6 +20,7 @@ import { Message } from "./ChatBox";
 import { Favorites } from "../components/Favorites";
 import ImageCarousel from "./ImageCarousel";
 import "./ImageCarousel.css";
+import MailIcon from "@material-ui/icons/Mail";
 
 const superagent = require("superagent");
 
@@ -118,69 +119,35 @@ const FlagsDetail = ({
 
   return (
     <>
-      {/* <div className="box">
-      <form
-        id="unsplash-search"
-        className="unsplash-search form"
-        onSubmit={searchPhotos}
-      >
-        <label>
-          Search Photos on Unsplash
-          <input
-            ref={queryInput}
-            placeholder="Try 'dogs' or 'coffee'!"
-            type="search"
-            className="input"
-            defaultValue=""
-            style={{ marginBottom: 20 }}
-          />
-        </label>
-      </form>
-
-      <ul className="photo-grid">
-        {photos.map(photo => {
-          return (
-            <li key={photo.id}>
-              <img
-                src={photo.urls.regular} width="250px"
-                onSuccessfulClipboardCopy={() => {
-                  // showUserMessage();
-                  // pingUnsplash(photo.links.download_location);
-                }}
-              />
-            </li>
-          );
-        })}
-      </ul>
-    </div> */}
       <Card className={classes.root}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="recipe">
-              <img src={flag} alt="flag" width="75px" />
-            </Avatar>
-          }
+        <CardMedia
+          image={flag}
           action={
             <IconButton aria-label="settings">
               <MoreVertIcon />
             </IconButton>
           }
-          title={name + ' (' + region + ')'}
-          subheader={"Population:" + (population / 1000000).toFixed(2) + " million"}
+          title={name + " (" + region + ")"}
+          subheader={
+            "Population:" + (population / 1000000).toFixed(2) + " million"
+          }
         />
         {/* <CardMedia className={classes.media} image={flag} /> */}
-        <ImageCarousel photos={photos} />
+        <ImageCarousel photos={photos} flag={flag} name={name}/>
 
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            {name} is located in {region}, and has a population of {(population / 1000000).toFixed(2) + " million"} people. The capital city is {capital}.
-            The photos above were taken by travellers and locals in this country.
+             Located in{" "}
+            <strong>{region}</strong>, the nation of <strong>{name}</strong> has
+            a population of{" "}
+            <strong>{(population / 1000000).toFixed(2) + " million"}</strong>{" "}
+            people. The capital city is <strong>{capital}</strong>.
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
           {/* <IconButton aria-label="add to favorites"> */}
           {/* <FavoriteIcon /> */}
-          <Favorites />
+          <MailIcon />
           {/* </IconButton> */}
           <IconButton aria-label="share">
             <ShareIcon />
