@@ -1,6 +1,6 @@
 {
   "homepage": "http://markbayley.github.io/travel",
-  "name": "movie",
+  "name": "travel",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
