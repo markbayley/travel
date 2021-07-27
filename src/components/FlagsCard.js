@@ -19,13 +19,13 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    width: 345,
+   
     transition: "all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1)",
     "&:hover": {
-      transform: 'scale(1.05)',
+      transform: "scale(1.05)",
     },
   },
-
 
   media: {
     height: 200,
@@ -44,9 +44,13 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "#fff",
   },
+  title: {
+    maxWidth: '100%'
+  },
 }));
 
 const FlagsCard = ({ 
+  
   searchedTravel,
   searchedFlags,
   travel,
@@ -80,11 +84,13 @@ const FlagsCard = ({
   const classes = useStyles();
 
   return (
-    <Card onClick={() => clickHandler()} className={classes.root}>
+    
+    <Card onClick={() => clickHandler()} className={classes.root}   style={{
+          textTransform: "capitalize",
+        }}>
       <CardMedia
         className={classes.media}
         image={travel}
-        title={capital}
         style={{ position: "relative" }}
       >
         {" "}
@@ -95,15 +101,15 @@ const FlagsCard = ({
           {/* <IconButton className={classes.icon} aria-label="add to favorites">
             {" "}
             <MoreVertIcon />
-          </IconButton> */}
-          {/* <IconButton className={classes.icon} aria-label="share">
+          </IconButton>  */}
+           <IconButton className={classes.icon} aria-label="share">
            <FavoriteBorderIcon />
-          </IconButton> */}
+          </IconButton>
         </CardActions>
       </CardMedia>
-      <CardHeader
+      <CardHeader 
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="flag" className={classes.avatar}>
             <img src={flag} alt="flag" width="70px" />
           </Avatar>
         }
@@ -112,7 +118,7 @@ const FlagsCard = ({
             <MoreVertIcon />
           </IconButton>
         }
-        title={name}
+        title={name} className={classes.title}
         subheader={region + " " +  "(" +  ((population / 1000000).toFixed(2)) + "m)" }
       /> 
       {/* <CardContent>

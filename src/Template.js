@@ -13,8 +13,14 @@ import { Cart } from "./components/ChatBox";
 import { Profile } from "./components/ChatBox";
 import Action from "./components/Action";
 import Pagination from "./components/Pagination";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./components/ChatBox";
+import { SignIn } from "./components/ChatBox";
+import AppBar from './components/AppBar'
 
 function Flags() {
+  const [user] = useAuthState(auth);
+
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,6 +31,9 @@ function Flags() {
   const [filteredFlags, setFilteredFlags] = useState([]);
 
   const [filteredTravel, setFilteredTravel] = useState([]);
+
+
+
 
   useEffect(() => {
     setLoading(true);
@@ -96,34 +105,67 @@ function Flags() {
 
   return (
     <div className="wrapper">
-      <Grid
-        container
-        spacing={3}
-        style={{
-          marginBottom: "1em",
-        }}
-      >
-        <Grid item xs={12} sm={3}>
-          <SearchBox searchHandler={setQuery} q={q} setQuery={setQuery} />
-        </Grid>
-        <Grid item xs={6} sm={6}></Grid>
+      <AppBar searchHandler={setQuery} q={q} setQuery={setQuery} />
+      {/* {user ? (
         <Grid
-          item
-          xs={6}
-          sm={3}
+          container
+          spacing={3}
           style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            paddingRight: "3em",
+            marginBottom: "1em",
           }}
         >
-          <Cart />
-          <ChatBox />
-          <Profile />
+          <Grid item xs={12} sm={3}>
+            <SearchBox searchHandler={setQuery} q={q} setQuery={setQuery} />
+          </Grid>
+          <Grid item xs={6} sm={6}></Grid>
+
+          <Grid
+            item
+            xs={6}
+            sm={3}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              paddingRight: "3em",
+            }}
+          >
+            <Cart />
+            <ChatBox />
+            <Profile />
+          </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <Grid
+          container
+          spacing={3}
+          style={{
+            marginBottom: "1em",
+          }}
+        >
+          <Grid item xs={12} sm={3}>
+            <SearchBox searchHandler={setQuery} q={q} setQuery={setQuery} />
+          </Grid>
+          <Grid item xs={6} sm={6}></Grid>
+
+          <Grid
+            item
+            xs={6}
+            sm={3}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              paddingRight: "3em",
+            }}
+          >
+          
+           <SignIn />
+          </Grid>
+        </Grid>
+      )} */}
 
       <Grid>
         <FilterComponent items={items} setFilteredFlags={setFilteredFlags} />
@@ -155,6 +197,7 @@ function Flags() {
         onCancel={() => setActivateModal(false)}
         footer={null}
         width={800}
+        height={700}
       >
         {detailRequest === false ? <FlagsDetail {...detail} /> : <Loader />}
       </Modal>

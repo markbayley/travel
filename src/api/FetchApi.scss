@@ -47,14 +47,14 @@ h2 {
     // max-width: 1140px;
     // margin: 0 auto;
     // margin-left: 3rem;
-    margin: 2em 20em 0em 20em;
+    margin: 5em 2em 0em 7em;
 
 }
 .card-grid {
     
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 2.5em;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1.5em;
 }
 .card {
     background-color: var(--bg-offset);
@@ -144,7 +144,16 @@ select {
     }
 }
 
-@media (max-width: 375px) {
+
+.search-box {
+    width: "250px";
+    margin: "0px 40px 0px 20px";
+    background-color: "#efefef";
+    box-shadow: "none";
+    height: 30px;          
+}
+
+@media (max-width: 1024px) {
     .search-input {
         width: 100%;
     }
@@ -153,7 +162,7 @@ select {
         flex-wrap: wrap;
     }
     .wrapper {
-        margin: 5em 1em 2em 1em;
+        margin: 4em 1em 1em 1em;
     }
     .select {
          margin-left: 0px;

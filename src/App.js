@@ -23,7 +23,9 @@ function App() {
   return (
     <div className="">
       <Router>
-        {user ? <AppBar /> : <AppBarNoAuth />}
+     
+        {/* {user ? <AppBar /> : <AppBarNoAuth />} */}
+  
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/charts" component={Charts} />

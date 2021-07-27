@@ -48,6 +48,10 @@ import { Cart } from "./ChatBox";
 import { ChatBox } from "./ChatBox";
 import { Profile } from "./ChatBox";
 
+import SearchBar from "material-ui-search-bar";
+
+// const { Search } = Input;
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) =>
@@ -58,10 +62,12 @@ const useStyles = makeStyles((theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+      // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+
+      background: "#119DA4",
       border: 0,
       borderRadius: 3,
-      boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+      // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
       color: "white",
       padding: "0 30px",
     },
@@ -118,6 +124,7 @@ const useStyles = makeStyles((theme) =>
     },
     root: {
       // display: 'flex',
+      margin: "0em 20em",
       flexGrow: 1,
     },
     menuButton: {
@@ -132,19 +139,24 @@ const useStyles = makeStyles((theme) =>
       },
     },
     search: {
-      position: "relative",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: alpha(theme.palette.common.white, 0.15),
-      "&:hover": {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto",
-      },
+      width: "250px",
+      margin: "0rem 1em 0rem 1rem",
+      backgroundColor: "#efefef",
+      boxShadow: "none",
+      height: "40px",
+      // position: "relative",
+      // borderRadius: theme.shape.borderRadius,
+      // backgroundColor: alpha(theme.palette.common.white, 0.15),
+      // "&:hover": {
+      //   backgroundColor: alpha(theme.palette.common.white, 0.25),
+      // },
+      // marginRight: theme.spacing(2),
+      // marginLeft: 0,
+      // width: "100%",
+      // [theme.breakpoints.up("sm")]: {
+      //   marginLeft: theme.spacing(3),
+      //   width: "auto",
+      // },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
@@ -179,11 +191,12 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up("md")]: {
         display: "none",
       },
+    
     },
   })
 );
 
-export default function PrimarySearchAppBar({setQuery}) {
+export default function PrimarySearchAppBar({q, setQuery}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -305,12 +318,19 @@ export default function PrimarySearchAppBar({setQuery}) {
               <MenuIcon />
             </IconButton>
 
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
+            {/* <div className={classes.search}> */}
+            <SearchBar
+              className={classes.search}
+             
+              value={q}
+              onChange={(item) => setQuery(item.toLowerCase())}
+              // onSearch={(value) => searchHandler(value)}
+            />
+            {/* <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
 
-              <InputBase
+             <InputBase
                 placeholder="Search…"
                 classes={{
                   root: classes.inputRoot,
@@ -318,8 +338,9 @@ export default function PrimarySearchAppBar({setQuery}) {
                 }}
                 inputProps={{ "aria-label": "search" }}
                 onChange={(e) => setQuery(e.target.value)}
-              />
-            </div>
+              /> 
+              */}
+            {/* </div> */}
 
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
@@ -341,126 +362,133 @@ export default function PrimarySearchAppBar({setQuery}) {
             </div>
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          })}
-          classes={{
-            paper: clsx({
+        <div className={classes.sectionDesktop}>
+          <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
               [classes.drawerOpen]: open,
               [classes.drawerClose]: !open,
-            }),
-          }}
-        >
-          <div className={classes.toolbar}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </div>
-          <Divider />
-
-          <Link to="/">
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-          </Link>
-
-          <Link to="/charts">
-            <ListItem button>
-              <ListItemIcon>
-                <BarChartIcon />
-              </ListItemIcon>
-              <ListItemText primary="Charts" />
-            </ListItem>
-          </Link>
-          <Link to="/flags">
-            <ListItem button>
-              <ListItemIcon>
-                <FlagIcon />
-              </ListItemIcon>
-              <ListItemText primary="Flags" />
-            </ListItem>
-          </Link>
-          <Link to="/movies">
-            <ListItem button>
-              <ListItemIcon>
-                <TheatersIcon />
-              </ListItemIcon>
-              <ListItemText primary="Movies" />
-            </ListItem>
-          </Link>
-          <Link to="/cocktails">
-            <ListItem button>
-              <ListItemIcon>
-                <LocalBarIcon />
-              </ListItemIcon>
-              <ListItemText primary="Cocktails" />
-            </ListItem>
-          </Link>
-          <Link to="/users">
-            <ListItem button>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <ListItemText primary="Users" />
-            </ListItem>
-          </Link>
-          <Link to="/travel">
-            <ListItem button>
-              <ListItemIcon>
-                <PublicIcon />
-              </ListItemIcon>
-              <ListItemText primary="Travel" />
-            </ListItem>
-          </Link>
-
-          <Divider />
-
-          <Link to="/contact">
-            <ListItem button>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary="Contact" />
-            </ListItem>
-          </Link>
-
-          <Link to="/mail">
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Mail" />
-            </ListItem>
-          </Link>
-
-          <Divider />
-
-          <div
-            style={{ display: "flex", height: "100%", alignItems: "flex-end" }}
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open,
+              }),
+            }}
           >
-            <Link to="/settings">
+            <div className={classes.toolbar}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === "rtl" ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
+              </IconButton>
+            </div>
+            <Divider />
+
+            <Link to="/">
               <ListItem button>
                 <ListItemIcon>
-                  <SettingsIcon />
+                  <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary="Settings" />
+                <ListItemText primary="Home" />
               </ListItem>
             </Link>
-          </div>
-        </Drawer>
+
+            <Link to="/charts">
+              <ListItem button>
+                <ListItemIcon>
+                  <BarChartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Charts" />
+              </ListItem>
+            </Link>
+            <Link to="/flags">
+              <ListItem button>
+                <ListItemIcon>
+                  <FlagIcon />
+                </ListItemIcon>
+                <ListItemText primary="Flags" />
+              </ListItem>
+            </Link>
+            <Link to="/movies">
+              <ListItem button>
+                <ListItemIcon>
+                  <TheatersIcon />
+                </ListItemIcon>
+                <ListItemText primary="Movies" />
+              </ListItem>
+            </Link>
+            <Link to="/cocktails">
+              <ListItem button>
+                <ListItemIcon>
+                  <LocalBarIcon />
+                </ListItemIcon>
+                <ListItemText primary="Cocktails" />
+              </ListItem>
+            </Link>
+            <Link to="/users">
+              <ListItem button>
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+              </ListItem>
+            </Link>
+            <Link to="/travel">
+              <ListItem button>
+                <ListItemIcon>
+                  <PublicIcon />
+                </ListItemIcon>
+                <ListItemText primary="Travel" />
+              </ListItem>
+            </Link>
+
+            <Divider />
+
+            <Link to="/contact">
+              <ListItem button>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary="Contact" />
+              </ListItem>
+            </Link>
+
+            <Link to="/mail">
+              <ListItem button>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Mail" />
+              </ListItem>
+            </Link>
+
+            <Divider />
+
+            <div
+              style={{
+                display: "flex",
+                height: "100%",
+                alignItems: "flex-end",
+              }}
+            >
+              <Link to="/settings">
+                <ListItem button>
+                  <ListItemIcon>
+                    <SettingsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Settings" />
+                </ListItem>
+              </Link>
+            </div>
+          </Drawer>
+        </div>
 
         {/* <FetchApi /> */}
         {renderMobileMenu}
+
         {renderMenu}
       </div>
     </div>

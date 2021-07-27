@@ -20,7 +20,7 @@ const SearchBox = ({ searchHandler, q, setQuery }) => {
       <SearchBar
         style={{
           width: "280px",
-          margin: "0px 40px 0px 0px",
+          // margin: "0px 40px 0px 0px",
           backgroundColor: "#efefef",
           boxShadow: "none",
        

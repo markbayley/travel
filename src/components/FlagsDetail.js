@@ -27,6 +27,7 @@ const superagent = require("superagent");
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+ 
   },
   media: {
     height: 0,
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const FlagsDetail = ({
+ 
   code,
   flag,
   population,
@@ -74,6 +76,13 @@ const FlagsDetail = ({
     setExpanded(!expanded);
   };
   const [images, setImages] = useState();
+
+
+
+
+
+ 
+
 
 
 
@@ -118,7 +127,7 @@ const FlagsDetail = ({
   console.log(photos, 'photos')
 
   return (
-    <>
+    <div style={{ zIndex: 20 }}>
       <Card className={classes.root}>
         <CardMedia
           image={flag}
@@ -133,13 +142,12 @@ const FlagsDetail = ({
           }
         />
         {/* <CardMedia className={classes.media} image={flag} /> */}
-        <ImageCarousel photos={photos} flag={flag} name={name}/>
+        <ImageCarousel photos={photos} flag={flag} name={name} />
 
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-             Located in{" "}
-            <strong>{region}</strong>, the nation of <strong>{name}</strong> has
-            a population of{" "}
+            Located in <strong>{region}</strong>, the nation of{" "}
+            <strong>{name}</strong> has a population of{" "}
             <strong>{(population / 1000000).toFixed(2) + " million"}</strong>{" "}
             people. The capital city is <strong>{capital}</strong>.
           </Typography>
@@ -174,7 +182,7 @@ const FlagsDetail = ({
           </CardContent>
         </Collapse>
       </Card>
-    </>
+    </div>
   );
 };
 

@@ -6,9 +6,9 @@ import App from './App'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Template />
+    {/* <Template /> */}
     {/* <Flags /> */}
-    {/* <App /> */}
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

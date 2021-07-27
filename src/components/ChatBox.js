@@ -106,9 +106,9 @@ export const SignIn = () => {
             position: "sticky",
             top: 0,
             cursor: "move",
-            background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+            background: "#119DA4",
             height: "60px",
-            width: "600px",
+            width: "400px",
           }}
           id="draggable-dialog-title"
         >
@@ -122,24 +122,44 @@ export const SignIn = () => {
           />
         </DialogTitle>
 
-        <div className="signin">
+        <div className="" style={{ textAlign: "center" }}>
           <form action="">
-            <h3>Enter email and password</h3>
-
-            <input ref={emailRef} type="email" />
-            <input ref={passwordRef} type="password" />
-            <Button onClick={signIn} variant="outlined">
+            <br />
+            <h3>Email</h3>
+            <input
+              ref={emailRef}
+              type="email"
+              value="markyb152@hotmail.com"
+              style={{
+                padding: "1em",
+                margin: "1em",
+                width: "250px",
+                borderRadius: "5px",
+                fontSize: "16px",
+              }}
+            />
+            <h3>Password</h3>
+            <input
+              ref={passwordRef}
+              type="password"
+              value="password"
+              style={{ padding: "1em", margin: "1em", width: "250px" }}
+            />{" "}
+            <br />
+            <br />
+            <Button
+              onClick={signIn}
+              variant="outlined"
+              style={{ marginRight: "30px" }}
+            >
               Sign in{" "}
             </Button>
-            <br />
-            <h5 className="signin__link">Forgot password?</h5>
-            <br />
-            <br />
-            <h3>Not yet registered?</h3>
-            <br />
             <Button onClick={signUp} variant="outlined">
               Sign up
             </Button>
+            <br />
+            <br />
+            <p className="signin__link">Forgot password?</p>
           </form>
         </div>
       </Dialog>
@@ -371,7 +391,7 @@ export const Profile = ({ photoURL }) => {
   );
 };
 
-export const Cart = ({ photoURL }) => {
+export const Cart = () => {
   const [open, setOpen] = React.useState(false);
   const [count, setCount] = useState(0);
 

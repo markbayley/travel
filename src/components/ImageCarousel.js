@@ -12,6 +12,15 @@ const ImageCarousel = ({ photos, flag, name }) => {
   const [selectedImage, setSelectedImage] = useState();
   const carouselItemsRef = useRef([]);
 
+  const [favourites, setFavourites] = useState([]);
+
+  const addFavouriteMovie = (e, name) => {
+    const newFavouriteList = [...favourites, name];
+    setFavourites(newFavouriteList);
+  };
+
+  console.log(favourites, "favorites");
+
   useEffect(() => {
     if (photos && photos[0]) {
       carouselItemsRef.current = carouselItemsRef.current.slice(
@@ -98,13 +107,17 @@ const ImageCarousel = ({ photos, flag, name }) => {
       <h4
         style={{
           textTransform: "capitalize",
-          textOverflow: "ellipsis",
           whiteSpace: "nowrap",
-          overflow: "hidden",
-          wrap: "nowrap",
+          display: "flex",
         }}
       >
-        <em>
+        <em
+          style={{
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            minWidth: "10%"
+          }}
+        >
           "
           {selectedImage?.alt_description
             ? selectedImage?.alt_description
@@ -122,27 +135,35 @@ const ImageCarousel = ({ photos, flag, name }) => {
             margin: "0px 5px 5px 5px",
           }}
         />
+
         {selectedImage?.user.name}
-        <strong
+
+        <div
           style={{
-            float: "right",
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
           }}
         >
-          {selectedImage?.location.city
-            ? selectedImage?.location.city
-            : "Unknown"}
-          , {name}
-          <img
-            src={flag}
-            alt="flag"
-            height="17px"
-            style={{
-              marginBottom: "3px",
-              border: "1px solid gold",
-              marginLeft: "5px",
-            }}
-          />{" "}
-        </strong>
+          <div>
+            <strong>
+              {selectedImage?.location.city
+                ? selectedImage?.location.city
+                : "Unknown"}
+              , {name}
+              <img
+                src={flag}
+                alt="flag"
+                height="17px"
+                style={{
+                  marginBottom: "3px",
+                  border: "1px solid gold",
+                  marginLeft: "5px",
+                }}
+              />{" "}
+            </strong>
+          </div>
+        </div>
       </h4>
 
       <div className="carousel">
