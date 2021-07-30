@@ -12,14 +12,14 @@ const ImageCarousel = ({ photos, flag, name }) => {
   const [selectedImage, setSelectedImage] = useState();
   const carouselItemsRef = useRef([]);
 
-  const [favourites, setFavourites] = useState([]);
+  // const [favourites, setFavourites] = useState([]);
 
-  const addFavouriteMovie = (e, name) => {
-    const newFavouriteList = [...favourites, name];
-    setFavourites(newFavouriteList);
-  };
+  // const addFavouriteMovie = (e, name) => {
+  //   const newFavouriteList = [...favourites, name];
+  //   setFavourites(newFavouriteList);
+  // };
 
-  console.log(favourites, "favorites");
+  // console.log(favourites, "favorites");
 
   useEffect(() => {
     if (photos && photos[0]) {
@@ -46,25 +46,25 @@ const ImageCarousel = ({ photos, flag, name }) => {
     }
   };
 
-  const handleRightClick = () => {
-    if (photos && photos.length > 0) {
-      let newIdx = selectedImageIndex + 1;
-      if (newIdx >= photos.length) {
-        newIdx = 0;
-      }
-      handleSelectedImageChange(newIdx);
-    }
-  };
+  // const handleRightClick = () => {
+  //   if (photos && photos.length > 0) {
+  //     let newIdx = selectedImageIndex + 1;
+  //     if (newIdx >= photos.length) {
+  //       newIdx = 0;
+  //     }
+  //     handleSelectedImageChange(newIdx);
+  //   }
+  // };
 
-  const handleLeftClick = () => {
-    if (photos && photos.length > 0) {
-      let newIdx = selectedImageIndex - 1;
-      if (newIdx < 0) {
-        newIdx = photos.length - 1;
-      }
-      handleSelectedImageChange(newIdx);
-    }
-  };
+  // const handleLeftClick = () => {
+  //   if (photos && photos.length > 0) {
+  //     let newIdx = selectedImageIndex - 1;
+  //     if (newIdx < 0) {
+  //       newIdx = photos.length - 1;
+  //     }
+  //     handleSelectedImageChange(newIdx);
+  //   }
+  // };
 
   return (
     <div className="carousel-container">

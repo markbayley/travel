@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   alpha,
   makeStyles,
@@ -6,14 +6,24 @@ import {
   createStyles,
 } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
+import { useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Tab from "@material-ui/core/Tab";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+//Icons
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -24,47 +34,128 @@ import HomeIcon from "@material-ui/icons/Home";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import SettingsIcon from "@material-ui/icons/Settings";
-import FaceIcon from "@material-ui/icons/Face";
-import Tab from "@material-ui/core/Tab";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import FlagIcon from "@material-ui/icons/Flag";
+import TheatersIcon from "@material-ui/icons/Theaters";
+import LocalBarIcon from "@material-ui/icons/LocalBar";
+import PersonIcon from "@material-ui/icons/Person";
+import PublicIcon from "@material-ui/icons/Public";
+
+import { Cart } from "./ChatBox";
+import { ChatBox } from "./ChatBox";
 import { SignIn } from "./ChatBox";
+
+import SearchBar from "material-ui-search-bar";
+
+// const { Search } = Input;
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      // background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+
+      background: "#119DA4",
+      border: 0,
+      borderRadius: 3,
+      // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+      color: "white",
+      padding: "0 30px",
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+
+    hide: {
+      display: "none",
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: "nowrap",
+    },
+    drawerOpen: {
+      width: drawerWidth,
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerClose: {
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      overflowX: "hidden",
+      width: theme.spacing(7) + 1,
+      [theme.breakpoints.up("sm")]: {
+        width: theme.spacing(9) + 1,
+      },
+    },
+    toolbar: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(10),
+      marginRight: -50,
+    },
     grow: {
       flexGrow: 1,
     },
     root: {
-      background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-      border: 0,
-      borderRadius: 3,
-      boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-      color: "white",
-      padding: "0 30px",
+      // display: 'flex',
+      margin: "0em 20em",
+      flexGrow: 1,
     },
-
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: 20,
+      marginLeft: -43,
     },
     title: {
+      marginBottom: theme.spacing(3),
       display: "none",
       [theme.breakpoints.up("sm")]: {
         display: "block",
       },
     },
     search: {
-      position: "relative",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: alpha(theme.palette.common.white, 0.15),
-      "&:hover": {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto",
-      },
+      width: "250px",
+      margin: "0rem 1em 0rem 1rem",
+      backgroundColor: "#efefef",
+      boxShadow: "none",
+      height: "40px",
+      // position: "relative",
+      // borderRadius: theme.shape.borderRadius,
+      // backgroundColor: alpha(theme.palette.common.white, 0.15),
+      // "&:hover": {
+      //   backgroundColor: alpha(theme.palette.common.white, 0.25),
+      // },
+      // marginRight: theme.spacing(2),
+      // marginLeft: 0,
+      // width: "100%",
+      // [theme.breakpoints.up("sm")]: {
+      //   marginLeft: theme.spacing(3),
+      //   width: "auto",
+      // },
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
@@ -103,17 +194,26 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar({ q, setQuery }) {
   const classes = useStyles();
- const [anchorEl, setAnchorEl] = React.useState(null);
- const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
- const [hamburgerAnchorEl, setHamburgerAnchorEl] = React.useState(null);
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const isHamburgerMenuOpen = Boolean(hamburgerAnchorEl);
 
-  const handleProfileMenuOpen = (event)=> {
+  const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -126,16 +226,8 @@ export default function PrimarySearchAppBar() {
     handleMobileMenuClose();
   };
 
-  const handleHamburgerMenuClose = () => {
-    setHamburgerAnchorEl(null);
-  };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const handleHamburgerMenuOpen = (event) => {
-    setHamburgerAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -156,36 +248,6 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={handleMenuClose}>
         {" "}
         <Tab icon={<SettingsIcon />} label="SETTINGS" />
-      </MenuItem>
-    </Menu>
-  );
-
-  const hamburgerId = "hamburger-account-menu";
-  const renderHamburgerMenu = (
-    <Menu
-      anchorEl={hamburgerAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={hamburgerId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isHamburgerMenuOpen}
-      onClose={handleHamburgerMenuClose}
-    >
-      <MenuItem onClick={handleHamburgerMenuClose}>
-        <Link to="/">
-          {" "}
-          <Tab icon={<HomeIcon />} label="HOME" />
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleHamburgerMenuClose}>
-        <Link to="/charts">
-          <Tab icon={<BarChartIcon />} label="CHARTS" />
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleHamburgerMenuClose}>
-        <a href="/game">
-          <Tab icon={<PersonPinIcon />} label="OTHER" />
-        </a>
       </MenuItem>
     </Menu>
   );
@@ -232,77 +294,199 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static" className={classes.root}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-controls={hamburgerId}
-            aria-label="open drawer"
-            aria-haspopup="true"
-            onClick={handleHamburgerMenuOpen}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          <Link to="/" className={classes.sectionDesktop}>
-            <IconButton className={classes.menuButton} color="inherit">
-              <HomeIcon style={{ color: "#fff" }} />
-            </IconButton>
-          </Link>
-
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton> */}
-
-            <SignIn />
-
-            {/* <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton> */}
-          </div>
-          <div className={classes.sectionMobile}>
+    <div>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
             <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
               color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
             >
-              <MoreIcon />
+              <MenuIcon />
             </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderHamburgerMenu}
-      {renderMobileMenu}
-      {renderMenu}
+
+            {/* <div className={classes.search}> */}
+            <SearchBar
+              className={classes.search}
+              value={q}
+              onChange={(item) => setQuery(item.toLowerCase())}
+              // onSearch={(value) => searchHandler(value)}
+            />
+            {/* <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+
+             <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+                onChange={(e) => setQuery(e.target.value)}
+              /> 
+              */}
+            {/* </div> */}
+
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              {/* <Cart /> */}
+             <SignIn />
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                edge="end"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon style={{ marginRight: "-30" }} />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        <div className={classes.sectionDesktop}>
+          <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open,
+              }),
+            }}
+          >
+            <div className={classes.toolbar}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === "rtl" ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
+              </IconButton>
+            </div>
+            <Divider />
+
+            <Link to="/travel">
+              <ListItem button>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItem>
+            </Link>
+
+            {/* <Link to="/charts">
+              <ListItem button>
+                <ListItemIcon>
+                  <BarChartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Charts" />
+              </ListItem>
+            </Link> */}
+            <Link to="/travel">
+              <ListItem button>
+                <ListItemIcon>
+                  <FlagIcon />
+                </ListItemIcon>
+                <ListItemText primary="Flags" />
+              </ListItem>
+            </Link>
+            <Link to="/travel">
+              <ListItem button>
+                <ListItemIcon>
+                  <TheatersIcon />
+                </ListItemIcon>
+                <ListItemText primary="Movies" />
+              </ListItem>
+            </Link>
+            <Link to="/travel">
+              <ListItem button>
+                <ListItemIcon>
+                  <LocalBarIcon />
+                </ListItemIcon>
+                <ListItemText primary="Cocktails" />
+              </ListItem>
+            </Link>
+            <Link to="/travel">
+              <ListItem button>
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary="Users" />
+              </ListItem>
+            </Link>
+            <Link to="/travel">
+              <ListItem button>
+                <ListItemIcon>
+                  <PublicIcon />
+                </ListItemIcon>
+                <ListItemText primary="Travel" />
+              </ListItem>
+            </Link>
+
+            <Divider />
+
+            <Link to="/contact">
+              <ListItem button>
+                <ListItemIcon>
+                  <MailIcon />
+                </ListItemIcon>
+                <ListItemText primary="Contact" />
+              </ListItem>
+            </Link>
+
+            {/* <Link to="/mail">
+              <ListItem button>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Mail" />
+              </ListItem>
+            </Link> */}
+
+            <Divider />
+
+            <div
+              style={{
+                display: "flex",
+                height: "100%",
+                alignItems: "flex-end",
+              }}
+            >
+              <Link to="/travel">
+                <ListItem button>
+                  <ListItemIcon>
+                    <SettingsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Settings" />
+                </ListItem>
+              </Link>
+            </div>
+          </Drawer>
+        </div>
+
+        {/* <FetchApi /> */}
+        {renderMobileMenu}
+
+        {renderMenu}
+      </div>
     </div>
   );
 }

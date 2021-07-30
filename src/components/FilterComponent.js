@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core/styles";
 
 
-export default function FilterComponent({ items, setFilteredFlags }) {
+export default function FilterComponent({ items, setFilteredFlags, favourites }) {
   const classes = useStyles();
   const [id, setId] = useState(0);
 
@@ -27,24 +27,16 @@ export default function FilterComponent({ items, setFilteredFlags }) {
   const Africa = items.filter((item) => item?.region === "Africa");
 
   const HighPop = items.filter((item) => item?.population > 100000000);
-  const MedPop = items.filter((item) => item?.population > 10000000);
-  const LowPop = items.filter((item) => item?.population > 1000000);
+  const MedPop = items.filter(
+    (item) => item?.population > 10000000 && item.population < 100000000
+  );
+  const LowPop = items.filter((item) => item?.population < 10000000);
 
-  const filterHighPop = () => {
-       setId(8);
-    return setFilteredFlags(HighPop);
-  }
+  // const Favs = items.filter((item) => favourites.includes(item.name));
 
-   const filterMedPop = () => {
-        setId(9);
-     return setFilteredFlags(MedPop);
-   };
+  
 
-     const filterLowPop = () => {
-          setId(10);
-       return setFilteredFlags(LowPop);
-     };
-
+ 
   const filterAllCountries = () => {
     setId(0);
     return setFilteredFlags(items);
@@ -75,9 +67,28 @@ export default function FilterComponent({ items, setFilteredFlags }) {
     return setFilteredFlags(Africa);
   };
 
+
+
+   const filterHighPop = () => {
+     setId(6);
+     return setFilteredFlags(HighPop);
+   };
+
+   const filterMedPop = () => {
+     setId(7);
+     return setFilteredFlags(MedPop);
+   };
+
+   const filterLowPop = () => {
+     setId(8);
+     return setFilteredFlags(LowPop);
+   };
+
+
+
   const highPopulation = () => {
     const sorted = [...items].sort((a, b) => {
-         setId(11);
+         setId(9);
       return b.population - a.population;
     });
     setFilteredFlags(sorted);
@@ -85,7 +96,7 @@ export default function FilterComponent({ items, setFilteredFlags }) {
 
   const lowPopulation = () => {
     const sorted = [...items].sort((b, a) => {
-         setId(12);
+         setId(10);
       return b.population - a.population;
     });
     setFilteredFlags(sorted);
@@ -109,17 +120,6 @@ export default function FilterComponent({ items, setFilteredFlags }) {
         All
       </Button>
       <Button
-        variant={id === 3 ? "contained" : "outlined"}
-        onClick={filterAmericas}
-        className={id === 3 ? classes.Americas : null}
-        disableElevation
-        style={{ marginRight: 5, marginTop: 10 }}
-      >
-        {/* {Americas.length} */}
-        Americas
-      </Button>
-
-      <Button
         variant={id === 1 ? "contained" : "outlined"}
         disableElevation
         onClick={filterEurope}
@@ -128,6 +128,26 @@ export default function FilterComponent({ items, setFilteredFlags }) {
       >
         {/* {Europe.length} */}
         Europe
+      </Button>
+      <Button
+        variant={id === 2 ? "contained" : "outlined"}
+        disableElevation
+        onClick={filterOceania}
+        className={id === 2 ? classes.Oceania : null}
+        style={{ marginRight: 5, marginTop: 10 }}
+      >
+        {/* {Oceania.length} */}
+        Oceania
+      </Button>
+      <Button
+        variant={id === 3 ? "contained" : "outlined"}
+        onClick={filterAmericas}
+        className={id === 3 ? classes.Americas : null}
+        disableElevation
+        style={{ marginRight: 5, marginTop: 10 }}
+      >
+        {/* {Americas.length} */}
+        Americas
       </Button>
       <Button
         variant={id === 4 ? "contained" : "outlined"}
@@ -151,105 +171,72 @@ export default function FilterComponent({ items, setFilteredFlags }) {
       </Button>
 
       <Button
-        variant={id === 2 ? "contained" : "outlined"}
+        variant={id === 6 ? "contained" : "outlined"}
+        onClick={filterHighPop}
+        className={id === 6 ? classes.HighPop : null}
         disableElevation
-        onClick={filterOceania}
-        className={id === 2 ? classes.Oceania : null}
-        style={{ marginRight: 5, marginTop: 10 }}
+        style={{
+          marginTop: 10,
+          marginRight: 5,
+        }}
       >
-        {/* {Oceania.length} */}
-        Oceania
+        100m+
       </Button>
-
+      <Button
+        variant={id === 7 ? "contained" : "outlined"}
+        onClick={filterMedPop}
+        className={id === 7 ? classes.MedPop : null}
+        disableElevation
+        style={{
+          marginTop: 10,
+          marginRight: 5,
+        }}
+      >
+        10m+
+      </Button>
       <Button
         variant={id === 8 ? "contained" : "outlined"}
-        onClick={filterHighPop}
-        className={id === 8 ? classes.HighPop : null}
-        disableElevation
-        style={{
-          marginTop: 10,
-          marginRight: 5,
-        }}
-      >
-        100m
-      </Button>
-      <Button
-        variant={id === 9 ? "contained" : "outlined"}
-        onClick={filterMedPop}
-        className={id === 9 ? classes.MedPop : null}
-        disableElevation
-        style={{
-          marginTop: 10,
-          marginRight: 5,
-        }}
-      >
-        10m
-      </Button>
-      <Button
-        variant={id === 10 ? "contained" : "outlined"}
         onClick={filterLowPop}
-        className={id === 10 ? classes.LowPop : null}
+        className={id === 8 ? classes.LowPop : null}
         disableElevation
         style={{
           marginTop: 10,
           marginRight: 5,
         }}
       >
-        1m
-      </Button>
-      <Button
-        variant={id === 10 ? "contained" : "outlined"}
-        onClick={filterLowPop}
-        className={id === 10 ? classes.LowPop : null}
-        disableElevation
-        style={{
-          marginTop: 10,
-          marginRight: 5,
-        }}
-      >
-        1m
-      </Button>
-      <Button
-        variant={id === 12 ? "contained" : "outlined"}
-        onClick={lowPopulation}
-        className={id === 12 ? classes.Europe : null}
-        disableElevation
-        style={{
-          marginTop: 10,
-          marginRight: 5,
-        }}
-      >
-        <PersonIcon />
-      </Button>
-      <Button
-        variant={id === 11 ? "contained" : "outlined"}
-        onClick={highPopulation}
-        className={id === 11 ? classes.Europe : null}
-        disableElevation
-        style={{
-          marginTop: 10,
-          marginRight: 5,
-        }}
-      >
-        <PersonIcon />
-      </Button>
-       <Button
-        variant={id === 11 ? "contained" : "outlined"}
-        onClick={highPopulation}
-        className={id === 11 ? classes.Europe : null}
-        disableElevation
-        style={{
-          marginTop: 10,
-          marginRight: 5,
-        }}
-      >
-        <PersonIcon />
+        10m-
       </Button>
 
       <Button
-        variant={id === 13 ? "contained" : "outlined"}
+        variant={id === 9 ? "contained" : "outlined"}
         onClick={highPopulation}
-        className={id === 13 ? classes.HighPop : null}
+        className={id === 9 ? classes.Europe : null}
+        disableElevation
+        style={{
+          marginTop: 10,
+          marginRight: 5,
+        }}
+      >
+        <PersonIcon />+
+      </Button>
+
+      <Button
+        variant={id === 10 ? "contained" : "outlined"}
+        onClick={lowPopulation}
+        className={id === 10 ? classes.Europe : null}
+        disableElevation
+        style={{
+          marginTop: 10,
+          marginRight: 5,
+        }}
+      >
+        <PersonIcon />-
+      </Button>
+
+      <Button
+        variant={id === 15 ? "contained" : "outlined"}
+        // onClick={highPopulation}
+        className={id === 15 ? classes.HighPop : null}
         disableElevation
         style={{
           marginTop: 10,
@@ -268,18 +255,6 @@ export default function FilterComponent({ items, setFilteredFlags }) {
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
-      },
-    },
-    sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
-      },
-    },
   allCountries: {
     backgroundColor: "#333",
     color: "#fff",

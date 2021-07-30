@@ -21,6 +21,7 @@ import { Favorites } from "../components/Favorites";
 import ImageCarousel from "./ImageCarousel";
 import "./ImageCarousel.css";
 import MailIcon from "@material-ui/icons/Mail";
+// import { FavouriteComponent } from '../Template'
 
 const superagent = require("superagent");
 
@@ -60,8 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const FlagsDetail = ({
- 
-  code,
+  
   flag,
   population,
   region,
@@ -76,15 +76,6 @@ const FlagsDetail = ({
     setExpanded(!expanded);
   };
   const [images, setImages] = useState();
-
-
-
-
-
- 
-
-
-
 
 
    let [photos, setPhotos] = useState([]);
@@ -142,7 +133,7 @@ const FlagsDetail = ({
           }
         />
         {/* <CardMedia className={classes.media} image={flag} /> */}
-        <ImageCarousel photos={photos} flag={flag} name={name} />
+        <ImageCarousel photos={photos} flag={flag} name={name}  />
 
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
@@ -151,6 +142,7 @@ const FlagsDetail = ({
             <strong>{(population / 1000000).toFixed(2) + " million"}</strong>{" "}
             people. The capital city is <strong>{capital}</strong>.
           </Typography>
+       
         </CardContent>
         <CardActions disableSpacing>
           {/* <IconButton aria-label="add to favorites"> */}

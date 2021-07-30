@@ -17,8 +17,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./components/ChatBox";
 import { SignIn } from "./components/ChatBox";
 import AppBar from './components/AppBar'
+import { CardTravelTwoTone } from "@material-ui/icons";
+import AppBarNoAuth from './components/AppBarNoAuth';
 
-function Flags() {
+function Travel() {
   const [user] = useAuthState(auth);
 
   const [items, setItems] = useState([]);
@@ -102,71 +104,15 @@ function Flags() {
 
   console.log(searchedFlags, "searchedFlags");
   console.log(searchedTravel, "searchedTravel");
+   console.log(filteredFlags, "filteredFlags");
+    console.log(items, "items");
+
+  const size = 15;
 
   return (
     <div className="wrapper">
-      <AppBar searchHandler={setQuery} q={q} setQuery={setQuery} />
-      {/* {user ? (
-        <Grid
-          container
-          spacing={3}
-          style={{
-            marginBottom: "1em",
-          }}
-        >
-          <Grid item xs={12} sm={3}>
-            <SearchBox searchHandler={setQuery} q={q} setQuery={setQuery} />
-          </Grid>
-          <Grid item xs={6} sm={6}></Grid>
-
-          <Grid
-            item
-            xs={6}
-            sm={3}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              paddingRight: "3em",
-            }}
-          >
-            <Cart />
-            <ChatBox />
-            <Profile />
-          </Grid>
-        </Grid>
-      ) : (
-        <Grid
-          container
-          spacing={3}
-          style={{
-            marginBottom: "1em",
-          }}
-        >
-          <Grid item xs={12} sm={3}>
-            <SearchBox searchHandler={setQuery} q={q} setQuery={setQuery} />
-          </Grid>
-          <Grid item xs={6} sm={6}></Grid>
-
-          <Grid
-            item
-            xs={6}
-            sm={3}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              alignItems: "center",
-              paddingRight: "3em",
-            }}
-          >
-          
-           <SignIn />
-          </Grid>
-        </Grid>
-      )} */}
-
+      {user ? <> <AppBar searchHandler={setQuery} q={q} setQuery={setQuery} />  <Action />  </>: <AppBarNoAuth searchHandler={setQuery} q={q} setQuery={setQuery} />}
+   
       <Grid>
         <FilterComponent items={items} setFilteredFlags={setFilteredFlags} />
       </Grid>
@@ -175,7 +121,7 @@ function Flags() {
         {loading && <Loader />}
         {filteredFlags !== null &&
           filteredFlags.length > 0 &&
-          filteredFlags.map((items, i) => {
+          filteredFlags.slice(0, size).map((items, i) => {
             return (
               <FlagsCard
                 ShowDetail={setShowDetail}
@@ -202,9 +148,9 @@ function Flags() {
         {detailRequest === false ? <FlagsDetail {...detail} /> : <Loader />}
       </Modal>
       {/* <Action /> */}
-      <Pagination />
+      {/* <Pagination /> */}
     </div>
   );
 }
 
-export default Flags;
+export default Travel;

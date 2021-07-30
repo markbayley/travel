@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import GridComponent from "./components/GridComponent";
-import SearchComponent from "./components/SearchComponent";
-import FilterComponent from "./components/FilterComponent";
+import GridComponent from "../components/GridComponent";
+import SearchComponent from "../components/SearchComponent";
+import FilterComponent from "../components/FilterComponent";
 import { Button, Container, Typography } from "@material-ui/core";
-import jsonData from "./country.json";
-import SimpleModal from './components/SimpleModal'
+import jsonData from "../country.json";
+import SimpleModal from '../components/SimpleModal'
 
 export default function App2() {
   const [items, setItems] = useState([]);

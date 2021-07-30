@@ -16,27 +16,20 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import ItemList from '../Travel'
+// import { FavouriteComponent } from "../Template";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 345,
-   
+    maxWidth: 345,
     transition: "all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1)",
     "&:hover": {
       transform: "scale(1.05)",
     },
   },
-
   media: {
     height: 200,
     paddingTop: "56.25%", // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
   },
   avatar: {
     border: "1px solid cyan",
@@ -50,7 +43,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FlagsCard = ({ 
-  
+  handleFavouritesClick,
+
+  favouriteComponent,
+  item,
   searchedTravel,
   searchedFlags,
   travel,
@@ -80,52 +76,63 @@ const FlagsCard = ({
       });   
   };
 
-  
+
+  //  const Faved = favourites.filter((name) => favourites.includes(name));
+
   const classes = useStyles();
 
+   const FavouriteComponent = favouriteComponent;
+
   return (
-    
-    <Card onClick={() => clickHandler()} className={classes.root}   style={{
-          textTransform: "capitalize",
-        }}>
+    <Card
+      className={classes.root}
+      style={{
+        textTransform: "capitalize",
+      }}
+    >
       <CardMedia
         className={classes.media}
         image={travel}
         style={{ position: "relative" }}
+        onClick={() => clickHandler()}
       >
-        {" "}
         <CardActions
           disableSpacing
           style={{ position: "absolute", top: 0, right: 0 }}
         >
-          {/* <IconButton className={classes.icon} aria-label="add to favorites">
+          <IconButton className={classes.icon} aria-label="add to favorites">
             {" "}
             <MoreVertIcon />
-          </IconButton>  */}
-           <IconButton className={classes.icon} aria-label="share">
-           <FavoriteBorderIcon />
           </IconButton>
+          {/* <IconButton className={classes.icon} aria-label="share">
+            <FavoriteBorderIcon />
+          </IconButton> */}
         </CardActions>
       </CardMedia>
-      <CardHeader 
+      <CardHeader
         avatar={
           <Avatar aria-label="flag" className={classes.avatar}>
             <img src={flag} alt="flag" width="70px" />
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          <IconButton
+            // onClick={() => handleFavouritesClick(name)}
+            aria-label="favourite"
+            color="secondary"
+          >
+            {/* { Faved ? <FavoriteIcon /> : <FavoriteBorderIcon />} */}
+            <FavoriteBorderIcon />
           </IconButton>
         }
-        title={name} className={classes.title}
-        subheader={region + " " +  "(" +  ((population / 1000000).toFixed(2)) + "m)" }
-      /> 
-      {/* <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is perfect.
-        </Typography>
-      </CardContent> */}
+        title={name}
+        className={classes.title}
+        subheader={
+          region + " " + "(" + (population / 1000000).toFixed(2) + "m)"
+        }
+      />
+  
+
     </Card>
   );
 };

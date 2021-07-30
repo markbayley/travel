@@ -344,7 +344,7 @@ export default function PrimarySearchAppBar({q, setQuery}) {
 
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <Cart />
+              {/* <Cart /> */}
               <ChatBox />
               <Profile />
             </div>
@@ -387,7 +387,7 @@ export default function PrimarySearchAppBar({q, setQuery}) {
             </div>
             <Divider />
 
-            <Link to="/">
+            <Link to="/travel">
               <ListItem button>
                 <ListItemIcon>
                   <HomeIcon />
@@ -396,15 +396,15 @@ export default function PrimarySearchAppBar({q, setQuery}) {
               </ListItem>
             </Link>
 
-            <Link to="/charts">
+            {/* <Link to="/charts">
               <ListItem button>
                 <ListItemIcon>
                   <BarChartIcon />
                 </ListItemIcon>
                 <ListItemText primary="Charts" />
               </ListItem>
-            </Link>
-            <Link to="/flags">
+            </Link> */}
+            <Link to="/travel">
               <ListItem button>
                 <ListItemIcon>
                   <FlagIcon />
@@ -412,7 +412,7 @@ export default function PrimarySearchAppBar({q, setQuery}) {
                 <ListItemText primary="Flags" />
               </ListItem>
             </Link>
-            <Link to="/movies">
+            <Link to="/travel">
               <ListItem button>
                 <ListItemIcon>
                   <TheatersIcon />
@@ -420,7 +420,7 @@ export default function PrimarySearchAppBar({q, setQuery}) {
                 <ListItemText primary="Movies" />
               </ListItem>
             </Link>
-            <Link to="/cocktails">
+            <Link to="/travel">
               <ListItem button>
                 <ListItemIcon>
                   <LocalBarIcon />
@@ -428,7 +428,7 @@ export default function PrimarySearchAppBar({q, setQuery}) {
                 <ListItemText primary="Cocktails" />
               </ListItem>
             </Link>
-            <Link to="/users">
+            <Link to="/travel">
               <ListItem button>
                 <ListItemIcon>
                   <PersonIcon />
@@ -456,14 +456,14 @@ export default function PrimarySearchAppBar({q, setQuery}) {
               </ListItem>
             </Link>
 
-            <Link to="/mail">
+            {/* <Link to="/mail">
               <ListItem button>
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
                 <ListItemText primary="Mail" />
               </ListItem>
-            </Link>
+            </Link> */}
 
             <Divider />
 
@@ -474,7 +474,7 @@ export default function PrimarySearchAppBar({q, setQuery}) {
                 alignItems: "flex-end",
               }}
             >
-              <Link to="/settings">
+              <Link to="/travel">
                 <ListItem button>
                   <ListItemIcon>
                     <SettingsIcon />

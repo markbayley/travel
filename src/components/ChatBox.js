@@ -93,7 +93,7 @@ export const SignIn = () => {
         aria-label="show 11 new notifications"
         color="inherit"
       >
-        <AccountCircle />
+       <AccountCircle />
       </IconButton>
       <Dialog
         open={open}
@@ -351,16 +351,15 @@ export const Profile = ({ photoURL }) => {
         onClose={handleClose}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
-        style={{ height: "90vh" }}
       >
         <DialogTitle
           style={{
             position: "sticky",
             top: 0,
             cursor: "move",
-            background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+            background: "#119DA4",
             height: "60px",
-            width: "600px",
+            width: "400px",
           }}
           id="draggable-dialog-title"
         >
@@ -373,18 +372,22 @@ export const Profile = ({ photoURL }) => {
             }}
           />
         </DialogTitle>
-        <div className="signin">
-          <form action="">
-            <h3>Settings</h3>
 
-            <br />
-            <h3>Profile</h3>
-            <br />
-            <Button onClick={() => auth.signOut()} variant="outlined">
-              Sign out
-            </Button>
-            <br />
-          </form>
+        <div className="" style={{ textAlign: "center" }}>
+          <div className="signin">
+            <br /> <br />
+            <form action="">
+              <h3>Settings</h3>
+              <br />
+              <h3>Profile</h3>
+              <br />
+              <Button onClick={() => auth.signOut()} variant="outlined">
+                Sign out
+              </Button>
+              <br /> <br />
+              <br />
+            </form>
+          </div>
         </div>
       </Dialog>
     </div>
