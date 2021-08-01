@@ -10,9 +10,9 @@ ReactDOM.render(
   <React.StrictMode>
     {/* <Template /> */}
     {/* <Flags /> */}
-    <App />
+    {/* <App /> */}
     {/* <Films /> */}
-    {/* <Items /> */}
+    <Items />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -22,7 +22,8 @@ const SearchBox = ({ searchHandler, q, setQuery }) => {
           width: "280px",
           // margin: "0px 40px 0px 0px",
           backgroundColor: "#efefef",
-          boxShadow: "none",
+          // boxShadow: "none",
+         
        
         }}
         value={q}

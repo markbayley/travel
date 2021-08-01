@@ -17,7 +17,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./components/ChatBox";
 import { SignIn } from "./components/ChatBox";
 import AppBar from './components/AppBar'
-import { CardTravelTwoTone } from "@material-ui/icons";
 import AppBarNoAuth from './components/AppBarNoAuth';
 
 function Travel() {

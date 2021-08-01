@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 const FlagsDetail = ({
   
+  
   flag,
   population,
   region,

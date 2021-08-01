@@ -173,7 +173,7 @@ const ImageCarousel = ({ photos, flag, name }) => {
               <div
                 title={photo.location.name}
                 onClick={() => handleSelectedImageChange(idx)}
-                style={{ backgroundImage: `url(${photo.urls.small})` }}
+                style={{ cursor: "pointer", backgroundImage: `url(${photo.urls.small})` }}
                 key={photo.id}
                 className={`carousel__image ${
                   selectedImageIndex === idx && "carousel__image-selected"

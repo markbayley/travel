@@ -28,8 +28,21 @@ import { Message } from "../components/ChatBox";
 import ImageCarousel from "../components/ImageCarousel";
 import "../components/ImageCarousel.css";
 import MailIcon from "@material-ui/icons/Mail";
+import ReplayIcon from "@material-ui/icons/Replay";
 import Tooltip from "@material-ui/core/Tooltip";
+import Chip from "@material-ui/core/Chip";
+import { Grid } from "@material-ui/core";
+import Slider from "@material-ui/core/Slider";
 
+import Action from "../components/Action";
+import Pagination from "../components/Pagination";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../components/ChatBox";
+import { SignIn } from "../components/ChatBox";
+import AppBar from "../components/AppBar";
+import AppBarNoAuth from "../components/AppBarNoAuth";
+
+  
 
 
 const FilterComponent = ({
@@ -39,17 +52,11 @@ const FilterComponent = ({
   favourites,
   toggleShow,
 }) => {
-
   const classes = useStyles();
-  const [id, setId] = useState(0);
+  // const [id, setId] = useState(0);
 
-  const [filterRegion, setRegion] = useState(0);
-  const [filterPopulation, setPopulation] = useState(null);
-
- 
-
-  // const [region, setRegion] = useState([]);
-  // const [population, setPopulation] = useState([]);
+  const [filteredRegion, setRegion] = useState("All");
+  const [filteredPopulation, setPopulation] = useState("All");
 
   const Europe = items.filter((item) => item?.region === "Europe");
   const Americas = items.filter((item) => item?.region === "Americas");
@@ -57,84 +64,122 @@ const FilterComponent = ({
   const Asia = items.filter((item) => item?.region === "Asia");
   const Africa = items.filter((item) => item?.region === "Africa");
 
+
+
+  //Slider
+  function valuetext(value) {
+    return `${value} + "m" `;
+  }
+
+  const [value, setValue] = useState([200, 600]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+     return setFilteredFlags(RangePop);
+  };
+
+
+  const RangePop = filteredFlags.filter((item) => item?.population < (value));
+
   const HighPop = filteredFlags.filter((item) => item?.population > 100000000);
-  const MedPop = filteredFlags.filter((item) => item?.population > 10000000);
-  const LowPop = filteredFlags.filter((item) => item?.population < 1000000);
-
-
-   
+  
+  const MedPop = filteredFlags.filter(
+    (item) => item?.population > 10000000 && item.population < 100000000
+  );
+  const LowPop = filteredFlags.filter((item) => item?.population < 10000000);
 
   const filterAllCountries = () => {
-    setId(0);
+    setRegion("All");
     return setFilteredFlags(items);
   };
 
   //  id === 1 ? setId(1) : !setId(1);
   const filterAmericas = () => {
-    if( id === 1 ){
-        setId(0);  
-         return setFilteredFlags(items); 
-    }
-    else {
-      setId(1);
+    if (filteredRegion === "Americas") {
+      setRegion("All");
+      return setFilteredFlags(items);
+    } else {
+      setRegion("Americas");
       return setFilteredFlags(Americas);
     }
   };
 
   const filterEurope = () => {
-    setId(2);
-    return setFilteredFlags(Europe);
+    if (filteredRegion === "Europe") {
+      setRegion("All");
+      return setFilteredFlags(items);
+    } else {
+      setRegion("Europe");
+      return setFilteredFlags(Europe);
+    }
   };
 
   const filterAsia = () => {
-    setId(3);
-    return setFilteredFlags(Asia);
+    if (filteredRegion === "Asia") {
+      setRegion("All");
+      return setFilteredFlags(items);
+    } else {
+      setRegion("Asia");
+      return setFilteredFlags(Asia);
+    }
   };
 
   const filterAfrica = () => {
-    setId(4);
-    return setFilteredFlags(Africa);
+    if (filteredRegion === "Africa") {
+      setRegion("All");
+      return setFilteredFlags(items);
+    } else {
+      setRegion("Africa");
+      return setFilteredFlags(Africa);
+    }
   };
 
   const filterOceania = () => {
-    setId(5);
-    return setFilteredFlags(Oceania);
+    if (filteredRegion === "Oceania") {
+      setRegion("All");
+      return setFilteredFlags(items);
+    } else {
+      setRegion("Oceania");
+      return setFilteredFlags(Oceania);
+    }
   };
-
-
 
   const filterHighPop = () => {
-    if (id === 6) {
-      setId(0);
-      return setFilteredFlags(items);
-    } 
-    if (id < 6) {
-       setPopulation(0);
-       setRegion(id);
+    if (filteredPopulation === "HighPop") {
+      setPopulation("All");
+      return setFilteredFlags(filteredFlags);
+    } else {
+      setFilteredFlags(items);
+      setPopulation("HighPop");
       return setFilteredFlags(HighPop);
-    }
-    else {
-       setId(6);
-       return setFilteredFlags(HighPop);
     }
   };
 
-
-
-
   const filterMedPop = () => {
-    setId(7);
-    return setFilteredFlags(MedPop);
+    if (filteredPopulation === "MedPop") {
+      setPopulation("All");
+      return setFilteredFlags(filteredFlags);
+    } else {
+      setFilteredFlags(items);
+      setPopulation("MedPop");
+      return setFilteredFlags(MedPop);
+    }
   };
 
   const filterLowPop = () => {
-    setId(8);
-    return setFilteredFlags(LowPop);
+    if (filteredPopulation === "LowPop") {
+      setPopulation("All");
+      return setFilteredFlags(filteredFlags);
+    } else {
+      setFilteredFlags(items);
+      setPopulation("LowPop");
+      return setFilteredFlags(LowPop);
+    }
   };
 
   const highPopulation = () => {
     const sorted = [...items].sort((a, b) => {
-      setId(9);
+      setPopulation("Descending");
       return b.population - a.population;
     });
     setFilteredFlags(sorted);
@@ -142,125 +187,145 @@ const FilterComponent = ({
 
   const lowPopulation = () => {
     const sorted = [...items].sort((b, a) => {
-      setId(10);
+      setPopulation("Ascending");
       return b.population - a.population;
     });
     setFilteredFlags(sorted);
   };
 
-  console.log(id, "id");
+  console.log(filteredRegion, filteredPopulation, "fR, fP");
 
+  //Chips
+  const handleDelete = () => {
+    console.info("You clicked the delete icon.");
+  };
 
   return (
-    <div style={{ marginBottom: "0em" }}>
+    <div style={{ margin: "1em 0em", display: "inline-block" }}>
+      <Tooltip title="Reset" placement="top">
+        <Button
+          variant={filteredRegion === "All" ? "contained" : "outlined"}
+          onClick={filterAllCountries}
+          className={filteredRegion === "All" ? classes.allCountries : null}
+          style={{
+            marginRight: 5,
+          }}
+          disableElevation
+        >
+          {/* {items.length} */}
+          <ReplayIcon />
+        </Button>
+      </Tooltip>
       <Button
-        variant={id === 0 ? "contained" : "outlined"}
-        onClick={filterAllCountries}
-        className={id === 0 ? classes.allCountries : null}
-        style={{
-          marginRight: 5,
-          marginTop: 10,
-        }}
-        disableElevation
-      >
-        {/* {items.length} */}
-        All
-      </Button>
-      <Button
-        variant={id === 1 ? "contained" : "outlined"}
+        variant={filteredRegion === "Americas" ? "contained" : "outlined"}
         onClick={filterAmericas}
-        className={id === 1 ? classes.Americas : null}
+        className={filteredRegion === "Americas" ? classes.Americas : null}
         disableElevation
-        style={{ marginRight: 5, marginTop: 10 }}
+        style={{ marginRight: 5 }}
       >
         {/* {Americas.length} */}
         Americas
       </Button>
       <Button
-        variant={id === 2 ? "contained" : "outlined"}
+        variant={filteredRegion === "Europe" ? "contained" : "outlined"}
         disableElevation
         onClick={filterEurope}
-        className={id === 2 ? classes.Europe : null}
-        style={{ marginRight: 5, marginTop: 10 }}
+        className={filteredRegion === "Europe" ? classes.Europe : null}
+        style={{ marginRight: 5 }}
       >
         {/* {Europe.length} */}
         Europe
       </Button>
       <Button
-        variant={id === 3 ? "contained" : "outlined"}
+        variant={filteredRegion === "Asia" ? "contained" : "outlined"}
         onClick={filterAsia}
-        className={id === 3 ? classes.Asia : null}
+        className={filteredRegion === "Asia" ? classes.Asia : null}
         disableElevation
-        style={{ marginRight: 5, marginTop: 10 }}
+        style={{ marginRight: 5 }}
       >
         {/* {Asia.length} */}
         Asia{" "}
       </Button>
       <Button
-        variant={id === 4 ? "contained" : "outlined"}
+        variant={filteredRegion === "Africa" ? "contained" : "outlined"}
         onClick={filterAfrica}
-        className={id === 4 ? classes.Africa : null}
+        className={filteredRegion === "Africa" ? classes.Africa : null}
         disableElevation
-        style={{ marginTop: 10, marginRight: 5 }}
+        style={{ marginRight: 5 }}
       >
         {/* {Africa.length} */}
         Africa
       </Button>
       <Button
-        variant={id === 5 ? "contained" : "outlined"}
+        variant={filteredRegion === "Oceania" ? "contained" : "outlined"}
         disableElevation
         onClick={filterOceania}
-        className={id === 5 ? classes.Oceania : null}
-        style={{ marginRight: 5, marginTop: 10 }}
+        className={filteredRegion === "Oceania" ? classes.Oceania : null}
+        style={{ marginRight: 35 }}
       >
         {/* {Oceania.length} */}
         Oceania
       </Button>
+
+
+      <Slider
+        style={{ marginRight: 35 }}
+        className={classes.slider}
+        value={value}
+        step={100}
+        min={0}
+        max={1000}
+        onChange={handleChange}
+        valueLabelDisplay="on"
+        aria-labelledby="range-slider"
+        getAriaValueText={valuetext}
+      />
+
       <Button
-        variant={id === 6 ? "contained" : "outlined"}
+        variant={filteredPopulation === "HighPop" ? "contained" : "outlined"}
         onClick={filterHighPop}
-        className={id === 6 ? classes.HighPop : null}
+        className={filteredPopulation === "HighPop" ? classes.HighPop : null}
         disableElevation
         style={{
-          marginTop: 10,
           marginRight: 5,
         }}
       >
         100m+
       </Button>
       <Button
-        variant={id === 7 ? "contained" : "outlined"}
+        variant={filteredPopulation === "MedPop" ? "contained" : "outlined"}
         onClick={filterMedPop}
-        className={id === 7 ? classes.MedPop : null}
+        className={filteredPopulation === "MedPop" ? classes.MedPop : null}
         disableElevation
         style={{
-          marginTop: 10,
           marginRight: 5,
         }}
       >
         10m+
       </Button>
       <Button
-        variant={id === 8 ? "contained" : "outlined"}
+        variant={filteredPopulation === "LowPop" ? "contained" : "outlined"}
         onClick={filterLowPop}
-        className={id === 8 ? classes.LowPop : null}
+        className={filteredPopulation === "LowPop" ? classes.LowPop : null}
         disableElevation
         style={{
-          marginTop: 10,
           marginRight: 5,
         }}
       >
         1m+
       </Button>
 
-      <Tooltip title="Highest Population" placement="top">
+      <Tooltip title="Descending" placement="top">
         <Button
-          variant={id === 9 ? "contained" : "outlined"}
+          variant={
+            filteredPopulation === "Descending" ? "contained" : "outlined"
+          }
           onClick={highPopulation}
-          className={id === 9 ? classes.Europe : null}
+          className={
+            filteredPopulation === "Descending" ? classes.Europe : null
+          }
           disableElevation
           style={{
-            marginTop: 10,
             marginRight: 5,
           }}
         >
@@ -268,15 +333,16 @@ const FilterComponent = ({
         </Button>
       </Tooltip>
 
-      <Tooltip title="Lowest Population" placement="top">
+      <Tooltip title="Ascending" placement="top">
         <Button
-          variant={id === 10 ? "contained" : "outlined"}
+          variant={
+            filteredPopulation === "Ascending" ? "contained" : "outlined"
+          }
           onClick={lowPopulation}
-          className={id === 10 ? classes.Europe : null}
+          className={filteredPopulation === "Ascending" ? classes.Europe : null}
           disableElevation
           style={{
-            marginTop: 10,
-            marginRight: 5,
+            marginRight: 35,
           }}
         >
           <PersonIcon />-
@@ -285,12 +351,8 @@ const FilterComponent = ({
 
       <Tooltip title="My Favourites" placement="top">
         <IconButton
-          variant={id === 11 ? "contained" : "outlined"}
           onClick={toggleShow}
-          className={id === 11 ? classes.HighPop : null}
-          disableElevation
           style={{
-            marginTop: 10,
             marginRight: 5,
           }}
         >
@@ -299,23 +361,51 @@ const FilterComponent = ({
           </Badge>
         </IconButton>
       </Tooltip>
-      {/* <div>
-        <Badge badgeContent={favourites[0]?.name} color="secondary"></Badge>
-      </div> */}
-      <div style={{ display: "flex", color: "red" }}>
-        <p>{favourites[0]?.name}</p>
-        <p>{favourites[1]?.name}</p>
-        <p>{favourites[2]?.name}</p>
-        <p>{favourites[3]?.name}</p>
-      </div>
+
+      <Chip
+        style={{
+          marginRight: 5,
+        }}
+        label={favourites[0]?.name}
+        onDelete={handleDelete}
+        color="secondary"
+        variant="outlined"
+      />
+      <Chip
+        style={{
+          marginRight: 5,
+        }}
+        label={favourites[1]?.name}
+        onDelete={handleDelete}
+        color="secondary"
+        variant="outlined"
+      />
+      <Chip
+        style={{
+          marginRight: 5,
+        }}
+        label={favourites[2]?.name}
+        onDelete={handleDelete}
+        color="secondary"
+        variant="outlined"
+      />
+      <Chip
+        style={{
+          marginRight: 5,
+        }}
+        label={favourites[3]?.name}
+        onDelete={handleDelete}
+        color="secondary"
+        variant="outlined"
+      />
     </div>
   );
 };
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     allCountries: {
-      backgroundColor: "#333",
+      backgroundColor: "#FF8D23",
       color: "#fff",
     },
     Europe: {
@@ -338,6 +428,7 @@ const useStyles = makeStyles((theme) =>
       backgroundColor: "#ED5D5D",
       color: "#fff",
     },
+
     HighPop: {
       backgroundColor: "#ED5D5D",
       color: "#fff",
@@ -349,6 +440,11 @@ const useStyles = makeStyles((theme) =>
     LowPop: {
       backgroundColor: "#ED5D5D",
       color: "#fff",
+    },
+    slider: {
+      width: "300px",
+      color: "#FF8D23",
+      marginBottom: "-15px",
     },
   })
 );
@@ -369,18 +465,15 @@ const SearchBox = ({ setSearchValue, value }) => {
 };
 
 //Card
-const AddFavourite = () => {
-  return <FavoriteBorderIcon />;
-};
+// const AddFavourite = () => {
+//   return <FavoriteBorderIcon />;
+// };
 
-const RemoveFavourite = () => {
-  return <FavoriteIcon />;
-};
+// const RemoveFavourite = () => {
+//   return <FavoriteIcon />;
+// };
 
 const ItemList = ({
-  
-  
- 
   handleFavouritesClick,
   favouriteComponent,
   filteredFlags,
@@ -391,7 +484,7 @@ const ItemList = ({
   capital,
   travel,
   flag,
-  
+
   ActivateModal,
   DetailRequest,
   ShowDetail,
@@ -400,8 +493,7 @@ const ItemList = ({
     ActivateModal(true);
     DetailRequest(true);
 
-    console.log(item.name, 'name')
-
+    console.log(item.name, "name");
 
     fetch(`https://restcountries.eu/rest/v2/name/${item.name}`)
       .then((resp) => resp)
@@ -410,12 +502,11 @@ const ItemList = ({
         DetailRequest(false);
         ShowDetail(response[0]);
         console.log(response[0], "response[0] - flagcard");
-         console.log(item.name, "name");
-   
+        console.log(item.name, "name");
       })
       .catch(({ message }) => {
         DetailRequest(false);
-      })
+      });
   };
 
   const FavouriteComponent = favouriteComponent;
@@ -451,7 +542,7 @@ const ItemList = ({
 
   const classes = useStyles();
 
-  const size = 15
+  const size = 15;
 
   //Map here and Favourites work item.(value) but Gallery doesn't
   return (
@@ -483,7 +574,7 @@ const ItemList = ({
                   </Avatar>
                 }
                 action={
-                  <Tooltip title="Favourite" placement="left">
+                  <Tooltip title="Favourite" placement="top">
                     <IconButton
                       onClick={() => handleFavouritesClick(item)}
                       color="secondary"
@@ -509,10 +600,11 @@ const ItemList = ({
   );
 };
 
-
-
 //Fetch
 const Items = () => {
+
+   const [user] = useAuthState(auth);
+
   const [items, setItems] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [searchValue, setSearchValue] = useState("");
@@ -539,10 +631,8 @@ const Items = () => {
   const [filteredFlags, setFilteredFlags] = useState([]);
   const [filteredTravel, setFilteredTravel] = useState([]);
 
-
-
-   const [show, setShow] = useState(false);
-   const toggleShow = () => setShow((p) => !p);
+  const [show, setShow] = useState(false);
+  const toggleShow = () => setShow((p) => !p);
 
   useEffect(() => {
     setLoading(true);
@@ -626,10 +716,7 @@ const Items = () => {
 
   console.log(favourites, "favourites");
   console.log(items, "items");
-
   console.log(filteredFlags, "filteredFlags");
-
-
 
   const AddFavourite = () => {
     return <FavoriteBorderIcon />;
@@ -641,26 +728,45 @@ const Items = () => {
 
   //  const FavouriteComponent = favouriteComponent;
 
- 
-
- 
-
-
   const size = 15;
-   //Map here and Gallery works (value)
+  //Map here and Gallery works (value)
   return (
     <div className="wrapper">
-      <div className="">
-        <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
-        <FilterComponent
-          items={items}
-          setItems={setItems}
-          filteredFlags={filteredFlags}
-          setFilteredFlags={setFilteredFlags}
-          favourites={favourites}
-          toggleShow={toggleShow}
+      {/* <Grid
+        className=""
+        style={{
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "start",
+        }}
+      > */}
+      {/* {user ? (
+        <>
+          {" "}
+          <AppBar
+            searchHandler={setSearchValue}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />{" "}
+          <Action />{" "}
+        </>
+      ) : (
+        <AppBarNoAuth
+          searchHandler={setSearchValue}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
         />
-      </div>
+      )} */}
+      {/* <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> */}
+      <FilterComponent
+        items={items}
+        setItems={setItems}
+        filteredFlags={filteredFlags}
+        setFilteredFlags={setFilteredFlags}
+        favourites={favourites}
+        toggleShow={toggleShow}
+      />
+      {/* </Grid> */}
 
       <ul className="card-grid">
         {/* {loading && <Loader />}
@@ -729,61 +835,40 @@ const Items = () => {
 
 export default Items;
 
-
-
-
-
-
-
-
-
 const superagent = require("superagent");
 
-   const clientID =
-     "8e31e45f4a0e8959d456ba2914723451b8262337f75bcea2e04ae535491df16d";
+const clientID =
+  "8e31e45f4a0e8959d456ba2914723451b8262337f75bcea2e04ae535491df16d";
 
-   const simpleGet = (options) => {
-     superagent.get(options.url).then(function (res) {
-       if (options.onSuccess) options.onSuccess(res);
-     });
-   };
+const simpleGet = (options) => {
+  superagent.get(options.url).then(function (res) {
+    if (options.onSuccess) options.onSuccess(res);
+  });
+};
 
-
-const FlagsDetail = ({
-  
-  
-  flag,
-  population,
-  region,
-  name,
-  capital,
-  travel,
-}) => {
-
+const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
   const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
- 
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-   
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-}));
+    root: {
+      width: "100%",
+    },
+    media: {
+      height: 0,
+      paddingTop: "56.25%", // 16:9
+    },
+    expand: {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
+    expandOpen: {
+      transform: "rotate(180deg)",
+    },
+    avatar: {
+      backgroundColor: red[500],
+    },
+  }));
 
   const classes = useStyles();
 
@@ -793,10 +878,9 @@ const FlagsDetail = ({
   };
   const [images, setImages] = useState();
 
-
-   let [photos, setPhotos] = useState([]);
-   let [query, setQuery] = useState("");
-   const queryInput = useRef(null);
+  let [photos, setPhotos] = useState([]);
+  let [query, setQuery] = useState("");
+  const queryInput = useRef(null);
 
   const numberOfPhotos = 10;
   const url =
@@ -805,21 +889,21 @@ const FlagsDetail = ({
     "&client_id=" +
     clientID;
 
-    useEffect(() => {
-      const photosUrl = name ? `${url}&query=${name}` : url;
+  useEffect(() => {
+    const photosUrl = name ? `${url}&query=${name}` : url;
 
-      simpleGet({
-        url: photosUrl,
-        onSuccess: (res) => {
-          setPhotos(res.body);
-        },
-      });
-    }, [name, url]);
+    simpleGet({
+      url: photosUrl,
+      onSuccess: (res) => {
+        setPhotos(res.body);
+      },
+    });
+  }, [name, url]);
 
-    const searchPhotos = (e) => {
-      e.preventDefault();
-      setQuery(name.current.value);
-    };
+  const searchPhotos = (e) => {
+    e.preventDefault();
+    setQuery(name.current.value);
+  };
 
   // useEffect(() => {
   //   setImages(
@@ -831,7 +915,7 @@ const FlagsDetail = ({
   //   );
   // }, []);
 
-  console.log(photos, 'photos')
+  console.log(photos, "photos");
 
   return (
     <div style={{ zIndex: 20 }}>
@@ -849,7 +933,7 @@ const FlagsDetail = ({
           }
         />
         {/* <CardMedia className={classes.media} image={flag} /> */}
-        <ImageCarousel photos={photos} flag={flag} name={name}  />
+        <ImageCarousel photos={photos} flag={flag} name={name} />
 
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
@@ -858,7 +942,6 @@ const FlagsDetail = ({
             <strong>{(population / 1000000).toFixed(2) + " million"}</strong>{" "}
             people. The capital city is <strong>{capital}</strong>.
           </Typography>
-       
         </CardContent>
         <CardActions disableSpacing>
           {/* <IconButton aria-label="add to favorites"> */}
@@ -893,6 +976,3 @@ const FlagsDetail = ({
     </div>
   );
 };
-
-
-
