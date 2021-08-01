@@ -194,7 +194,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function PrimarySearchAppBar({ q, setQuery }) {
+export default function PrimarySearchAppBar({ searchValue, setSearchValue }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -319,8 +319,8 @@ export default function PrimarySearchAppBar({ q, setQuery }) {
             {/* <div className={classes.search}> */}
             <SearchBar
               className={classes.search}
-              value={q}
-              onChange={(item) => setQuery(item.toLowerCase())}
+              value={searchValue}
+              onChange={(item) => setSearchValue(item.toLowerCase())}
               // onSearch={(value) => searchHandler(value)}
             />
             {/* <div className={classes.searchIcon}>

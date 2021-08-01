@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Template from './Travel'
+import Travel from './Travel'
 import Flags from './pages/Flags';
 import App from './App'
 import Films from './misc/Films';
@@ -8,11 +8,11 @@ import Items from './misc/Items'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Template /> */}
+    {/* <Travel /> */}
     {/* <Flags /> */}
-    {/* <App /> */}
+    <App />
     {/* <Films /> */}
-    <Items />
+    {/* <Items /> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

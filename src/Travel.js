@@ -1,40 +1,41 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Layout, Alert, Button, Modal } from "antd";
-import { Grid, Typography } from "@material-ui/core";
-import SearchBox from "./components/SearchBox";
-import FlagsCard from "./components/FlagsCard";
-import FlagsDetail from "./components/FlagsDetail";
-import Loader from "./components/Loader";
-import "./api/FetchApi.scss";
-import FilterComponent from "./components/FilterComponent";
-import jsonData from "./country.json";
-import { ChatBox } from "./components/ChatBox";
-import { Cart } from "./components/ChatBox";
-import { Profile } from "./components/ChatBox";
-import Action from "./components/Action";
-import Pagination from "./components/Pagination";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import jsonData from "./country.json";
+import Action from "./components/Action";
+import AppBar from "./components/AppBar";
+import AppBarNoAuth from "./components/AppBarNoAuth";
 import { auth } from "./components/ChatBox";
-import { SignIn } from "./components/ChatBox";
-import AppBar from './components/AppBar'
-import AppBarNoAuth from './components/AppBarNoAuth';
+import Loader from "./components/Loader";
+import SearchBox from "./SearchBox";
+import FlagsDetail from "./FlagsDetail";
+import Filter from "./Filter";
+import ItemList from "./ItemList";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Modal } from "antd";
+import { Grid } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import "./api/FetchApi.scss";
 
-function Travel() {
+const Travel = () => {
   const [user] = useAuthState(auth);
 
   const [items, setItems] = useState([]);
+  const [favourites, setFavourites] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [q, setQuery] = useState("");
-  const [activateModal, setActivateModal] = useState(false);
-  const [detail, setShowDetail] = useState(false);
-  const [detailRequest, setDetailRequest] = useState(false);
-  const [filteredFlags, setFilteredFlags] = useState([]);
 
+  const [activateModal, setActivateModal] = useState(false);
+  const [details, setShowDetail] = useState(false);
+  const [detailRequest, setDetailRequest] = useState(false);
+
+  const [filteredFlags, setFilteredFlags] = useState([]);
   const [filteredTravel, setFilteredTravel] = useState([]);
 
-
-
+  const [show, setShow] = useState(false);
+  const toggleShow = () => setShow((p) => !p);
 
   useEffect(() => {
     setLoading(true);
@@ -61,7 +62,7 @@ function Travel() {
 
   //Flags
   const searchedFlags = items.filter((item) =>
-    item?.name.toLowerCase().includes(q)
+    item?.name.toLowerCase().includes(searchValue)
   );
 
   useEffect(() => {
@@ -70,11 +71,11 @@ function Travel() {
 
   useEffect(() => {
     setFilteredFlags(searchedFlags);
-  }, [setQuery, q]);
+  }, [setSearchValue, searchValue]);
 
   //Travel
   const searchedTravel = jsonData.filter((item) =>
-    item?.country.toLowerCase().includes(q)
+    item?.country.toLowerCase().includes(searchValue)
   );
 
   useEffect(() => {
@@ -83,8 +84,7 @@ function Travel() {
 
   useEffect(() => {
     setFilteredTravel(searchedTravel);
-  }, [setQuery, q]);
-
+  }, [setSearchValue, searchValue]);
 
   searchedTravel.map((child) => {
     for (let parent of searchedFlags) {
@@ -97,45 +97,121 @@ function Travel() {
     }
   });
 
-  // const searchedFlags = useMemo(() => {
-  // return items.filter((item) => { item?.name.toLowerCase().includes(q);
-  //   })}, [q]);
+  //Favourites
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem("react-items-app-favourites", JSON.stringify(items));
+  };
 
-  console.log(searchedFlags, "searchedFlags");
-  console.log(searchedTravel, "searchedTravel");
-   console.log(filteredFlags, "filteredFlags");
-    console.log(items, "items");
+  const addFavouriteItem = (item) => {
+    const newFavouriteList = [...favourites, item];
+    setFavourites(newFavouriteList);
+    saveToLocalStorage(newFavouriteList);
+  };
 
-  const size = 15;
+  const removeFavouriteItem = (item) => {
+    const newFavouriteList = favourites.filter(
+      (favourite) => favourite.name !== item.name
+    );
+
+    setFavourites(newFavouriteList);
+    saveToLocalStorage(newFavouriteList);
+  };
+
+  console.log(favourites, "favourites");
+  console.log(items, "items");
+  console.log(filteredFlags, "filteredFlags");
+
+  const AddFavourite = () => {
+    return <FavoriteBorderIcon />;
+  };
+
+  const RemoveFavourite = () => {
+    return <FavoriteIcon />;
+  };
+
 
   return (
     <div className="wrapper">
-      {user ? <> <AppBar searchHandler={setQuery} q={q} setQuery={setQuery} />  <Action />  </>: <AppBarNoAuth searchHandler={setQuery} q={q} setQuery={setQuery} />}
-   
-      <Grid>
-        <FilterComponent items={items} setFilteredFlags={setFilteredFlags} />
-      </Grid>
+      {/* <Grid
+        className=""
+        style={{
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "start",
+        }}
+      > */}
+      <Router>
+        {user ? (
+          <>
+            {" "}
+            <AppBar
+              searchHandler={setSearchValue}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />{" "}
+            <Action />{" "}
+          </>
+        ) : (
+          <AppBarNoAuth
+            searchHandler={setSearchValue}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+        )}
+      </Router>
+
+      {/* <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> */}
+      <Filter
+        items={items}
+        setItems={setItems}
+        filteredFlags={filteredFlags}
+        setFilteredFlags={setFilteredFlags}
+        favourites={favourites}
+        toggleShow={toggleShow}
+      />
+      {/* </Grid> */}
 
       <ul className="card-grid">
-        {loading && <Loader />}
+        {/* {loading && <Loader />}
         {filteredFlags !== null &&
           filteredFlags.length > 0 &&
-          filteredFlags.slice(0, size).map((items, i) => {
-            return (
-              <FlagsCard
-                ShowDetail={setShowDetail}
-                DetailRequest={setDetailRequest}
-                ActivateModal={setActivateModal}
-                key={i}
-                {...items}
-                {...items.borders}
-                {...items.travel}
-              />
-            );
-          })}
+          filteredFlags.slice(0, size).map((items, i) => ( */}
+        <>
+          <ItemList
+            // key={i}
+            // {...items}
+            // {...items.travel}
+            handleFavouritesClick={addFavouriteItem}
+            favouriteComponent={AddFavourite}
+            filteredFlags={filteredFlags}
+            ShowDetail={setShowDetail}
+            DetailRequest={setDetailRequest}
+            ActivateModal={setActivateModal}
+          />
+        </>
+        {/* ))} */}
       </ul>
+
       <Modal
-        style={{ padding: "0px" }}
+        centered
+        visible={show}
+        onCancel={() => setShow(false)}
+        footer={null}
+        width={800}
+        height={700}
+      >
+        <h3>FAVOURITES</h3>
+        <ul className="card-grid">
+          <ItemList
+            // items={favourites}
+            handleFavouritesClick={removeFavouriteItem}
+            favouriteComponent={RemoveFavourite}
+            filteredFlags={favourites}
+          />
+        </ul>
+      </Modal>
+
+      <Modal
         // title={detail.name + " " + "(" + detail.region + ")"}
         centered
         visible={activateModal}
@@ -144,12 +220,20 @@ function Travel() {
         width={800}
         height={700}
       >
-        {detailRequest === false ? <FlagsDetail {...detail} /> : <Loader />}
+        {detailRequest === false ? (
+          <FlagsDetail
+            {...details}
+            filteredFlags={filteredFlags}
+            ShowDetail={setShowDetail}
+            DetailRequest={setDetailRequest}
+            ActivateModal={setActivateModal}
+          />
+        ) : (
+          <Loader />
+        )}
       </Modal>
-      {/* <Action /> */}
-      {/* <Pagination /> */}
     </div>
   );
-}
+};
 
 export default Travel;

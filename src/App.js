@@ -12,29 +12,17 @@ import Movies from "./pages/Movies"
 import Cocktails from "./pages/Cocktails"
 import Users from "./pages/Users"
 import Contact from "./pages/Contact"
-import Action from './components/Action'
 import Travel from './Travel'
-// import Travel from './Travel'
-
 
 function App() {
   const [user] = useAuthState(auth);
 
   return (
     <div className="">
-      <Router>
-     
+      <Router>  
         {/* {user ? <AppBar /> : <AppBarNoAuth />} */}
-  
         <Switch>
-          {/* <Route path="/" exact component={Home} /> */}
-          {/* <Route path="/charts" component={Charts} /> */}
-          {/* <Route path="/flags" component={Flags} /> */}
-          {/* <Route path="/movies" component={Movies} /> */}
-          {/* <Route path="/cocktails" component={Cocktails} /> */}
-          {/* <Route path="/users" component={Users} /> */}
           <Route path="/travel" component={Travel} />
-
           <Route path="/contact" component={Contact} />
         </Switch>
       
