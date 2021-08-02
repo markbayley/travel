@@ -115,7 +115,7 @@ const ImageCarousel = ({ photos, flag, name }) => {
           style={{
             textOverflow: "ellipsis",
             overflow: "hidden",
-            minWidth: "10%"
+            minWidth: "10%",
           }}
         >
           "
@@ -146,22 +146,20 @@ const ImageCarousel = ({ photos, flag, name }) => {
           }}
         >
           <div>
-            <strong>
-              {selectedImage?.location.city
-                ? selectedImage?.location.city
-                : "Unknown"}
-              , {name}
-              <img
-                src={flag}
-                alt="flag"
-                height="17px"
-                style={{
-                  marginBottom: "3px",
-                  border: "1px solid gold",
-                  marginLeft: "5px",
-                }}
-              />{" "}
-            </strong>
+            {selectedImage?.location.title
+              ? selectedImage?.location.title
+              : "Unknown"}
+            <img
+              src={flag}
+              alt="flag"
+              height="17px"
+              style={{
+                marginBottom: "3px",
+                border: "1px solid gold",
+                marginLeft: "5px",
+              }}
+            />{" "}
+            <strong>{name}</strong>
           </div>
         </div>
       </h4>
@@ -173,7 +171,10 @@ const ImageCarousel = ({ photos, flag, name }) => {
               <div
                 title={photo.location.name}
                 onClick={() => handleSelectedImageChange(idx)}
-                style={{ cursor: "pointer", backgroundImage: `url(${photo.urls.small})` }}
+                style={{
+                  cursor: "pointer",
+                  backgroundImage: `url(${photo.urls.small})`,
+                }}
                 key={photo.id}
                 className={`carousel__image ${
                   selectedImageIndex === idx && "carousel__image-selected"

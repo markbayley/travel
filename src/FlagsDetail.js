@@ -8,7 +8,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { CardContent } from "@material-ui/core";
 import clsx from "clsx";
 import Collapse from "@material-ui/core/Collapse";
-import Typography from "@material-ui/core/Typography";
+import { Typography, Button } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -58,7 +58,6 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [images, setImages] = useState();
 
   let [photos, setPhotos] = useState([]);
   let [query, setQuery] = useState("");
@@ -72,7 +71,7 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
     clientID;
 
   useEffect(() => {
-    const photosUrl = name ? `${url}&query=${name}` : url;
+    const photosUrl = name ? `${url}&query=${name + query}` : url;
 
     simpleGet({
       url: photosUrl,
@@ -80,22 +79,49 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
         setPhotos(res.body);
       },
     });
-  }, [name, url]);
+  }, [name, query, url]);
 
-  const searchPhotos = (e) => {
+  const searchFood = (e) => {
     e.preventDefault();
-    setQuery(name.current.value);
+    setQuery(query + " food");
+
+    console.log(query, "query");
   };
 
-  // useEffect(() => {
-  //   setImages(
-  //     Array.from(Array(10).keys()).map((id) => ({
-  //       id,
-  //       url: `https://api.unsplash.com/photos/random/?count=10&client_id=PvvWIfrMMfNqoEEuVve3X6KE1gksd31-C1Pn-SP3yL4`,
-  //       // url: `https://picsum.photos/1000?random=${id}`,
-  //     }))
-  //   );
-  // }, []);
+  const searchPeople = (e) => {
+    e.preventDefault();
+    setQuery(query + " people");
+
+    console.log(query, "query");
+  };
+
+  const searchAnimals = (e) => {
+    e.preventDefault();
+    setQuery(query + " animals");
+
+    console.log(query, name, "query");
+  };
+
+  const searchTravel = (e) => {
+    e.preventDefault();
+    setQuery(query + " travel");
+
+    console.log(query, name, "query");
+  };
+
+  const searchCulture = (e) => {
+    e.preventDefault();
+    setQuery(query + " culture");
+
+    console.log(query, name, "query");
+  };
+
+  const searchNature = (e) => {
+    e.preventDefault();
+    setQuery(query + " nature");
+
+    console.log(query, name, "query");
+  };
 
   console.log(photos, "photos");
 
@@ -118,11 +144,68 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
         <ImageCarousel photos={photos} flag={flag} name={name} />
 
         <CardContent>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              marginBottom: "1em",
+            }}
+          >
+            <Button
+              size="small"
+              variant="outlined"
+              value={"food"}
+              onClick={(e) => searchFood(e, "value")}
+            >
+              Food
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              value={"people"}
+              onClick={(e) => searchPeople(e, "value")}
+            >
+              People
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              value={"animals"}
+              onClick={(e) => searchAnimals(e, "value")}
+            >
+              Animals
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              value={"travel"}
+              onClick={(e) => searchTravel(e, "value")}
+            >
+              Culture
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              value={"culture"}
+              onClick={(e) => searchCulture(e, "value")}
+            >
+              Travel
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              value={"Nature"}
+              onClick={(e) => searchNature(e, "value")}
+            >
+              Nature
+            </Button>
+          </div>
           <Typography variant="body2" color="textSecondary" component="p">
             Located in <strong>{region}</strong>, the nation of{" "}
             <strong>{name}</strong> has a population of{" "}
             <strong>{(population / 1000000).toFixed(2) + " million"}</strong>{" "}
-            people. The capital city is <strong>{capital}</strong>.
+            people. The capital city is <strong>{capital}</strong>. Search
+            photos by topic...
           </Typography>
         </CardContent>
         <CardActions disableSpacing>

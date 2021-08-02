@@ -197,7 +197,7 @@ const Travel = () => {
         visible={show}
         onCancel={() => setShow(false)}
         footer={null}
-        width={800}
+        width={750}
         height={700}
       >
         <h3>FAVOURITES</h3>
