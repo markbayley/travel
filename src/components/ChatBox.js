@@ -10,20 +10,12 @@ import "./ChatBox.css";
 import CancelIcon from "@material-ui/icons/Cancel";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import firebase from "firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Input, Button } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "32ch",
-    },
-  },
-}));
+
 
 const firebaseApp = firebase.initializeApp({
   apiKey: "AIzaSyCEUxdZCcAMXWbOS8YNgr45ogT5E5aloDU",
@@ -42,8 +34,7 @@ export const auth = firebase.auth();
 export const SignIn = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleChatOpen = () => {
     setOpen(true);
@@ -88,13 +79,15 @@ export const SignIn = () => {
   };
   return (
     <div>
-      <IconButton
-        onClick={handleChatOpen}
-        aria-label="show 11 new notifications"
-        color="inherit"
-      >
-       <AccountCircle />
-      </IconButton>
+      <Tooltip title="LOG IN" aria-label="Log In">
+        <IconButton
+          onClick={handleChatOpen}
+          aria-label="show 11 new notifications"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -129,7 +122,7 @@ export const SignIn = () => {
             <input
               ref={emailRef}
               type="email"
-              value="markyb152@hotmail.com"
+              value="test@hotmail.com"
               style={{
                 padding: "1em",
                 margin: "1em",
@@ -157,6 +150,9 @@ export const SignIn = () => {
             <Button onClick={signUp} variant="outlined">
               Sign up
             </Button>
+            <Button onClick={signInWithGoogle} variant="outlined">
+              Google Sign In
+            </Button>
             <br />
             <br />
             <p className="signin__link">Forgot password?</p>
@@ -170,7 +166,7 @@ export const SignIn = () => {
 export const Message = () => {
   const [user] = useAuthState(auth);
 
-  function SendMessage({ scroll }) {
+  function SendMessage({ scroll, messages }) {
     const [msg, setMsg] = useState("");
 
     async function sendMessage(e) {
@@ -216,6 +212,8 @@ export const Message = () => {
             >
               Send
             </Button>
+            {/* <div>{messages.length}</div> */}
+            <ChatBox messages={messages} />
           </div>
         </form>
       </div>
@@ -250,7 +248,7 @@ export const Message = () => {
             </div>
           ))}
         </div>
-        <SendMessage scroll={scroll} />
+        <SendMessage scroll={scroll} messages={messages}/>
         <div ref={scroll}></div>
       </div>
     );
@@ -270,7 +268,7 @@ function PaperComponent(props) {
   );
 }
 
-export const ChatBox = () => {
+export const ChatBox = ({messages}) => {
   const [open, setOpen] = useState(false);
 
   const handleChatOpen = () => {
@@ -281,17 +279,21 @@ export const ChatBox = () => {
     setOpen(false);
   };
 
+
+
   return (
     <div>
-      <IconButton
-        onClick={handleChatOpen}
-        aria-label="show 11 new notifications"
-        color="inherit"
-      >
-        <Badge badgeContent={11} color="secondary">
-          <NotificationsIcon />
-        </Badge>
-      </IconButton>
+      <Tooltip title="My Messages" placement="top">
+        <IconButton
+          onClick={handleChatOpen}
+          aria-label="show 11 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={7} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -326,7 +328,7 @@ export const ChatBox = () => {
 };
 
 export const Profile = ({ photoURL }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleChatOpen = () => {
     setOpen(true);
@@ -338,14 +340,16 @@ export const Profile = ({ photoURL }) => {
 
   return (
     <div>
-      <IconButton
-        edge="end"
-        onClick={handleChatOpen}
-        aria-label="show 11 new notifications"
-        color="inherit"
-      >
-        <img className="avatar" src={photoURL} alt="" />
-      </IconButton>
+      <Tooltip title="My Profile" placement="top">
+        <IconButton
+          edge="end"
+          onClick={handleChatOpen}
+          aria-label="show 11 new notifications"
+          color="inherit"
+        >
+          <img className="avatar" src={photoURL} alt="" />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={handleClose}

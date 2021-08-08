@@ -12,9 +12,11 @@ import Filter from "./Filter";
 import ItemList from "./ItemList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Modal } from "antd";
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton} from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Badge from "@material-ui/core/Badge";
+
 import "./api/FetchApi.scss";
 
 const Travel = () => {
@@ -36,6 +38,12 @@ const Travel = () => {
 
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow((p) => !p);
+
+  const [clicked, setClicked] = useState(false);
+  const toggleClicked = () => setClicked((e) => !e);
+
+  
+
 
   useEffect(() => {
     setLoading(true);
@@ -121,14 +129,19 @@ const Travel = () => {
   console.log(items, "items");
   console.log(filteredFlags, "filteredFlags");
 
+ 
+
+
   const AddFavourite = () => {
-    return <FavoriteBorderIcon />;
+    return (
+    <FavoriteBorderIcon /> 
+
+    );
   };
 
   const RemoveFavourite = () => {
     return <FavoriteIcon />;
   };
-
 
   return (
     <div className="wrapper">
@@ -148,6 +161,8 @@ const Travel = () => {
               searchHandler={setSearchValue}
               searchValue={searchValue}
               setSearchValue={setSearchValue}
+              favourites={favourites}
+              toggleShow={toggleShow}
             />{" "}
             <Action />{" "}
           </>
@@ -187,6 +202,8 @@ const Travel = () => {
             ShowDetail={setShowDetail}
             DetailRequest={setDetailRequest}
             ActivateModal={setActivateModal}
+            clicked={clicked}
+            toggleClicked={toggleClicked}
           />
         </>
         {/* ))} */}

@@ -16,6 +16,12 @@ import { Message } from "./components/ChatBox";
 import ImageCarousel from "./components/ImageCarousel";
 import "./components/ImageCarousel.css";
 import MailIcon from "@material-ui/icons/Mail";
+import EcoIcon from "@material-ui/icons/Eco";
+import FlightTakeoffIcon from "@material-ui/icons/FlightTakeoff";
+import PeopleIcon from "@material-ui/icons/People";
+import PetsIcon from "@material-ui/icons/Pets";
+import FastfoodIcon from "@material-ui/icons/Fastfood";
+import AssistantPhotoIcon from "@material-ui/icons/AssistantPhoto";
 
 const superagent = require("superagent");
 
@@ -28,10 +34,11 @@ const simpleGet = (options) => {
   });
 };
 
-const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
+const FlagsDetail = ({ flag, population, region, name, capital  }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
+      zIndex: theme.zIndex.appBar + 1,
     },
     media: {
       height: 0,
@@ -61,7 +68,7 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
 
   let [photos, setPhotos] = useState([]);
   let [query, setQuery] = useState("");
-  const queryInput = useRef(null);
+  // const queryInput = useRef(null);
 
   const numberOfPhotos = 10;
   const url =
@@ -83,44 +90,32 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
 
   const searchFood = (e) => {
     e.preventDefault();
-    setQuery(query + " food");
-
-    console.log(query, "query");
+    setQuery(" Food ");
   };
 
   const searchPeople = (e) => {
     e.preventDefault();
-    setQuery(query + " people");
-
-    console.log(query, "query");
+    setQuery(" People ");
   };
 
   const searchAnimals = (e) => {
     e.preventDefault();
-    setQuery(query + " animals");
-
-    console.log(query, name, "query");
+    setQuery(" Animals ");
   };
 
   const searchTravel = (e) => {
     e.preventDefault();
-    setQuery(query + " travel");
-
-    console.log(query, name, "query");
+    setQuery(" Travel ");
   };
 
   const searchCulture = (e) => {
     e.preventDefault();
-    setQuery(query + " culture");
-
-    console.log(query, name, "query");
+    setQuery(" Culture ");
   };
 
   const searchNature = (e) => {
     e.preventDefault();
-    setQuery(query + " nature");
-
-    console.log(query, name, "query");
+    setQuery(" Nature ");
   };
 
   console.log(photos, "photos");
@@ -152,54 +147,82 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
             }}
           >
             <Button
-              size="small"
+              style={{
+                fontSize: "small",
+                textTransform: "none",
+                color: "#FF8D23",
+              }}
               variant="outlined"
-              value={"food"}
+              value={" Food"}
               onClick={(e) => searchFood(e, "value")}
             >
-              Food
+              <FastfoodIcon /> Food
             </Button>
             <Button
-              size="small"
+              style={{
+                fontSize: "small",
+                textTransform: "none",
+                color: "#FF8D23",
+              }}
               variant="outlined"
-              value={"people"}
+              value={" People"}
               onClick={(e) => searchPeople(e, "value")}
             >
-              People
+              <PeopleIcon /> People
             </Button>
             <Button
-              size="small"
+              style={{
+                fontSize: "small",
+                textTransform: "none",
+                color: "#FF8D23",
+              }}
               variant="outlined"
-              value={"animals"}
+              value={" Animals"}
               onClick={(e) => searchAnimals(e, "value")}
             >
-              Animals
+              <PetsIcon /> Animals
             </Button>
             <Button
-              size="small"
+              style={{
+                fontSize: "small",
+                textTransform: "none",
+                color: "#FF8D23",
+              }}
               variant="outlined"
-              value={"travel"}
+              value={" Travel"}
               onClick={(e) => searchTravel(e, "value")}
             >
-              Culture
+              <AssistantPhotoIcon /> Culture
             </Button>
             <Button
-              size="small"
+              style={{
+                fontSize: "small",
+                textTransform: "none",
+                color: "#FF8D23",
+              }}
               variant="outlined"
-              value={"culture"}
+              value={" Culture"}
               onClick={(e) => searchCulture(e, "value")}
             >
-              Travel
+              <FlightTakeoffIcon /> Travel
             </Button>
             <Button
-              size="small"
+              style={{
+                fontSize: "small",
+                textTransform: "none",
+                color: "#FF8D23",
+              }}
               variant="outlined"
-              value={"Nature"}
+              value={" Nature"}
               onClick={(e) => searchNature(e, "value")}
             >
-              Nature
+              <EcoIcon /> Nature
             </Button>
           </div>
+          <Typography variant="body2" color="textSecondary" component="p" style={{textAlign: "center", marginBottom: "0.5em"}}>
+            <em>Searching...{name + " " + query + " "}</em>
+          </Typography>
+
           <Typography variant="body2" color="textSecondary" component="p">
             Located in <strong>{region}</strong>, the nation of{" "}
             <strong>{name}</strong> has a population of{" "}

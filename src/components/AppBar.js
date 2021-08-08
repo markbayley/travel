@@ -42,6 +42,8 @@ import TheatersIcon from "@material-ui/icons/Theaters";
 import LocalBarIcon from "@material-ui/icons/LocalBar";
 import PersonIcon from "@material-ui/icons/Person";
 import PublicIcon from "@material-ui/icons/Public";
+import Tooltip from "@material-ui/core/Tooltip";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 
 import { Cart } from "./ChatBox";
@@ -191,12 +193,11 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up("md")]: {
         display: "none",
       },
-    
     },
   })
 );
 
-export default function PrimarySearchAppBar({searchValue, setSearchValue}) {
+export default function PrimarySearchAppBar({searchValue, setSearchValue, toggleShow, favourites }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -321,7 +322,6 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue}) {
             {/* <div className={classes.search}> */}
             <SearchBar
               className={classes.search}
-             
               value={searchValue}
               onChange={(item) => setSearchValue(item.toLowerCase())}
               // onSearch={(value) => searchHandler(value)}
@@ -345,7 +345,16 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue}) {
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               {/* <Cart /> */}
-              <ChatBox />
+              <Tooltip title="My Favourites" placement="top">
+                <IconButton color="inherit" onClick={toggleShow}>
+                  <Badge badgeContent={favourites.length} color="secondary">
+                    <FavoriteIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+             
+                <ChatBox />
+             
               <Profile />
             </div>
             <div className={classes.sectionMobile}>

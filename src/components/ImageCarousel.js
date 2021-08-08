@@ -148,10 +148,10 @@ const ImageCarousel = ({ photos, flag, name }) => {
           <div>
             {selectedImage?.location.title
               ? selectedImage?.location.title
-              : "Unknown"}
+              : "Unknown Location"}
             <img
               src={flag}
-              alt="flag"
+              alt={selectedImage?.name}
               height="17px"
               style={{
                 marginBottom: "3px",

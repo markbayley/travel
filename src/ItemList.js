@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,6 +9,10 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Loader from "./components/Loader";
 import Tooltip from "@material-ui/core/Tooltip";
+import Badge from "@material-ui/core/Badge";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import { StayCurrentLandscape } from "@material-ui/icons";
 
 const ItemList = ({
   handleFavouritesClick,
@@ -21,14 +25,20 @@ const ItemList = ({
   capital,
   travel,
   flag,
-
+  count,
   ActivateModal,
   DetailRequest,
   ShowDetail,
+
+  toggleClicked,
+  clicked,
+
 }) => {
   const clickHandler = (item) => {
     ActivateModal(true);
     DetailRequest(true);
+    
+
 
     console.log(item.name, "name");
 
@@ -115,7 +125,9 @@ const ItemList = ({
                       onClick={() => handleFavouritesClick(item)}
                       color="secondary"
                     >
-                      <FavouriteComponent />
+                      <Badge badgeContent={count} color="secondary">
+                        <FavouriteComponent />
+                      </Badge>
                     </IconButton>
                   </Tooltip>
                 }
@@ -129,12 +141,14 @@ const ItemList = ({
                   "m)"
                 }
               />
+              {/* <IconButton color="secondary" onClick={() => toggleClicked(item)}>
+                {clicked === true ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+              </IconButton> */}
             </Card>
           </>
         ))}
     </>
   );
 };
-
 
 export default ItemList;
