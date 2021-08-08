@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Row, Alert, Modal } from "antd";
 import "antd/dist/antd.css";
-import SearchBox from "../components/SearchBox";
-import MovieCard from "../components/MovieCard";
-import MovieDetail from "../components/MovieDetail";
+import SearchBox from "../misc/SearchBox";
+import MovieCard from "../misc/MovieCard";
+import MovieDetail from "../misc/MovieDetail";
 import Loader from "../components/Loader";
 
 const API_KEY = "ce762116";

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import jsonData from "./country.json";
-import Action from "./components/Action";
-import AppBar from "./components/AppBar";
-import AppBarNoAuth from "./components/AppBarNoAuth";
-import { auth } from "./components/ChatBox";
-import Loader from "./components/Loader";
+import jsonData from "../country.json";
+import Action from "./Action";
+import AppBar from "./AppBar";
+import AppBarNoAuth from "./AppBarNoAuth";
+import { auth } from "./ChatBox";
+import Loader from "./Loader";
 import SearchBox from "./SearchBox";
-import FlagsDetail from "./FlagsDetail";
+import { FlagsDetail } from "./ItemList";
 import Filter from "./Filter";
 import ItemList from "./ItemList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -17,7 +17,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Badge from "@material-ui/core/Badge";
 
-import "./api/FetchApi.scss";
+import "../index.scss";
+import Map from "./Map";
 
 const Travel = () => {
   const [user] = useAuthState(auth);
@@ -42,7 +43,15 @@ const Travel = () => {
   const [clicked, setClicked] = useState(false);
   const toggleClicked = () => setClicked((e) => !e);
 
-  
+  // {
+  //   favourites,
+  //     setFavourites,
+  //     searchValue,
+  //     setSearchValue,
+  //     toggleShow,
+  //     show,
+  //     setShow;
+  // }
 
 
   useEffect(() => {
@@ -105,6 +114,10 @@ const Travel = () => {
     }
   });
 
+
+  const flattened = searchedFlags.flat(Infinity);
+  console.log(flattened, 'flattened');
+
   //Favourites
   const saveToLocalStorage = (items) => {
     localStorage.setItem("react-items-app-favourites", JSON.stringify(items));
@@ -128,6 +141,10 @@ const Travel = () => {
   console.log(favourites, "favourites");
   console.log(items, "items");
   console.log(filteredFlags, "filteredFlags");
+
+    console.log(details, "details");
+
+ 
 
  
 
@@ -164,7 +181,7 @@ const Travel = () => {
               favourites={favourites}
               toggleShow={toggleShow}
             />{" "}
-            <Action />{" "}
+            {/* <Action />{" "} */}
           </>
         ) : (
           <AppBarNoAuth
@@ -195,7 +212,7 @@ const Travel = () => {
           <ItemList
             // key={i}
             // {...items}
-            // {...items.travel}
+            // {...items.latlng}
             handleFavouritesClick={addFavouriteItem}
             favouriteComponent={AddFavourite}
             filteredFlags={filteredFlags}
@@ -234,12 +251,15 @@ const Travel = () => {
         visible={activateModal}
         onCancel={() => setActivateModal(false)}
         footer={null}
-        width={800}
-        height={700}
+        width={750}
+        // height={500}
       >
         {detailRequest === false ? (
           <FlagsDetail
             {...details}
+            {...details.latlng}
+     
+            loading={loading}
             filteredFlags={filteredFlags}
             ShowDetail={setShowDetail}
             DetailRequest={setDetailRequest}

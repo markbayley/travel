@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Row, Alert, Modal } from "antd";
 import "antd/dist/antd.css";
-import SearchBox from "../components/SearchBox";
-import UserCard from "../components/UserCard";
-import UserDetail from "../components/UserDetail";
+import SearchBox from "../misc/SearchBox";
+import UserCard from "../misc/UserCard";
+import UserDetail from "../misc/UserDetail";
 import Loader from "../components/Loader";
 
 const { Content, Footer } = Layout;

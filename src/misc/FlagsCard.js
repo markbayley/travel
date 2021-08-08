@@ -16,7 +16,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import ItemList from '../Travel'
+import ItemList from '../components/Travel'
 // import { FavouriteComponent } from "../Template";
 
 const useStyles = makeStyles((theme) => ({

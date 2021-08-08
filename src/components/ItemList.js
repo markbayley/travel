@@ -1,10 +1,29 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState,  useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Loader from "./Loader";
+import Tooltip from "@material-ui/core/Tooltip";
+import Badge from "@material-ui/core/Badge";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+// import Map from './Map'
+
+import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
+// import MapControlsComponent from "./MapControlsComponent";
+// import geoData from "../../travel.geojson";
+
+
+
+
+
+
+
 import { CardContent } from "@material-ui/core";
 import clsx from "clsx";
 import Collapse from "@material-ui/core/Collapse";
@@ -22,7 +41,8 @@ import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import AssistantPhotoIcon from "@material-ui/icons/AssistantPhoto";
-import Loader from "./Loader";
+import { DeleteForeverOutlined, Details } from "@material-ui/icons";
+
 // import{ Map }  from "./ItemList";
 
 
@@ -44,7 +64,10 @@ const simpleGet = (options) => {
   });
 };
 
-const FlagsDetail = ({
+
+
+export const FlagsDetail = ({
+ 
   latlng,
   flag,
   population,
@@ -80,6 +103,13 @@ const FlagsDetail = ({
 
   const classes = useStyles();
 
+   const [viewport, setViewport] = useState({
+     latitude: latlng && latlng[0],
+     longitude: latlng && latlng[1],
+     bearing: 0,
+     zoom: 5,
+   });
+
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -88,9 +118,7 @@ const FlagsDetail = ({
   let [photos, setPhotos] = useState([]);
   let [query, setQuery] = useState("");
   // const queryInput = useRef(null);
-  // const lat = latlng[0];
-  // const lng = latlng[1];
-
+ 
   const numberOfPhotos = 10;
   const url =
     "https://api.unsplash.com/photos/random/?count=" +
@@ -140,13 +168,7 @@ const FlagsDetail = ({
   };
 
   console.log(photos, "photos");
-   console.log(latlng, "latlng");
-
-  // const lat = latlng.slice(0, 1);
-  // const lng = latlng.slice(2, 3);
-  // console.log(lat, "lat");
-  // console.log(lng, "lng");
-
+  console.log(latlng, "latlngy");
 
   return (
     <div style={{ zIndex: 20 }}>
@@ -169,7 +191,6 @@ const FlagsDetail = ({
           flag={flag}
           name={name}
           travel={travel}
-          latlng={latlng}
         />
         <CardContent>
           <div
@@ -273,10 +294,7 @@ const FlagsDetail = ({
           </Typography>
           <br />
 
-          <div>
-            {/* {latlng[0]},{latlng[1]} */}
-            {latlng}
-          </div>
+          <div>{/* {latlng[0]},{latlng[1]} */}</div>
         </CardContent>
         {/* <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
@@ -305,9 +323,222 @@ const FlagsDetail = ({
           </CardContent>
         </Collapse> */}
       </Card>
-      {/* <Map lat={item.latlng[0]} lng={item.latlng[1]} /> */}
+      {/* {latlng[0]},{latlng[1]} */}
+      <div className="map" style={{ height: "50vh", width: "100%" }}>
+        <ReactMapGL
+          {...viewport}
+          mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNrZzJraGl1NTAwcjkyeXFyMHljNjExcmoifQ.RxhYWJnYveNc1LjK6wB9sQ"
+          width="100%"
+          height="100%"
+          onViewportChange={(viewport) => setViewport(viewport)}
+        >
+          <Marker
+            latitude={latlng && latlng[0]}
+            longitude={latlng && latlng[1]}
+          >
+            {/* <div className="marker"></div> */}
+          </Marker>
+          <Popup
+            latitude={latlng && latlng[0]}
+            longitude={latlng && latlng[1]}
+            // onClose={closePopup}
+            closeButton={true}
+            closeOnClick={false}
+            offsetTop={0}
+            offsetLeft={10}
+          >
+            <img src={flag} width="70px" alt="flag" />
+            <h6 style={{ color: "black", textAlign: 'center', paddingBottom: '0px' }}>
+              {name}
+            </h6>
+          </Popup>
+        </ReactMapGL>
+      </div>
     </div>
   );
 };
 
-export default FlagsDetail;
+
+
+
+
+
+
+// export function Map({lat, lng, population}) {
+//   const [viewport, setViewport] = useState({
+//     latitude: 30,
+//     longitude: 0,
+//     bearing: 0,
+//     zoom: 1,
+//   });
+ 
+
+//   return (
+//     <div className="map" style={{ height: "50vh", width: "100%" }}>
+//       <ReactMapGL
+//         {...viewport}
+//         mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNrZzJraGl1NTAwcjkyeXFyMHljNjExcmoifQ.RxhYWJnYveNc1LjK6wB9sQ"
+//         width="100%"
+//         height="100%"
+     
+//         onViewportChange={(viewport) => setViewport(viewport)}
+//       >
+    
+//         <Marker longitude={lng} latitude={lat}>
+//           <div className="marker">
+//             <span>{population}</span>
+//           </div>
+//         </Marker>
+//       </ReactMapGL>
+//     </div>
+//   );
+// }
+
+
+
+
+const ItemList = ({
+  handleFavouritesClick,
+  favouriteComponent,
+  filteredFlags,
+  loading,
+
+
+  count,
+  ActivateModal,
+  DetailRequest,
+  ShowDetail,
+
+  toggleClicked,
+  clicked,
+
+}) => {
+  const clickHandler = (item) => {
+    ActivateModal(true);
+    DetailRequest(true);
+    
+
+    //  const lat = item.latlng[0];
+
+    // console.log(lat, "lat");
+
+    fetch(`https://restcountries.eu/rest/v2/name/${item.name}`)
+      .then((resp) => resp)
+      .then((resp) => resp.json())
+      .then((response) => {
+        DetailRequest(false);
+        ShowDetail(response[0]);
+        console.log(response[0], "response[0] - flagcard");
+        console.log(item.name, "name");
+      })
+      .catch(({ message }) => {
+        DetailRequest(false);
+      });
+  };
+
+  
+
+  const FavouriteComponent = favouriteComponent;
+
+  const useStyles = makeStyles(() => ({
+    root: {
+      maxWidth: 345,
+      transition: "all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1)",
+      "&:hover": {
+        transform: "scale(1.05)",
+      },
+      textTransform: "capitalize",
+    },
+    media: {
+      height: 200,
+      paddingTop: "56.25%", // 16:9
+      position: "relative",
+      cursor: "pointer",
+    },
+    avatar: {
+      border: "1px solid cyan",
+    },
+    icon: {
+      color: "#fff",
+      position: "absolute",
+      top: 0,
+      right: 0,
+    },
+    title: {
+      maxWidth: "100%",
+    },
+  }));
+
+  const classes = useStyles();
+
+  const size = 15;
+
+  
+
+  return (
+    <>
+      {loading && <Loader />}
+      {filteredFlags !== null &&
+        filteredFlags.length > 0 &&
+        filteredFlags.slice(0, size).map((item, i) => (
+          <div key={i}>
+            <Card className={classes.root}>
+              <CardMedia
+                className={classes.media}
+                image={item.travel}
+                onClick={() => clickHandler(item)}
+              >
+                <CardActions disableSpacing>
+                  <Tooltip title="More" placement="left">
+                    <IconButton className={classes.icon} aria-label="more">
+                      <MoreVertIcon />
+                    </IconButton>
+                  </Tooltip>
+                </CardActions>
+              </CardMedia>
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="flag" className={classes.avatar}>
+                    <img src={item.flag} alt="flag" width="70px" />
+                  </Avatar>
+                }
+                action={
+                  <Tooltip title="Favourite" placement="top">
+                    <IconButton
+                      onClick={() => handleFavouritesClick(item)}
+                      color="secondary"
+                    >
+                      <Badge badgeContent={count} color="secondary">
+                        <FavouriteComponent />
+                      </Badge>
+                    </IconButton>
+                  </Tooltip>
+                }
+                title={item.name}
+                className={classes.title}
+                subheader={
+                  item.region +
+                  " " +
+                  "(" +
+                  (item.population / 1000000).toFixed(2) +
+                  "m)"
+                }
+              />
+              {/* <IconButton color="secondary" onClick={() => toggleClicked(item)}>
+                {clicked === true ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+              </IconButton> */}
+              {/* {item.latlng[0]},
+              {item.latlng[1]}.... */}
+        
+            </Card>
+            {/* <Map lat={item.latlng[0]} lng={item.latlng[1]} population={item.population}/> */}
+          </div>
+        ))}
+    </>
+  );
+};
+
+
+
+
+export default ItemList;

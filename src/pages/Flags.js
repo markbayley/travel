@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Row, Alert, Modal, Button } from "antd";
 import { Grid, Typography } from "@material-ui/core";
-import SearchBox from "../components/SearchBox";
-import FlagsCard from "../components/FlagsCard";
-import FlagsDetail from "../components/FlagsDetail";
+import SearchBox from "../misc/SearchBox";
+import FlagsCard from "../misc/FlagsCard";
+import FlagsDetail from "../misc/FlagsDetail";
 import Loader from "../components/Loader";
 import "../api/FetchApi.scss";
-import FilterComponent from "../components/FilterComponent";
-import TravelCard from "../components/TravelCard";
+import FilterComponent from "../misc/FilterComponent";
+import TravelCard from "../misc/TravelCard";
 import jsonData from "./../country.json";
 
 function Flags() {

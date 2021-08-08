@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Layout, Row, Alert, Modal } from "antd";
 import "antd/dist/antd.css";
-import SearchBox from "../components/SearchBox";
+import SearchBox from "../misc/SearchBox";
 // import CocktailsCard from "../components/CocktailsCard";
 // import CocktailsDetail from "../components/CocktailsDetail";
 import Loader from "../components/Loader";

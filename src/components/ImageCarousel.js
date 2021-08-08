@@ -7,7 +7,7 @@ import Badge from "@material-ui/core/Badge";
 import Avatar from "@material-ui/core/Avatar";
 import { ImportantDevices } from "@material-ui/icons";
 
-const ImageCarousel = ({ photos, flag, name }) => {
+const ImageCarousel = ({ photos, flag, name, travel }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState();
   const carouselItemsRef = useRef([]);
@@ -132,12 +132,10 @@ const ImageCarousel = ({ photos, flag, name }) => {
             border: "1px solid gold",
             width: "20px",
             height: "20px",
-            margin: "0px 5px 5px 5px",
+            margin: "0px 5px 5px 0px",
           }}
         />
-
-        {selectedImage?.user.name}
-
+        {selectedImage?.user.name}.
         <div
           style={{
             display: "flex",
@@ -147,8 +145,9 @@ const ImageCarousel = ({ photos, flag, name }) => {
         >
           <div>
             {selectedImage?.location.title
-              ? selectedImage?.location.title
+              ? selectedImage?.location.title.slice(0, 50)
               : "Unknown Location"}
+              {" "}
             <img
               src={flag}
               alt={selectedImage?.name}
@@ -156,14 +155,14 @@ const ImageCarousel = ({ photos, flag, name }) => {
               style={{
                 marginBottom: "3px",
                 border: "1px solid gold",
-                marginLeft: "5px",
+                marginLeft: "0px",
               }}
             />{" "}
-            <strong>{name}</strong>
+            {/* <strong>{name}</strong> */}
           </div>
         </div>
       </h4>
-
+   
       <div className="carousel">
         <div className="carousel__images">
           {photos &&
@@ -183,6 +182,7 @@ const ImageCarousel = ({ photos, flag, name }) => {
               />
             ))}
         </div>
+    
 
         {/* <IconButton
           //   style={{ color: "#fff" }}

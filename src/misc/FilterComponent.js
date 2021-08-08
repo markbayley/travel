@@ -7,7 +7,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Badge from "@material-ui/core/Badge";
 import { Favorite } from '../pages/Contact'
-import Pagination from "./Pagination";
+import Pagination from "../components/Pagination";
 import {
   alpha,
   makeStyles,

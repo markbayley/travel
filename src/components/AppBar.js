@@ -59,7 +59,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) =>
   createStyles({
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: 1,
       transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -89,15 +89,18 @@ const useStyles = makeStyles((theme) =>
       width: drawerWidth,
       flexShrink: 0,
       whiteSpace: "nowrap",
+      zIndex: 0,
     },
     drawerOpen: {
       width: drawerWidth,
+      zIndex: 1,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerClose: {
+     
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -396,7 +399,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
             </div>
             <Divider />
 
-            <Link to="/travel">
+            <Link to="/home">
               <ListItem button>
                 <ListItemIcon>
                   <HomeIcon />
