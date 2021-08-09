@@ -17,7 +17,7 @@ import Map from './components/Map'
 import Action from "./components/Action"
 
 function App() {
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
 
   //  const [favourites, setFavourites] = useState([]);
   //  const [searchValue, setSearchValue] = useState("");
@@ -50,7 +50,7 @@ function App() {
           />
         )} */}
 
-        {/* {user ? <AppBar /> : <AppBarNoAuth />} */}
+  
         <Switch>
           <Route
             path="/travel"
@@ -63,8 +63,8 @@ function App() {
             // show={show}
             // setShow={setShow}
           />
-          {/* <Route path="/contact" component={Contact} /> */}
-          {/* <Route path="/map" component={Map} /> */}
+          <Route path="/contact" component={Contact} />
+          <Route path="/map" component={Map} />
           <Route path="/home" component={Home} />
         </Switch>
       </Router>

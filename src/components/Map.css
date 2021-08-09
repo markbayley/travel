@@ -6,31 +6,35 @@
 }
 
 .marker {
-  background-color: rgb(3, 250, 238);
-  height: 25px;
-  width: 25px; 
-  border: 5px solid rgba(1, 17, 24, 0.6); 
+  /* background-color:#FF8D23; */
+  height: 5em;
+  width: 5em;
+  border: 2px solid #fff;
 
   border-radius: 50%;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: 250ms ease-out;
 }
 
 .marker:hover {
-  background-color: orangered;
-  /* height: 4em;
-  width: 4em; */
-  border: 5px solid rgb(65, 16, 16, 0.8);
-} 
+  height: auto;
+  width: 25em;
+  border: 3px solid #fff;
+  border-radius: 0%;
+  transition: 500ms ease-in;
+}
 
 .map-container {
-  position: absolute; 
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+}
 
-
+.map {
+ width: 57.5vw;
+  height: 100vh;
 }
 
 /* .sidebarStyle {
@@ -46,17 +50,7 @@
   font-weight: bold;
 }   */
 
-
-
-
-
-
-
-
-
-
-
-p {
+/* p {
   font-size: 16px;
   padding: 0.5em 2em 0em 1.5em;
   color: #fff;
@@ -112,12 +106,9 @@ h4, h5 {
 
 .india:hover {
   opacity: 0.9;
-} 
+}  */
 
-
-
-
-
+/* 
 .card {
   text-transform: uppercase;
   text-align: left;
@@ -170,7 +161,7 @@ svg {
   max-height: 400px;
   width: 100%;
   padding: 0;
-} 
+}  */
 
 /* .circle {
     width: 15px;
@@ -199,7 +190,6 @@ svg {
     50% {opacity: 1.0;}
     100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 } */
-
 
 /* 
 .marker {

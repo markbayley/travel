@@ -1,0 +1,69 @@
+.sidebar {
+  position: fixed;
+  top: 10;
+  right: -57.5vw;
+  width: 57.5vw;
+  height: 100%;
+  background-color: #fff;
+  transition: right 1000ms ease-in-out;
+  z-index: 1;
+
+}
+.sidebar.active {
+  right: 0;
+}
+
+
+
+.sidebar ul {
+  margin: 0;
+  padding: 0;
+}
+.sidebar li {
+  list-style: none;
+}
+.sidebar li a {
+  font-size: 18px;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  color: #fff;
+}
+
+
+
+.hamburger {
+  border: none;
+  outline: 0;
+  width: 50px;
+  position: absolute;
+  left: -50px;
+  background-color: #fff;
+  z-index: 1;
+
+}
+
+.hamburger:after,
+.hamburger:before,
+.hamburger div {
+  background-color: #fff;
+  height: 5px;
+  margin: 7px 0;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  transition: all 900ms ease-in-out;
+  z-index: 1;
+}
+
+
+
+.sidebar.active .hamburger:before {
+  transform: translateY(12px) rotate(135deg);
+}
+.sidebar.active .hamburger::after {
+  transform: translateY(-12px) rotate(-135deg);
+}
+.sidebar.active .hamburger div {
+  transform: scale(0);
+}

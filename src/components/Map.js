@@ -1,95 +1,110 @@
 import { useState, useCallback } from "react";
-import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
+import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
 // import MapControlsComponent from "./MapControlsComponent";
+import "./Map.css";
+import Loader from "./Loader";
+import {
+  AttributionControl,
+  FullscreenControl,
+  NavigationControl,
+} from "react-map-gl";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 
-import geoData from "../travel.geojson";
+const Map = ({
+  latlng,
+  flag,
+  name,
+  population,
+  region,
+  travel,
+  loading,
+  filteredFlags,
+}) => {
 
-export default function Map({lat, lng}) {
+
   const [viewport, setViewport] = useState({
     latitude: 30,
     longitude: 0,
     bearing: 0,
-    zoom: 1,
+    zoom: 3,
   });
-  const [hoverInfo, setHoverInfo] = useState(null);
 
-  const dataLayer = {
-    id: "geoData",
-    type: "fill",
-    paint: {
-      "fill-outline-color": "#fff",
-      "fill-color": {
-        property: "statusNum",
-        stops: [
-          [1, "#119DA4"],
-          [2, "#ED5D5D"],
-          [3, "#FF8D23"],
-        ],
-      },
-      "fill-opacity": 0.8,
-    },
-  };
+  const size = 25;
 
-  const onHover = useCallback((event) => {
-    const {
-      features,
-      srcEvent: { offsetX, offsetY },
-    } = event;
-    const hoveredFeature = features && features[0];
-
-    setHoverInfo(
-      hoveredFeature
-        ? {
-            feature: hoveredFeature,
-            x: offsetX,
-            y: offsetY,
-          }
-        : null
-    );
-  }, []);
+  console.log(filteredFlags, 'filteredFlags(map)')
 
   return (
-    <div className="map" style={{ height: "50vh", width: "100%" }}>
+    <div className="map">
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNrZzJraGl1NTAwcjkyeXFyMHljNjExcmoifQ.RxhYWJnYveNc1LjK6wB9sQ"
         width="100%"
         height="100%"
-        onHover={onHover}
         onViewportChange={(viewport) => setViewport(viewport)}
       >
-        <div
-          style={{
-            position: "relative",
-            top: 50,
-            left: 10,
-            zIndex: 200,
-          }}
-        >
-          {/* <MapControlsComponent /> */}
-          <Source type="geojson" data={geoData}>
-            <Layer {...dataLayer} />
-          </Source>
-          {hoverInfo && (
-            <div
-              className="tooltip"
-              style={{ left: hoverInfo.x, top: hoverInfo.y }}
-            >
-              <div style={{ fontWeight: 600 }}>
-                {hoverInfo.feature.properties.country}
-              </div>
-              <div>{hoverInfo.feature.properties.status}</div>
-              <div>{hoverInfo.feature.properties.description}</div>
-              <div>{hoverInfo.feature.properties.moreDetails}</div>
-            </div>
-          )}
-        </div>
-        <Marker longitude={lng} latitude={lat}>
-          <div className="marker">
-            <span></span>
-          </div>
-        </Marker>
+        {loading && <Loader />}
+        <MapControlsComponent />
+        {filteredFlags?.slice(0, size).map((item, i) => (
+              <Marker
+                key={i}
+                latitude={item.latlng && item.latlng[0]}
+                longitude={item.latlng && item.latlng[1]}
+              >
+                {/* <p>{item.name}</p> */}
+                <img
+                  src={item.travel}
+               
+               
+                  alt="flag"
+                 
+                  className="marker"
+                />
+              </Marker>
+
+        ))}
       </ReactMapGL>
     </div>
   );
 }
+
+export default Map
+
+
+
+
+export const MapControlsComponent = () => {
+  const attributionStyle = {
+    left: 0,
+    bottom: 0
+  };
+
+  return (
+    <>
+      <AttributionControl compact={true} style={attributionStyle} />
+
+      <div
+        style={{
+          position: "relative",
+          top: 10,
+          left: 10,
+          zIndex: 200
+        }}
+      >
+        <FullscreenControl />
+      </div>
+
+      <div
+        style={{
+          position: "relative",
+          top: 50,
+          left: 10,
+          zIndex: 200
+        }}
+      >
+        <NavigationControl />
+      </div>
+    </>
+  );
+}
+

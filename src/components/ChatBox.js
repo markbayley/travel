@@ -166,7 +166,7 @@ export const SignIn = () => {
 export const Message = () => {
   const [user] = useAuthState(auth);
 
-  function SendMessage({ scroll, messages }) {
+  function SendMessage({ scroll }) {
     const [msg, setMsg] = useState("");
 
     async function sendMessage(e) {
@@ -213,7 +213,7 @@ export const Message = () => {
               Send
             </Button>
             {/* <div>{messages.length}</div> */}
-            <ChatBox messages={messages} />
+            <ChatBox />
           </div>
         </form>
       </div>
@@ -248,7 +248,7 @@ export const Message = () => {
             </div>
           ))}
         </div>
-        <SendMessage scroll={scroll} messages={messages}/>
+        <SendMessage scroll={scroll} />
         <div ref={scroll}></div>
       </div>
     );
@@ -268,7 +268,7 @@ function PaperComponent(props) {
   );
 }
 
-export const ChatBox = ({messages}) => {
+export const ChatBox = () => {
   const [open, setOpen] = useState(false);
 
   const handleChatOpen = () => {
@@ -321,7 +321,7 @@ export const ChatBox = ({messages}) => {
             }}
           />
         </DialogTitle>
-        <Message />
+   <Message />
       </Dialog>
     </div>
   );

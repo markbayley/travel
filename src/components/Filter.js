@@ -16,12 +16,7 @@ import RangeSlider from "../misc/RangeSlider";
 import SearchIcon from "@material-ui/icons/Search";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
-import {
-  alpha,
-
-  Theme,
-
-} from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 
 
@@ -253,9 +248,9 @@ const Filter = ({
         // marginTop:"1.4em",
       }}
     >
-      <Grid item md={12} lg={4} style={{ marginTop: "1.4em"}}>
+      <Grid item md={12} lg={5} style={{ marginTop: "1.4em" }}>
         <Button
-          size="small"
+          // size="small"
           variant={filteredRegion === "Americas" ? "contained" : "outlined"}
           onClick={filterAmericas}
           // onClick={handleClick({ vertical: "top", horizontal: "right" })}
@@ -267,7 +262,7 @@ const Filter = ({
           Americas
         </Button>
         <Button
-          size="small"
+          // size="small"
           variant={filteredRegion === "Europe" ? "contained" : "outlined"}
           disableElevation
           onClick={filterEurope}
@@ -278,7 +273,7 @@ const Filter = ({
           Europe
         </Button>
         <Button
-          size="small"
+          // size="small"
           variant={filteredRegion === "Asia" ? "contained" : "outlined"}
           onClick={filterAsia}
           className={filteredRegion === "Asia" ? classes.Asia : null}
@@ -289,7 +284,7 @@ const Filter = ({
           Asia{" "}
         </Button>
         <Button
-          size="small"
+          // size="small"
           variant={filteredRegion === "Africa" ? "contained" : "outlined"}
           onClick={filterAfrica}
           className={filteredRegion === "Africa" ? classes.Africa : null}
@@ -300,7 +295,7 @@ const Filter = ({
           Africa
         </Button>
         <Button
-          size="small"
+          // size="small"
           variant={filteredRegion === "Oceania" ? "contained" : "outlined"}
           disableElevation
           onClick={filterOceania}
@@ -323,24 +318,10 @@ const Filter = ({
           <ReplayIcon />
         </Button> */}
 
-        <Tooltip title="View Map" placement="top">
-          <Button
-            // disabled
-            className={classes.mapButtonSmall}
-            variant="contained"
-            size="small"
-            style={{
-              marginLeft: 10,
-              marginRight: 5,
-            }}
-          >
-            <PublicIcon />
-            Map
-          </Button>
-        </Tooltip>
+   
         <Tooltip title="Reset" placement="top">
           <Button
-            size="small"
+            // size="small"
             variant={
               filteredRegion === "All Regions" ? "contained" : "outlined"
             }
@@ -359,16 +340,17 @@ const Filter = ({
         </Tooltip>
       </Grid>
 
-      <Grid item
+      <Grid
+        item
         xs={12}
         sm={6}
         md={6}
-        lg={3}
+        lg={4}
         style={{ margin: "1.4em 0em 0.7em 0em" }}
       >
         <Tooltip title="Ascending" placement="top">
           <Button
-            size="small"
+            // size="small"
             variant={
               filteredPopulation === "Ascending" ? "contained" : "outlined"
             }
@@ -388,7 +370,7 @@ const Filter = ({
 
         <Tooltip title="Large Population" placement="top">
           <Button
-            size="small"
+            // size="small"
             variant={
               filteredPopulation === "HighPop" ? "contained" : "outlined"
             }
@@ -406,7 +388,7 @@ const Filter = ({
         </Tooltip>
         <Tooltip title="Medium Population" placement="top">
           <Button
-            size="small"
+            // size="small"
             variant={filteredPopulation === "MedPop" ? "contained" : "outlined"}
             onClick={filterMedPop}
             className={filteredPopulation === "MedPop" ? classes.MedPop : null}
@@ -420,7 +402,7 @@ const Filter = ({
         </Tooltip>
         <Tooltip title="Small Population" placement="top">
           <Button
-            size="small"
+            // size="small"
             variant={filteredPopulation === "LowPop" ? "contained" : "outlined"}
             onClick={filterLowPop}
             className={filteredPopulation === "LowPop" ? classes.LowPop : null}
@@ -435,7 +417,7 @@ const Filter = ({
 
         <Tooltip title="Descending" placement="top">
           <Button
-            size="small"
+            // size="small"
             variant={
               filteredPopulation === "Descending" ? "contained" : "outlined"
             }
@@ -453,16 +435,17 @@ const Filter = ({
         </Tooltip>
       </Grid>
 
-      <Grid item
+      <Grid
+        item
         xs={12}
         sm={5}
         md={5}
-        lg={2}
+        lg={1}
         style={{ margin: "1em 0em 1.8em 0em" }}
       >
-        <Tooltip title="Population Range" placement="top">
+        {/* <Tooltip title="Population Range" placement="top">
           <Slider
-            // style={{ marginRight: 35 }}
+        
             className={classes.slider}
             value={value}
             step={10}
@@ -472,75 +455,12 @@ const Filter = ({
             valueLabelDisplay="off"
             aria-labelledby="range-slider"
             getAriaValueText={valuetext}
-            //    value={value}
-            // min={0}
-            // step={0.1}
-            // max={11}
-            // scale={(x) => x ** 10}
-            // getAriaValueText={valueLabelFormat}
-            // valueLabelFormat={valueLabelFormat}
-            // onChange={handleChange}
-            // valueLabelDisplay="on"
-            // aria-labelledby="non-linear-slider"
+        
             marks={marks}
           />
-        </Tooltip>
-      </Grid>
-      <Grid item
-        lg={3}
-        className={classes.mapButton}
-        style={{
-          // marginLeft: "100px",
-          marginTop: "1.4em",
-          textAlign: "right",
-          // display: "flex",
-          // justifyContent: "flex-end"
-          
-        }}
-      >
-        {/* <Tooltip title="Reset" placement="top">
-          <Button
-            size="small"
-            variant={
-              filteredRegion === "All Regions" ? "contained" : "outlined"
-            }
-            onClick={filterAllCountries}
-            className={
-              filteredRegion === "All Regions" ? classes.allCountries : null
-            }
-            style={{
-              marginRight: 10,
-            }}
-            disableElevation
-          >
-            {items.length}
-            <ReplayIcon />
-          </Button>
         </Tooltip> */}
-        <Tooltip title="View Map" placement="top">
-          <Button
-          
-            variant="contained"
-            size="small"
-            style={{ marginRight: "5px" }}
-          >
-            {/* <PublicIcon /> */}
-            Images
-          </Button>
-        </Tooltip>
-        <Tooltip title="View Map" placement="top">
-          <Button
-          disableElevation
-       
-            variant="contained"
-            size="small"
-            style={{ marginRight: "5px" }}
-          >
-            <PublicIcon />
-            Map
-          </Button>
-        </Tooltip>
       </Grid>
+   
 
       <Snackbar
         anchorOrigin={{

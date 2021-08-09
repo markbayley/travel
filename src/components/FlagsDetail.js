@@ -23,14 +23,9 @@ import PetsIcon from "@material-ui/icons/Pets";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import AssistantPhotoIcon from "@material-ui/icons/AssistantPhoto";
 import Loader from "./Loader";
-// import{ Map }  from "./ItemList";
-
-
-
-
-
-
-
+import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
+// import MapControlsComponent from "./MapControlsComponent";
+import Tooltip from "@material-ui/core/Tooltip";
 
 
 const superagent = require("superagent");
@@ -80,6 +75,13 @@ const FlagsDetail = ({
 
   const classes = useStyles();
 
+  const [viewport, setViewport] = useState({
+    latitude: latlng && latlng[0],
+    longitude: latlng && latlng[1],
+    bearing: 0,
+    zoom: 5,
+  });
+
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -88,8 +90,6 @@ const FlagsDetail = ({
   let [photos, setPhotos] = useState([]);
   let [query, setQuery] = useState("");
   // const queryInput = useRef(null);
-  // const lat = latlng[0];
-  // const lng = latlng[1];
 
   const numberOfPhotos = 10;
   const url =
@@ -140,124 +140,19 @@ const FlagsDetail = ({
   };
 
   console.log(photos, "photos");
-   console.log(latlng, "latlng");
-
-  // const lat = latlng.slice(0, 1);
-  // const lng = latlng.slice(2, 3);
-  // console.log(lat, "lat");
-  // console.log(lng, "lng");
-
+  console.log(latlng, "latlngy");
 
   return (
     <div style={{ zIndex: 20 }}>
       <Card className={classes.root}>
-        {/* <CardMedia
-          image={flag}
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={name + " (" + region + ")"}
-          subheader={
-            "Population:" + (population / 1000000).toFixed(2) + " million"
-          }
-        /> */}
-        {/* <CardMedia className={classes.media} image={flag} /> */}
         <ImageCarousel
           photos={photos}
           flag={flag}
           name={name}
           travel={travel}
-          latlng={latlng}
         />
-        <CardContent>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              marginBottom: "1em",
-            }}
-          >
-            <Button
-              size="small"
-              style={{
-                fontSize: "small",
-                textTransform: "none",
-                color: "#FF8D23",
-              }}
-              variant="outlined"
-              value={" Food"}
-              onClick={(e) => searchFood(e, "value")}
-            >
-              <FastfoodIcon /> Food
-            </Button>
-            <Button
-              size="small"
-              style={{
-                fontSize: "small",
-                textTransform: "none",
-                color: "#FF8D23",
-              }}
-              variant="outlined"
-              value={" People"}
-              onClick={(e) => searchPeople(e, "value")}
-            >
-              <PeopleIcon /> People
-            </Button>
-            <Button
-              size="small"
-              style={{
-                fontSize: "small",
-                textTransform: "none",
-                color: "#FF8D23",
-              }}
-              variant="outlined"
-              value={" Animals"}
-              onClick={(e) => searchAnimals(e, "value")}
-            >
-              <PetsIcon /> Animals
-            </Button>
-            <Button
-              size="small"
-              style={{
-                fontSize: "small",
-                textTransform: "none",
-                color: "#FF8D23",
-              }}
-              variant="outlined"
-              value={" Travel"}
-              onClick={(e) => searchTravel(e, "value")}
-            >
-              <AssistantPhotoIcon /> Culture
-            </Button>
-            <Button
-              size="small"
-              style={{
-                fontSize: "small",
-                textTransform: "none",
-                color: "#FF8D23",
-              }}
-              variant="outlined"
-              value={" Culture"}
-              onClick={(e) => searchCulture(e, "value")}
-            >
-              <FlightTakeoffIcon /> Travel
-            </Button>
-            <Button
-              size="small"
-              style={{
-                fontSize: "small",
-                textTransform: "none",
-                color: "#FF8D23",
-              }}
-              variant="outlined"
-              value={" Nature"}
-              onClick={(e) => searchNature(e, "value")}
-            >
-              <EcoIcon /> Nature
-            </Button>
-          </div>
+        {/* <CardContent>
+         
           <Typography
             variant="body2"
             color="textSecondary"
@@ -271,43 +166,167 @@ const FlagsDetail = ({
             Capital: <strong>{capital}</strong>.{" "}
             <em>Searching...{name + " " + query + " "}</em>
           </Typography>
-          <br />
+        </CardContent> */}
 
-          <div>
-            {/* {latlng[0]},{latlng[1]} */}
-            {latlng}
-          </div>
-        </CardContent>
-        {/* <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+        <CardActions
+          disableSpacing
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "1em",
+          }}
+        >
+          {/* <IconButton aria-label="add to favorites">
+         
             <MailIcon />
-          </IconButton>
-          <IconButton aria-label="share">
+          </IconButton> */}
+          {/* <IconButton aria-label="share">
             <ShareIcon />
-          </IconButton>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions> */}
-        {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Comments:</Typography>
+          </IconButton> */}
 
-            <Message />
+          <Button
+            size="small"
+            style={{
+              fontSize: "small",
+              textTransform: "none",
+              color: "#FF8D23",
+              marginRight: "15px",
+            }}
+            variant="outlined"
+            value={" Food"}
+            onClick={(e) => searchFood(e, "value")}
+          >
+            <FastfoodIcon /> Food
+          </Button>
+          <Button
+            size="small"
+            style={{
+              fontSize: "small",
+              textTransform: "none",
+              color: "#FF8D23",
+              marginRight: "15px",
+            }}
+            variant="outlined"
+            value={" People"}
+            onClick={(e) => searchPeople(e, "value")}
+          >
+            <PeopleIcon /> People
+          </Button>
+          <Button
+            size="small"
+            style={{
+              fontSize: "small",
+              textTransform: "none",
+              color: "#FF8D23",
+              marginRight: "15px",
+            }}
+            variant="outlined"
+            value={" Animals"}
+            onClick={(e) => searchAnimals(e, "value")}
+          >
+            <PetsIcon /> Animals
+          </Button>
+          <Button
+            size="small"
+            style={{
+              fontSize: "small",
+              textTransform: "none",
+              color: "#FF8D23",
+              marginRight: "15px",
+            }}
+            variant="outlined"
+            value={" Travel"}
+            onClick={(e) => searchTravel(e, "value")}
+          >
+            <AssistantPhotoIcon /> Culture
+          </Button>
+          <Button
+            size="small"
+            style={{
+              fontSize: "small",
+              textTransform: "none",
+              color: "#FF8D23",
+              marginRight: "15px",
+            }}
+            variant="outlined"
+            value={" Culture"}
+            onClick={(e) => searchCulture(e, "value")}
+          >
+            <FlightTakeoffIcon /> Travel
+          </Button>
+          <Button
+            size="small"
+            style={{
+              fontSize: "small",
+              textTransform: "none",
+              color: "#FF8D23",
+              marginRight: "15px",
+            }}
+            variant="outlined"
+            value={" Nature"}
+            onClick={(e) => searchNature(e, "value")}
+          >
+            <EcoIcon /> Nature
+          </Button>
+          <Tooltip title="View Map" placement="top">
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </Tooltip>
+        </CardActions>
+
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {/* <Message /> */}
+            <div className="map" style={{ height: "50vh", width: "100%" }}>
+              <ReactMapGL
+                {...viewport}
+                mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNrZzJraGl1NTAwcjkyeXFyMHljNjExcmoifQ.RxhYWJnYveNc1LjK6wB9sQ"
+                width="100%"
+                height="100%"
+                onViewportChange={(viewport) => setViewport(viewport)}
+              >
+                <Marker
+                  latitude={latlng && latlng[0]}
+                  longitude={latlng && latlng[1]}
+                >
+                  {/* <div className="marker"></div> */}
+                </Marker>
+                <Popup
+                  latitude={latlng && latlng[0]}
+                  longitude={latlng && latlng[1]}
+                  // onClose={closePopup}
+                  closeButton={true}
+                  closeOnClick={false}
+                  offsetTop={0}
+                  offsetLeft={10}
+                >
+                  <img src={flag} width="70px" alt="flag" />
+                  <h6
+                    style={{
+                      color: "black",
+                      textAlign: "center",
+                      paddingBottom: "0px",
+                    }}
+                  >
+                    {name}
+                  </h6>
+                </Popup>
+              </ReactMapGL>
+            </div>
           </CardContent>
-        </Collapse> */}
+        </Collapse>
       </Card>
-      {/* <Map lat={item.latlng[0]} lng={item.latlng[1]} /> */}
     </div>
   );
 };
+
 
 export default FlagsDetail;
