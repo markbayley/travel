@@ -1,28 +1,28 @@
 .popup {
+  font-size: 1em;
+  background-color: tomato;
   width: auto;
   min-width: 110px;
-  opacity: 0.9;
-  font-size: 1em;
+  opacity: 0;
 }
 
+
+
+
+
 .marker {
-  /* background-color:#FF8D23; */
   height: 5em;
   width: 5em;
   border: 2px solid #fff;
-
   border-radius: 50%;
   cursor: pointer;
-  transition: 250ms ease-out;
+  transition: 500ms ease-out;
 }
 
 .marker:hover {
-  height: auto;
-  width: 25em;
-  border: 3px solid #fff;
-  border-radius: 0%;
-  transition: 500ms ease-in;
+  border: 2px solid red;
 }
+
 
 .map-container {
   position: absolute;
@@ -33,7 +33,7 @@
 }
 
 .map {
- width: 57.5vw;
+  width: 57.5vw;
   height: 100vh;
 }
 

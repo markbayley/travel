@@ -12,7 +12,7 @@ import Filter from "./Filter";
 import ItemList from "./ItemList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Modal } from "antd";
-import { Grid, IconButton} from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Badge from "@material-ui/core/Badge";
@@ -23,11 +23,7 @@ import Map from "./Map";
 import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
 // import MapControlsComponent from "./MapControlsComponent";
 
-
-import SideBar from './SideBar'
-
-
-
+import SideBar from "./SideBar";
 
 const Travel = () => {
   const [user] = useAuthState(auth);
@@ -51,9 +47,6 @@ const Travel = () => {
 
   const [clicked, setClicked] = useState(false);
   const toggleClicked = () => setClicked((e) => !e);
-
-
-
 
   useEffect(() => {
     setLoading(true);
@@ -84,6 +77,7 @@ const Travel = () => {
   );
 
   useEffect(() => {
+    delete items[33];
     setFilteredFlags(items);
   }, [items]);
 
@@ -109,13 +103,13 @@ const Travel = () => {
       if (parent.name === child.country) {
         if (!parent.children) {
           parent.travel = [];
+          parent.status = [];
         }
         parent.travel.push(child.image);
+        parent.status.push(child.status);
       }
     }
   });
-
-
 
   //Favourites
   const saveToLocalStorage = (items) => {
@@ -138,31 +132,39 @@ const Travel = () => {
   };
 
   const AddFavourite = () => {
-    return <FavoriteBorderIcon /> 
+    return <FavoriteBorderIcon />;
   };
 
   const RemoveFavourite = () => {
     return <FavoriteIcon />;
   };
 
+  const [viewport, setViewport] = useState({
+    latitude: 30,
+    longitude: 0,
+    bearing: 0,
+    zoom: 1,
+  });
 
-  
-   const [viewport, setViewport] = useState({
-     latitude: 30,
-     longitude: 0,
-     bearing: 0,
-     zoom: 1,
-   });
-
-     const size = 15;
+  console.log(items, 'items - delete')
 
 
+ 
+
+    
 
   return (
     <>
-      <div className="wrapper" >
-        <SideBar filteredFlags={filteredFlags} />
-     
+      <div className="wrapper">
+        <SideBar
+          filteredFlags={filteredFlags}
+          ShowDetail={setShowDetail}
+          DetailRequest={setDetailRequest}
+          ActivateModal={setActivateModal}
+          items={items}
+          setFilteredFlags={setFilteredFlags}
+        />
+
         <Router>
           {user ? (
             <>
@@ -209,6 +211,8 @@ const Travel = () => {
             setFilteredFlags={setFilteredFlags}
             favourites={favourites}
             toggleShow={toggleShow}
+            setViewport={setViewport}
+            viewport={viewport}
           />
           {/* </Grid> */}
 

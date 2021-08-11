@@ -355,9 +355,9 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
                   </Badge>
                 </IconButton>
               </Tooltip>
-             
-                <ChatBox />
-             
+
+              <ChatBox />
+
               <Profile />
             </div>
             <div className={classes.sectionMobile}>
@@ -400,7 +400,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
             <Divider />
 
             <Link to="/home">
-              <ListItem button>
+              <ListItem button style={{ paddingLeft: "22px", paddingTop: "20px" }}>
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
@@ -417,7 +417,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
               </ListItem>
             </Link> */}
             <Link to="/travel">
-              <ListItem button>
+              <ListItem button style={{ paddingLeft: "22px" }}>
                 <ListItemIcon>
                   <FlagIcon />
                 </ListItemIcon>
@@ -425,7 +425,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
               </ListItem>
             </Link>
             <Link to="/travel">
-              <ListItem button>
+              <ListItem button style={{ paddingLeft: "22px" }}>
                 <ListItemIcon>
                   <TheatersIcon />
                 </ListItemIcon>
@@ -433,7 +433,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
               </ListItem>
             </Link>
             <Link to="/travel">
-              <ListItem button>
+              <ListItem button style={{ paddingLeft: "22px" }}>
                 <ListItemIcon>
                   <LocalBarIcon />
                 </ListItemIcon>
@@ -441,7 +441,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
               </ListItem>
             </Link>
             <Link to="/travel">
-              <ListItem button>
+              <ListItem button style={{paddingLeft: "22px"}}>
                 <ListItemIcon>
                   <PersonIcon />
                 </ListItemIcon>
@@ -449,7 +449,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
               </ListItem>
             </Link>
             <Link to="/travel">
-              <ListItem button>
+              <ListItem button style={{paddingLeft: "22px"}}>
                 <ListItemIcon>
                   <PublicIcon />
                 </ListItemIcon>
@@ -460,7 +460,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
             <Divider />
 
             <Link to="/contact">
-              <ListItem button>
+              <ListItem button style={{paddingLeft: "22px"}}>
                 <ListItemIcon>
                   <MailIcon />
                 </ListItemIcon>
@@ -487,7 +487,7 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
               }}
             >
               <Link to="/travel">
-                <ListItem button>
+                <ListItem button style={{paddingLeft: "22px", paddingBottom: "20px"}}>
                   <ListItemIcon>
                     <SettingsIcon />
                   </ListItemIcon>

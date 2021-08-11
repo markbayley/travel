@@ -12,10 +12,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Badge from "@material-ui/core/Badge";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Rating from "@material-ui/lab/Rating";
 
-import Map from './Map'
-import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
-// import "./Map.css";
 
 
 const ItemList = ({
@@ -80,11 +78,10 @@ const ItemList = ({
 
   const classes = useStyles();
 
-  const size = 25;
+  const size = 25
 
   return (
     <>
-    
       {loading && <Loader />}
       {filteredFlags !== null &&
         filteredFlags.length > 0 &&
@@ -105,22 +102,26 @@ const ItemList = ({
                 </CardActions>
               </CardMedia>
               <CardHeader
+              
                 avatar={
                   <Avatar aria-label="flag" className={classes.avatar}>
                     <img src={item.flag} alt="flag" width="70px" />
                   </Avatar>
                 }
                 action={
-                  <Tooltip title="Favourite" placement="top">
-                    <IconButton
-                      onClick={() => handleFavouritesClick(item)}
-                      color="secondary"
-                    >
-                      <Badge badgeContent={count} color="secondary">
-                        <FavouriteComponent />
-                      </Badge>
-                    </IconButton>
-                  </Tooltip>
+                  <>
+               
+                    <Tooltip title="Favourite" placement="top">
+                      <IconButton
+                        onClick={() => handleFavouritesClick(item)}
+                        color="secondary"
+                      >
+                        <Badge badgeContent={count} color="secondary">
+                          <FavouriteComponent />
+                        </Badge>
+                      </IconButton>
+                    </Tooltip>
+                  </>
                 }
                 title={item.name}
                 className={classes.title}
@@ -135,8 +136,6 @@ const ItemList = ({
             </Card>
           </div>
         ))}
-      
-
     </>
   );
 };

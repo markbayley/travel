@@ -18,14 +18,14 @@ import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link } from "react-router-dom";
 
-
-
 const Filter = ({
   items,
   filteredFlags,
   setFilteredFlags,
   favourites,
   toggleShow,
+  setViewport,
+  viewport,
 }) => {
   const classes = useStyles();
   // const [id, setId] = useState(0);
@@ -55,9 +55,8 @@ const Filter = ({
   //     return setFilteredFlags(RangePop);
   //   };
 
-
-  //SnackBar 
-  const [open, setOpen] = React.useState(false);
+  //SnackBar
+  const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -66,7 +65,6 @@ const Filter = ({
 
     setOpen(false);
   };
-  
 
   //Slider
   function valuetext(value) {
@@ -147,7 +145,7 @@ const Filter = ({
       return setFilteredFlags(items);
     } else {
       setRegion("Asia");
-        setOpen(true);
+      setOpen(true);
       return setFilteredFlags(Asia);
     }
   };
@@ -158,7 +156,7 @@ const Filter = ({
       return setFilteredFlags(items);
     } else {
       setRegion("Africa");
-        setOpen(true);
+      setOpen(true);
       return setFilteredFlags(Africa);
     }
   };
@@ -169,43 +167,37 @@ const Filter = ({
       return setFilteredFlags(items);
     } else {
       setRegion("Oceania");
-        setOpen(true);
+      setOpen(true);
       return setFilteredFlags(Oceania);
     }
   };
 
   const filterHighPop = () => {
     if (filteredPopulation === "HighPop") {
-  
       return setFilteredFlags(filteredFlags);
     } else {
-  
       setPopulation("HighPop");
-        setOpen(true);
+      setOpen(true);
       return setFilteredFlags(HighPop);
     }
   };
 
   const filterMedPop = () => {
     if (filteredPopulation === "MedPop") {
-   
       return setFilteredFlags(filteredFlags);
     } else {
-    
       setPopulation("MedPop");
-         setOpen(true);
+      setOpen(true);
       return setFilteredFlags(MedPop);
     }
   };
 
   const filterLowPop = () => {
     if (filteredPopulation === "LowPop") {
-    
       return setFilteredFlags(filteredFlags);
     } else {
-  
       setPopulation("LowPop");
-         setOpen(true);
+      setOpen(true);
       return setFilteredFlags(LowPop);
     }
   };
@@ -216,7 +208,7 @@ const Filter = ({
       return b.population - a.population;
     });
     setFilteredFlags(sorted);
-       setOpen(true);
+    setOpen(true);
   };
 
   const lowPopulation = () => {
@@ -225,7 +217,7 @@ const Filter = ({
       return b.population - a.population;
     });
     setFilteredFlags(sorted);
-       setOpen(true);
+    setOpen(true);
   };
 
   console.log(filteredRegion, filteredPopulation, "fR, fP");
@@ -248,15 +240,14 @@ const Filter = ({
         // marginTop:"1.4em",
       }}
     >
-      <Grid item md={12} lg={5} style={{ marginTop: "1.4em" }}>
+      <Grid item md={12} lg={6} style={{ marginTop: "1.4em" }}>
         <Button
-          // size="small"
+          size="medium"
           variant={filteredRegion === "Americas" ? "contained" : "outlined"}
           onClick={filterAmericas}
-          // onClick={handleClick({ vertical: "top", horizontal: "right" })}
           className={filteredRegion === "Americas" ? classes.Americas : null}
           disableElevation
-          style={{ marginRight: 8 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Americas.length} */}
           Americas
@@ -267,7 +258,7 @@ const Filter = ({
           disableElevation
           onClick={filterEurope}
           className={filteredRegion === "Europe" ? classes.Europe : null}
-          style={{ marginRight: 8 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Europe.length} */}
           Europe
@@ -278,7 +269,7 @@ const Filter = ({
           onClick={filterAsia}
           className={filteredRegion === "Asia" ? classes.Asia : null}
           disableElevation
-          style={{ marginRight: 7 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Asia.length} */}
           Asia{" "}
@@ -289,7 +280,7 @@ const Filter = ({
           onClick={filterAfrica}
           className={filteredRegion === "Africa" ? classes.Africa : null}
           disableElevation
-          style={{ marginRight: 7 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Africa.length} */}
           Africa
@@ -300,7 +291,7 @@ const Filter = ({
           disableElevation
           onClick={filterOceania}
           className={filteredRegion === "Oceania" ? classes.Oceania : null}
-          style={{ marginRight: 5 }}
+          style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Oceania.length} */}
           Oceania
@@ -318,7 +309,6 @@ const Filter = ({
           <ReplayIcon />
         </Button> */}
 
-   
         <Tooltip title="Reset" placement="top">
           <Button
             // size="small"
@@ -331,6 +321,7 @@ const Filter = ({
             }
             style={{
               marginRight: 10,
+              marginBottom: 10,
             }}
             disableElevation
           >
@@ -346,11 +337,10 @@ const Filter = ({
         sm={6}
         md={6}
         lg={4}
-        style={{ margin: "1.4em 0em 0.7em 0em" }}
+        style={{ margin: "1.4em 0em 0em 0em" }}
       >
-        <Tooltip title="Ascending" placement="top">
-          <Button
-            // size="small"
+        <Tooltip title="Min Population" placement="top">
+          <IconButton
             variant={
               filteredPopulation === "Ascending" ? "contained" : "outlined"
             }
@@ -360,16 +350,57 @@ const Filter = ({
             }
             disableElevation
             style={{
-              marginLeft: 0,
-              marginRight: 5,
+              marginRight: 10,
+              borderRadius: 100,
+              border: "1px solid #aaa",
+              fontSize: "small",
+              padding: 10,
+              marginTop: -5,
             }}
           >
-            <PersonIcon />-
-          </Button>
+            <PersonIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Small Population" placement="top">
+          <IconButton
+            // size="small"
+            variant={filteredPopulation === "LowPop" ? "contained" : "outlined"}
+            onClick={filterLowPop}
+            className={filteredPopulation === "LowPop" ? classes.LowPop : null}
+            disableElevation
+            style={{
+              marginRight: 5,
+              borderRadius: 100,
+
+              fontSize: "medium",
+              marginTop: -5,
+            }}
+          >
+            1m+
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Medium Population" placement="top">
+          <IconButton
+            // size="small"
+            variant={filteredPopulation === "MedPop" ? "contained" : "outlined"}
+            onClick={filterMedPop}
+            className={filteredPopulation === "MedPop" ? classes.MedPop : null}
+            disableElevation
+            style={{
+              marginRight: 5,
+              borderRadius: 100,
+
+              fontSize: "medium",
+              marginTop: -5,
+            }}
+          >
+            10m+
+          </IconButton>
         </Tooltip>
 
         <Tooltip title="Large Population" placement="top">
-          <Button
+          <IconButton
             // size="small"
             variant={
               filteredPopulation === "HighPop" ? "contained" : "outlined"
@@ -380,44 +411,19 @@ const Filter = ({
             }
             disableElevation
             style={{
-              marginRight: 0,
+              marginRight: 5,
+              borderRadius: 100,
+
+              fontSize: "medium",
+              marginTop: -5,
             }}
           >
             50m+
-          </Button>
-        </Tooltip>
-        <Tooltip title="Medium Population" placement="top">
-          <Button
-            // size="small"
-            variant={filteredPopulation === "MedPop" ? "contained" : "outlined"}
-            onClick={filterMedPop}
-            className={filteredPopulation === "MedPop" ? classes.MedPop : null}
-            disableElevation
-            style={{
-              marginRight: 0,
-            }}
-          >
-            10m+
-          </Button>
-        </Tooltip>
-        <Tooltip title="Small Population" placement="top">
-          <Button
-            // size="small"
-            variant={filteredPopulation === "LowPop" ? "contained" : "outlined"}
-            onClick={filterLowPop}
-            className={filteredPopulation === "LowPop" ? classes.LowPop : null}
-            disableElevation
-            style={{
-              marginRight: 0,
-            }}
-          >
-            1m+
-          </Button>
+          </IconButton>
         </Tooltip>
 
-        <Tooltip title="Descending" placement="top">
-          <Button
-            // size="small"
+        <Tooltip title="Max Population" placement="top">
+          <IconButton
             variant={
               filteredPopulation === "Descending" ? "contained" : "outlined"
             }
@@ -428,10 +434,15 @@ const Filter = ({
             disableElevation
             style={{
               marginLeft: 5,
+              borderRadius: 100,
+              border: "1px solid #aaa",
+              fontSize: "small",
+              padding: 10,
+              marginTop: -5,
             }}
           >
-            <PersonIcon />+
-          </Button>
+            <PersonIcon />
+          </IconButton>
         </Tooltip>
       </Grid>
 
@@ -441,7 +452,7 @@ const Filter = ({
         sm={5}
         md={5}
         lg={1}
-        style={{ margin: "1em 0em 1.8em 0em" }}
+        style={{ margin: "1em 0em 0em 0em" }}
       >
         {/* <Tooltip title="Population Range" placement="top">
           <Slider
@@ -460,7 +471,6 @@ const Filter = ({
           />
         </Tooltip> */}
       </Grid>
-   
 
       <Snackbar
         anchorOrigin={{
@@ -496,7 +506,7 @@ const Filter = ({
 const useStyles = makeStyles((theme) =>
   createStyles({
     allCountries: {
-      backgroundColor: "#FF8D23",
+      backgroundColor: "darkgrey",
       color: "#fff",
     },
     Europe: {
