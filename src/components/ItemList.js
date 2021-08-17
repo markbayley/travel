@@ -13,8 +13,7 @@ import Badge from "@material-ui/core/Badge";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Rating from "@material-ui/lab/Rating";
-
-
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
 
 const ItemList = ({
   handleFavouritesClick,
@@ -43,7 +42,6 @@ const ItemList = ({
         DetailRequest(false);
       });
   };
-
 
   const FavouriteComponent = favouriteComponent;
 
@@ -78,7 +76,7 @@ const ItemList = ({
 
   const classes = useStyles();
 
-  const size = 25
+  const size = 25;
 
   return (
     <>
@@ -86,7 +84,7 @@ const ItemList = ({
       {filteredFlags !== null &&
         filteredFlags.length > 0 &&
         filteredFlags.slice(0, size).map((item, i) => (
-          <div key={i}>
+          <div key={i} style={{ zIndex: 0 }}>
             <Card className={classes.root}>
               <CardMedia
                 className={classes.media}
@@ -94,15 +92,29 @@ const ItemList = ({
                 onClick={() => clickHandler(item)}
               >
                 <CardActions disableSpacing>
-                  <Tooltip title="More" placement="left">
+                  <Tooltip title="Travel Status" placement="left">
                     <IconButton className={classes.icon} aria-label="more">
-                      <MoreVertIcon />
+                      {/* <MoreVertIcon /> */}
+                      <Badge
+                        style={{ marginRight: 20, marginTop: 7, zIndex: 0 }}
+                        badgeContent={
+                          item.status == "Restricted" ? "Limited" : item.status
+                        }
+                        color={
+                          item.status == "Closed"
+                            ? "secondary"
+                            : item.status == "Open"
+                            ? "primary"
+                            : item.status == "Restricted"
+                            ? "error"
+                            : "primary"
+                        }
+                      ></Badge>
                     </IconButton>
                   </Tooltip>
                 </CardActions>
               </CardMedia>
               <CardHeader
-              
                 avatar={
                   <Avatar aria-label="flag" className={classes.avatar}>
                     <img src={item.flag} alt="flag" width="70px" />
@@ -110,14 +122,35 @@ const ItemList = ({
                 }
                 action={
                   <>
-               
-                    <Tooltip title="Favourite" placement="top">
+                    {/* <Tooltip title="Population" placement="top">
+                      <IconButton
+                        // onClick={() => handleFavouritesClick(item)}
+                        color="error"
+                      >
+                        <Badge
+                          style={{ marginRight: 5, zIndex: 0 }}
+                          badgeContent={
+                            item.population > 1000000
+                              ? (item.population / 1000000).toFixed(0) + "m"
+                              : (item.population / 1000000).toFixed(2) + "m"
+                          }
+                          color="error"
+                        >
+                     \
+                        </Badge>
+                      </IconButton>
+                    </Tooltip> */}
+                    <Tooltip title="Favourite?" placement="top">
                       <IconButton
                         onClick={() => handleFavouritesClick(item)}
                         color="secondary"
                       >
                         <Badge badgeContent={count} color="secondary">
                           <FavouriteComponent />
+                          {/* <Badge
+                            color="secondary"
+                            badgeContent={item.status}
+                          ></Badge> */}
                         </Badge>
                       </IconButton>
                     </Tooltip>
@@ -125,14 +158,8 @@ const ItemList = ({
                 }
                 title={item.name}
                 className={classes.title}
-                subheader={
-                  item.region +
-                  " " +
-                  "(" +
-                  (item.population / 1000000).toFixed(2) +
-                  "m)"
-                }
-              />
+                subheader={item.region}
+              ></CardHeader>
             </Card>
           </div>
         ))}

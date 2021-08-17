@@ -17,6 +17,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link } from "react-router-dom";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import Pagination from "./Pagination";
+import { RadioButtons } from "./SideBar";
 
 const Filter = ({
   items,
@@ -29,9 +32,54 @@ const Filter = ({
 }) => {
   const classes = useStyles();
   // const [id, setId] = useState(0);
+  //SnackBar
+  const [open, setOpen] = useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  //Slider
+  // function valuetext(value) {
+  //   return `${value} + "m" `;
+  // }
+  // const [value, setValue] = useState([0, 300]);
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  //   console.log(value, newValue[1]);
+  //   return setFilteredFlags(RangePop);
+  // };
+
+  // const marks = [
+  //   {
+  //     value: 0,
+  //     label: "0m",
+  //   },
+  //   {
+  //     value: 150,
+  //     label: "Population",
+  //   },
+  //   {
+  //     value: 300,
+  //     label: "300m",
+  //   },
+  //   // {
+  //   //   value: 1000,
+  //   //   label: "1 billion",
+  //   // },
+  // ];
+
+  // const RangePop = filteredFlags.filter(
+  //   (item) =>
+  //     item?.population > value[0] * 1000000 &&
+  //     item?.population < value[1] * 1000000
+  // );
 
   const [filteredRegion, setRegion] = useState("All Regions");
   const [filteredPopulation, setPopulation] = useState("Total Population");
+  const [filteredStatus, setStatus] = useState("Any");
 
   const Europe = items.filter((item) => item?.region === "Europe");
   const Americas = items.filter((item) => item?.region === "Americas");
@@ -39,84 +87,18 @@ const Filter = ({
   const Asia = items.filter((item) => item?.region === "Asia");
   const Africa = items.filter((item) => item?.region === "Africa");
 
-  //   function valueLabelFormat(value) {
-  //   const [coefficient, exponent] = value
-  //     .toExponential()
-  //     .split('e')
-  //     .map((item) => Number(item));
-  //   return `${Math.round(coefficient)}e^${exponent}`;
-  // }
-
-  //   const [value, setValue] = useState([0, 1000]);
-
-  //   const handleChange = (event, newValue) => {
-  //     setValue(newValue);
-  //     console.log(value, newValue);
-  //     return setFilteredFlags(RangePop);
-  //   };
-
-  //SnackBar
-  const [open, setOpen] = useState(false);
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  //Slider
-  function valuetext(value) {
-    return `${value} + "m" `;
-  }
-
-  const [value, setValue] = useState([0, 300]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    console.log(value, newValue[1]);
-    return setFilteredFlags(RangePop);
-  };
-
-  const marks = [
-    {
-      value: 0,
-      label: "0m",
-    },
-    {
-      value: 150,
-      label: "Population",
-    },
-    {
-      value: 300,
-      label: "300m",
-    },
-    // {
-    //   value: 1000,
-    //   label: "1 billion",
-    // },
-  ];
-
-  const RangePop = filteredFlags.filter(
-    (item) =>
-      item?.population > value[0] * 1000000 &&
-      item?.population < value[1] * 1000000
-  );
-
   const HighPop = filteredFlags.filter((item) => item?.population > 50000000);
-
   const MedPop = filteredFlags.filter(
     (item) => item?.population > 10000000 && item.population < 100000000
   );
   const LowPop = filteredFlags.filter((item) => item?.population < 10000000);
 
+  //Region
   const filterAllCountries = () => {
     setRegion("All Regions");
     return setFilteredFlags(items);
   };
 
-  //  id === 1 ? setId(1) : !setId(1);
   const filterAmericas = () => {
     if (filteredRegion === "Americas") {
       setRegion("All Regions");
@@ -172,6 +154,7 @@ const Filter = ({
     }
   };
 
+  //Population
   const filterHighPop = () => {
     if (filteredPopulation === "HighPop") {
       return setFilteredFlags(filteredFlags);
@@ -235,12 +218,16 @@ const Filter = ({
         // justifyContent: "space-evenly",
         // flexWrap: "wrap",
         flexGrow: 1,
+        // border: "1px solid grey",
+        // position: "fixed",
 
-        textAlign: "left",
+        // zIndex: 1,
+        // backgroundColor: "#fff",
+
         // marginTop:"1.4em",
       }}
     >
-      <Grid item md={12} lg={6} style={{ marginTop: "1.4em" }}>
+      <Grid item md={6} lg={5} style={{ marginTop: "0em", textAlign: "left" }}>
         <Button
           size="medium"
           variant={filteredRegion === "Americas" ? "contained" : "outlined"}
@@ -335,9 +322,9 @@ const Filter = ({
         item
         xs={12}
         sm={6}
-        md={6}
-        lg={4}
-        style={{ margin: "1.4em 0em 0em 0em" }}
+        md={5}
+        lg={3}
+        style={{ margin: "0em 0em 0em 0em", textAlign: "center" }}
       >
         <Tooltip title="Min Population" placement="top">
           <IconButton
@@ -358,7 +345,7 @@ const Filter = ({
               marginTop: -5,
             }}
           >
-            <PersonIcon />
+            <PersonOutlineIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="Small Population" placement="top">
@@ -451,9 +438,17 @@ const Filter = ({
         xs={12}
         sm={5}
         md={5}
-        lg={1}
-        style={{ margin: "1em 0em 0em 0em" }}
+        lg={4}
+        style={{ margin: "0em 0em 0em 0em", textAlign: "center" }}
       >
+        <RadioButtons
+          items={items}
+          setFilteredFlags={setFilteredFlags}
+          filteredFlags={filteredFlags}
+          filteredStatus={filteredStatus}
+          setStatus={setStatus}
+        />
+        {/* <Pagination /> */}
         {/* <Tooltip title="Population Range" placement="top">
           <Slider
         
@@ -474,8 +469,8 @@ const Filter = ({
 
       <Snackbar
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: "bottom",
+          horizontal: "center",
         }}
         open={open}
         autoHideDuration={4000}

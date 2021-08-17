@@ -16,6 +16,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 
 import { makeStyles, createStyles, withStyles } from "@material-ui/core/styles";
 import { green, orange, grey, red } from "@material-ui/core/colors";
+import BarChartIcon from "@material-ui/icons/BarChart";
 
 const GreenRadio = withStyles({
   root: {
@@ -151,7 +152,7 @@ export const RadioButtons = ({
   );
 };
 
-const Sidebar = ({
+const ChartBar = ({
   filteredFlags,
   ActivateModal,
   DetailRequest,
@@ -162,12 +163,12 @@ const Sidebar = ({
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
-  const [filteredStatus, setStatus] = useState("");
+  const [filteredStatus, setStatus] = useState("Any");
 
   return (
     <nav
       className={sidebar ? "sidebar active" : "sidebar"}
-      style={{ marginTop: "50px" }}
+      style={{ marginTop: "-13px" }}
     >
       {/* <button
         className="hamburger"
@@ -207,6 +208,7 @@ const Sidebar = ({
               paddingRight: "30px",
               paddingLeft: "5px",
               color: "grey",
+              marginTop: "85px",
               //   boxShadow: "0 0 3px 2px #ddd",
             }}
             button
@@ -214,7 +216,7 @@ const Sidebar = ({
             className="hamburger"
             onClick={showSidebar}
           >
-            <PublicIcon style={{ fontSize: 40 }} />
+            <BarChartIcon style={{ fontSize: 40 }} />
           </div>
         </Tooltip>
 
@@ -231,4 +233,4 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default ChartBar;

@@ -45,7 +45,6 @@ import PublicIcon from "@material-ui/icons/Public";
 import Tooltip from "@material-ui/core/Tooltip";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
-
 import { Cart } from "./ChatBox";
 import { ChatBox } from "./ChatBox";
 import { Profile } from "./ChatBox";
@@ -59,7 +58,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) =>
   createStyles({
     appBar: {
-      zIndex: 1,
+      zIndex: 3,
       transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -89,18 +88,17 @@ const useStyles = makeStyles((theme) =>
       width: drawerWidth,
       flexShrink: 0,
       whiteSpace: "nowrap",
-      zIndex: 0,
+      zIndex: 2,
     },
     drawerOpen: {
       width: drawerWidth,
-      zIndex: 1,
+      zIndex: 2,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerClose: {
-     
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -200,7 +198,12 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default function PrimarySearchAppBar({searchValue, setSearchValue, toggleShow, favourites }) {
+export default function PrimarySearchAppBar({
+  searchValue,
+  setSearchValue,
+  toggleShow,
+  favourites,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -398,15 +401,19 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
               </IconButton>
             </div>
             <Divider />
-
-            <Link to="/home">
-              <ListItem button style={{ paddingLeft: "22px", paddingTop: "20px" }}>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItem>
-            </Link>
+            <Tooltip title="Home" placement="right">
+              <Link to="/home">
+                <ListItem
+                  button
+                  style={{ paddingLeft: "22px", paddingTop: "20px" }}
+                >
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
+              </Link>
+            </Tooltip>
 
             {/* <Link to="/charts">
               <ListItem button>
@@ -416,57 +423,68 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
                 <ListItemText primary="Charts" />
               </ListItem>
             </Link> */}
-            <Link to="/travel">
-              <ListItem button style={{ paddingLeft: "22px" }}>
-                <ListItemIcon>
-                  <FlagIcon />
-                </ListItemIcon>
-                <ListItemText primary="Flags" />
-              </ListItem>
-            </Link>
-            <Link to="/travel">
-              <ListItem button style={{ paddingLeft: "22px" }}>
-                <ListItemIcon>
-                  <TheatersIcon />
-                </ListItemIcon>
-                <ListItemText primary="Movies" />
-              </ListItem>
-            </Link>
-            <Link to="/travel">
-              <ListItem button style={{ paddingLeft: "22px" }}>
-                <ListItemIcon>
-                  <LocalBarIcon />
-                </ListItemIcon>
-                <ListItemText primary="Cocktails" />
-              </ListItem>
-            </Link>
-            <Link to="/travel">
-              <ListItem button style={{paddingLeft: "22px"}}>
-                <ListItemIcon>
-                  <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary="Users" />
-              </ListItem>
-            </Link>
-            <Link to="/travel">
-              <ListItem button style={{paddingLeft: "22px"}}>
-                <ListItemIcon>
-                  <PublicIcon />
-                </ListItemIcon>
-                <ListItemText primary="Travel" />
-              </ListItem>
-            </Link>
+            <Tooltip title="Search Countries" placement="right">
+              <Link to="/travel">
+                <ListItem button style={{ paddingLeft: "22px" }}>
+                  <ListItemIcon>
+                    <FlagIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Flags" />
+                </ListItem>
+              </Link>
+            </Tooltip>
+            <Tooltip title="Entertainment" placement="right">
+              <Link to="/travel">
+                <ListItem button style={{ paddingLeft: "22px" }}>
+                  <ListItemIcon>
+                    <TheatersIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Movies" />
+                </ListItem>
+              </Link>
+            </Tooltip>
+            <Tooltip title="Clubs & Bars" placement="right">
+              <Link to="/travel">
+                <ListItem button style={{ paddingLeft: "22px" }}>
+                  <ListItemIcon>
+                    <LocalBarIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Cocktails" />
+                </ListItem>
+              </Link>
+            </Tooltip>
+            <Tooltip title="People" placement="right">
+              <Link to="/travel">
+                <ListItem button style={{ paddingLeft: "22px" }}>
+                  <ListItemIcon>
+                    <PersonIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Users" />
+                </ListItem>
+              </Link>
+            </Tooltip>
+            <Tooltip title="Map" placement="right">
+              <Link to="/travel">
+                <ListItem button style={{ paddingLeft: "22px" }}>
+                  <ListItemIcon>
+                    <PublicIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Travel" />
+                </ListItem>
+              </Link>
+            </Tooltip>
 
             <Divider />
-
-            <Link to="/contact">
-              <ListItem button style={{paddingLeft: "22px"}}>
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary="Contact" />
-              </ListItem>
-            </Link>
+            <Tooltip title="Contact" placement="right">
+              <Link to="/contact">
+                <ListItem button style={{ paddingLeft: "22px" }}>
+                  <ListItemIcon>
+                    <MailIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Contact" />
+                </ListItem>
+              </Link>
+            </Tooltip>
 
             {/* <Link to="/mail">
               <ListItem button>
@@ -486,14 +504,19 @@ export default function PrimarySearchAppBar({searchValue, setSearchValue, toggle
                 alignItems: "flex-end",
               }}
             >
-              <Link to="/travel">
-                <ListItem button style={{paddingLeft: "22px", paddingBottom: "20px"}}>
-                  <ListItemIcon>
-                    <SettingsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Settings" />
-                </ListItem>
-              </Link>
+              <Tooltip title="Settings" placement="top">
+                <Link to="/travel">
+                  <ListItem
+                    button
+                    style={{ paddingLeft: "22px", paddingBottom: "20px" }}
+                  >
+                    <ListItemIcon>
+                      <SettingsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Settings" />
+                  </ListItem>
+                </Link>
+              </Tooltip>
             </div>
           </Drawer>
         </div>

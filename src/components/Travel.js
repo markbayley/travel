@@ -12,17 +12,12 @@ import Filter from "./Filter";
 import ItemList from "./ItemList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Modal } from "antd";
-import { Grid, IconButton } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import Badge from "@material-ui/core/Badge";
 
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import Map from "./Map";
-import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
-// import MapControlsComponent from "./MapControlsComponent";
-
 import SideBar from "./SideBar";
 
 const Travel = () => {
@@ -71,6 +66,28 @@ const Travel = () => {
       });
   }, []);
 
+  //Covid
+  // const [countries, setCountries] = useState([]);
+  // useEffect(() => {
+  //   async function fetchCountries() {
+  //     try {
+  //       const result = await fetch("https://corona.lmao.ninja/v2/countries");
+  //       const countries = await result.json();
+  //       setCountries([...countries]);
+  //       console.log(countries[0].country, "countries");
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   fetchCountries();
+  // }, []);
+
+  // const getData = (key) => {
+  //   return countries.map((country) => country[key]);
+  // };
+  // const countryLabels = getData("country");
+  // console.log(countryLabels, "countryLabels");
+
   //Flags
   const searchedFlags = items.filter((item) =>
     item?.name.toLowerCase().includes(searchValue)
@@ -98,6 +115,7 @@ const Travel = () => {
     setFilteredTravel(searchedTravel);
   }, [setSearchValue, searchValue]);
 
+  //Merge Travel Data
   searchedTravel.map((child) => {
     for (let parent of searchedFlags) {
       if (parent.name === child.country) {
@@ -139,6 +157,7 @@ const Travel = () => {
     return <FavoriteIcon />;
   };
 
+  //Map
   const [viewport, setViewport] = useState({
     latitude: 30,
     longitude: 0,
@@ -146,12 +165,7 @@ const Travel = () => {
     zoom: 1,
   });
 
-  console.log(items, 'items - delete')
-
-
- 
-
-    
+  console.log(items, "items - delete");
 
   return (
     <>
@@ -204,6 +218,7 @@ const Travel = () => {
           </Switch>
 
           {/* <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} /> */}
+
           <Filter
             items={items}
             setItems={setItems}
@@ -214,52 +229,9 @@ const Travel = () => {
             setViewport={setViewport}
             viewport={viewport}
           />
+
           {/* </Grid> */}
 
-          {/* <div
-          className="map"
-          style={{ height: "80vh", width: "50vw" }}
-        >
-          <ReactMapGL
-            {...viewport}
-            mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNrZzJraGl1NTAwcjkyeXFyMHljNjExcmoifQ.RxhYWJnYveNc1LjK6wB9sQ"
-            width="100%"
-            height="100%"
-            onViewportChange={(viewport) => setViewport(viewport)}
-          >
-            {loading && <Loader />}
-
-            {filteredFlags?.slice(0, size).map((item, i) => (
-              <div key={i}>
-                <Marker
-                  latitude={item.latlng && item.latlng[0]}
-                  longitude={item.latlng && item.latlng[1]}
-                >
-                  <div className="marker"></div>
-                </Marker>
-                <Popup
-                  latitude={item.latlng && item.latlng[0]}
-                  longitude={item.latlng && item.latlng[1]}
-                  // onClose={closePopup}
-                  closeButton={true}
-                  closeOnClick={true}
-                  offsetTop={0}
-                  offsetLeft={10}
-                >
-                  <img src={item.flag} width="50px" alt="flag" />
-                  <h6
-                    style={{
-                      color: "black",
-                      textAlign: "center",
-                    }}
-                  >
-                    {item.name}
-                  </h6>
-                </Popup>
-              </div>
-            ))}
-          </ReactMapGL>
-        </div> */}
           <br />
           <ul className="card-grid">
             {/* {loading && <Loader />}

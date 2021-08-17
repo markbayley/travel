@@ -53,7 +53,7 @@ const theme = createTheme({
   },
 });
 
-const Map = ({
+const Map2 = ({
   loading,
   filteredFlags,
 
@@ -85,15 +85,15 @@ const Map = ({
   const classes = useStyles();
 
   const [viewport, setViewport] = useState({
-    latitude: 30,
-    longitude: 0,
+    latitude: 45,
+    longitude: 5,
     bearing: 0,
-    zoom: 3,
+    zoom: 4.5,
   });
 
   const size = 25;
 
-  console.log(filteredFlags, "filteredFlags(map)");
+  // console.log(filteredFlags, "filteredFlags(map)");
 
   return (
     <div className="map">
@@ -110,8 +110,8 @@ const Map = ({
           <>
             <Marker
               key={i}
-              latitude={item.latlng && item.latlng[0]}
-              longitude={item.latlng && item.latlng[1]}
+              latitude={item.latlng[0] && item.latlng[0]}
+              longitude={item.latlng[1] && item.latlng[1]}
               onClick={() => clickHandler(item)}
             >
               <Tooltip title="View Images" placement="top">
@@ -126,31 +126,38 @@ const Map = ({
               </Tooltip>
 
               <ThemeProvider theme={theme}>
-                {/* <Tooltip title="Population" placement="top">
+                <Tooltip title="Covid Risk" placement="top">
                   <Badge
                     badgeContent={
-                      filteredStatus === "Closed"
-                        ? "C"
-                        : filteredStatus === "Open"
-                        ? "O"
-                        : filteredStatus === "Restricted"
-                        ? "R"
-                        : "N"
+                      item.population > 1000000
+                        ? (item.population / 1000000).toFixed(0) + "m"
+                        : (item.population / 1000000).toFixed(1) + "m"
                     }
                     color="error"
                     style={{ paddingBottom: 40 }}
                   ></Badge>
-                </Tooltip> */}
-                <Tooltip title={item.status} placement="top">
+                  {/* <Badge
+                    badgeContent={
+                      item.activePerOneMillion > 1000
+                        ? "H"
+                        : item.activePerOneMillion > 100
+                        ? "M"
+                        : "L"
+                    }
+                    color="error"
+                    style={{ paddingBottom: 40 }}
+                  ></Badge> */}
+                </Tooltip>
+                <Tooltip title={item.status} placement="bottom">
                   <Badge
                     style={{ marginRight: 200 }}
                     badgeContent={item.name.slice(0, 15)}
                     color={
-                      item.status == "Closed"
+                      filteredStatus === "Closed"
                         ? "secondary"
-                        : item.status == "Open"
+                        : filteredStatus === "Open"
                         ? "primary"
-                        : item.status == "Restricted"
+                        : filteredStatus === "Restricted"
                         ? "error"
                         : "primary"
                     }
@@ -166,7 +173,7 @@ const Map = ({
   );
 };
 
-export default Map;
+export default Map2;
 
 export const MapControlsComponent = () => {
   const attributionStyle = {
