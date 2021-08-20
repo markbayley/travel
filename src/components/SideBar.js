@@ -167,7 +167,7 @@ const Sidebar = ({
   return (
     <nav
       className={sidebar ? "sidebar active" : "sidebar"}
-      style={{ marginTop: "50px" }}
+      style={{ marginTop: "-13px" }}
     >
       {/* <button
         className="hamburger"

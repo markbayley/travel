@@ -8,6 +8,7 @@ import {
   FullscreenControl,
   NavigationControl,
 } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 import { Badge } from "@material-ui/core";
 import {

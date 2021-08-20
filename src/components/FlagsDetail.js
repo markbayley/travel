@@ -27,7 +27,6 @@ import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
 // import MapControlsComponent from "./MapControlsComponent";
 import Tooltip from "@material-ui/core/Tooltip";
 
-
 const superagent = require("superagent");
 
 const clientID =
@@ -70,6 +69,12 @@ const FlagsDetail = ({
     },
     avatar: {
       backgroundColor: red[500],
+    },
+    sectionMobile: {
+      display: "flex",
+      [theme.breakpoints.down("md")]: {
+        display: "none",
+      },
     },
   }));
 
@@ -145,6 +150,9 @@ const FlagsDetail = ({
   return (
     <div style={{ zIndex: 20 }}>
       <Card className={classes.root}>
+        <div style={{ marginLeft: "10px" }}>
+          <img src={flag} height="15px" alt="flag" /> {name}
+        </div>
         <ImageCarousel
           photos={photos}
           flag={flag}
@@ -167,7 +175,6 @@ const FlagsDetail = ({
             <em>Searching...{name + " " + query + " "}</em>
           </Typography>
         </CardContent> */}
-
         <CardActions
           disableSpacing
           style={{
@@ -185,7 +192,7 @@ const FlagsDetail = ({
           </IconButton> */}
 
           <Button
-            size="small"
+            // size="small"
             style={{
               fontSize: "small",
               textTransform: "none",
@@ -196,10 +203,10 @@ const FlagsDetail = ({
             value={" Food"}
             onClick={(e) => searchFood(e, "value")}
           >
-            <FastfoodIcon /> Food
+            <FastfoodIcon className={classes.sectionMobile} /> Food
           </Button>
           <Button
-            size="small"
+            // size="small"
             style={{
               fontSize: "small",
               textTransform: "none",
@@ -210,12 +217,12 @@ const FlagsDetail = ({
             value={" People"}
             onClick={(e) => searchPeople(e, "value")}
           >
-            <PeopleIcon /> People
+            <PeopleIcon className={classes.sectionMobile} /> People
           </Button>
           <Button
-            size="small"
+            // size="small"
             style={{
-              fontSize: "small",
+              // fontSize: "small",
               textTransform: "none",
               color: "#FF8D23",
               marginRight: "15px",
@@ -224,9 +231,10 @@ const FlagsDetail = ({
             value={" Animals"}
             onClick={(e) => searchAnimals(e, "value")}
           >
-            <PetsIcon /> Animals
+            <PetsIcon className={classes.sectionMobile} /> Animals
           </Button>
           <Button
+            className={classes.sectionMobile}
             size="small"
             style={{
               fontSize: "small",
@@ -241,6 +249,7 @@ const FlagsDetail = ({
             <AssistantPhotoIcon /> Culture
           </Button>
           <Button
+            className={classes.sectionMobile}
             size="small"
             style={{
               fontSize: "small",
@@ -255,6 +264,7 @@ const FlagsDetail = ({
             <FlightTakeoffIcon /> Travel
           </Button>
           <Button
+            className={classes.sectionMobile}
             size="small"
             style={{
               fontSize: "small",
@@ -281,7 +291,6 @@ const FlagsDetail = ({
             </IconButton>
           </Tooltip>
         </CardActions>
-
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             {/* <Message /> */}
@@ -327,6 +336,5 @@ const FlagsDetail = ({
     </div>
   );
 };
-
 
 export default FlagsDetail;

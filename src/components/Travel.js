@@ -233,11 +233,11 @@ const Travel = () => {
           {/* </Grid> */}
 
           <br />
+          {/* {loading && <Loader />} */}
           <ul className="card-grid">
-            {/* {loading && <Loader />}
-        {filteredFlags !== null &&
+            {/* {filteredFlags !== null &&
           filteredFlags.length > 0 &&
-          filteredFlags.slice(0, size).map((items, i) => ( */}
+          filteredFlags.slice(0, size).map((items, i) => ( } */}
             <>
               <ItemList
                 // key={i}
@@ -266,7 +266,7 @@ const Travel = () => {
             width={750}
             height={700}
           >
-            <h3>FAVOURITES</h3>
+            <h3 style={{ paddingBottom: "20px" }}>FAVOURITES</h3>
             <ul className="card-grid">
               <ItemList
                 // items={favourites}

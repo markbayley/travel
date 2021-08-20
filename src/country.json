@@ -238,7 +238,7 @@
     "moreDetails": ""
   },
   {
-    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/DK.jpg?w=350&f=auto",
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/DK.jpg?w=250&f=auto",
     "status": "Closed",
     "country": "Denmark",
     "description": "Tourists not allowed",
@@ -308,7 +308,7 @@
     "moreDetails": "Test required"
   },
   {
-    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/JP.jpg?w=350&f=auto",
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/JP.jpg?w=200&f=auto",
     "status": "Restricted",
     "country": "Japan",
     "description": "",
@@ -1225,7 +1225,7 @@
     "moreDetails": "Test required"
   },
   {
-    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/SB.jpg?w=350&f=auto",
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/SB.jpg?w=200&f=auto",
     "status": "Closed",
     "country": "Solomon Islands",
     "description": "Tourists not allowed",
@@ -1309,7 +1309,7 @@
     "moreDetails": ""
   },
   {
-    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/AI.jpg?w=350&f=auto",
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/AI.jpg?w=300&f=auto",
     "status": "Restricted",
     "country": "Anguilla",
     "description": "",
@@ -1337,14 +1337,14 @@
     "moreDetails": ""
   },
   {
-    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/DJ.jpg?w=350&f=auto",
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/DJ.jpg?w=200&f=auto",
     "status": "Restricted",
     "country": "Djibouti",
     "description": "",
     "moreDetails": "Test required"
   },
   {
-    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/FK.jpg?w=350&f=auto",
+    "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/FK.jpg?w=250&f=auto",
     "status": "Closed",
     "country": "Falkland Islands (Malvinas)",
     "description": "Tourists not allowed",
@@ -1742,7 +1742,7 @@
     "description": "",
     "moreDetails": "Quarantine required"
   },
-   {
+  {
     "image": "https://cdn.statically.io/img/canitravel.net/img/countries/full/GU.jpg?w=350&f=auto",
     "status": "Open",
     "country": "United States Minor Outlying Islands",
@@ -1750,6 +1750,3 @@
     "moreDetails": ""
   }
 ]
-
-
-
