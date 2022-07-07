@@ -86,6 +86,7 @@ function Travel() {
           onCancel={() => setActivateModal(false)}
           footer={null}
           width={800}
+        
         >
           {detailRequest === false ? <TravelDetail {...detail} /> : <Loader />}
         </Modal>
