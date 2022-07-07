@@ -26,7 +26,7 @@ function Flags() {
     setLoading(true);
     setError(null);
     // setData(null);
-    fetch(`https://restcountries.eu/rest/v2/all`)
+    fetch(`https://restcountries.com/v2/all`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {

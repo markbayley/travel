@@ -639,7 +639,7 @@ const Items = () => {
     setError(null);
     // setData(null);
 
-    fetch(`https://restcountries.eu/rest/v2/all`)
+    fetch(`https://restcountries.com/v2/all`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {
@@ -844,8 +844,8 @@ export default Items;
 
 const superagent = require("superagent");
 
-const clientID =
-  "8e31e45f4a0e8959d456ba2914723451b8262337f75bcea2e04ae535491df16d";
+const clientID = "PvvWIfrMMfNqoEEuVve3X6KE1gksd31-C1Pn-SP3yL4";
+ 
 
 const simpleGet = (options) => {
   superagent.get(options.url).then(function (res) {
@@ -890,7 +890,7 @@ const FlagsDetail = ({ flag, population, region, name, capital, travel }) => {
   const queryInput = useRef(null);
 
   const numberOfPhotos = 10;
-  const url =
+  const url = 
     "https://api.unsplash.com/photos/random/?count=" +
     numberOfPhotos +
     "&client_id=" +

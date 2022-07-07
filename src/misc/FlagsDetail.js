@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-   const clientID =
-     "8e31e45f4a0e8959d456ba2914723451b8262337f75bcea2e04ae535491df16d";
+   const clientID = "PvvWIfrMMfNqoEEuVve3X6KE1gksd31-C1Pn-SP3yL4";
+   
 
    const simpleGet = (options) => {
      superagent.get(options.url).then(function (res) {
@@ -84,11 +84,11 @@ const FlagsDetail = ({
    const queryInput = useRef(null);
 
   const numberOfPhotos = 10;
-  const url =
-    "https://api.unsplash.com/photos/random/?count=" +
-    numberOfPhotos +
-    "&client_id=" +
-    clientID;
+  const url = "https://api.unsplash.com/photos/random/?count=10&client_id=PvvWIfrMMfNqoEEuVve3X6KE1gksd31-C1Pn-SP3yL4"
+    // "https://api.unsplash.com/photos/random/?count=" +
+    // numberOfPhotos +
+    // "&client_id=" +
+    // clientID;
 
     useEffect(() => {
       const photosUrl = name ? `${url}&query=${name}` : url;

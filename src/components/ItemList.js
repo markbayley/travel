@@ -29,7 +29,7 @@ const ItemList = ({
     ActivateModal(true);
     DetailRequest(true);
 
-    fetch(`https://restcountries.eu/rest/v2/name/${item.name}`)
+    fetch(`https://restcountries.com/v2/name/${item.name}`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {

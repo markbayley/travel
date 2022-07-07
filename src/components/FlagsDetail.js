@@ -27,10 +27,11 @@ import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
 // import MapControlsComponent from "./MapControlsComponent";
 import Tooltip from "@material-ui/core/Tooltip";
 
+
 const superagent = require("superagent");
 
-const clientID =
-  "8e31e45f4a0e8959d456ba2914723451b8262337f75bcea2e04ae535491df16d";
+const clientID = "PvvWIfrMMfNqoEEuVve3X6KE1gksd31-C1Pn-SP3yL4"
+  // "8e31e45f4a0e8959d456ba2914723451b8262337f75bcea2e04ae535491df16d";
 
 const simpleGet = (options) => {
   superagent.get(options.url).then(function (res) {
@@ -297,7 +298,7 @@ const FlagsDetail = ({
             <div className="map" style={{ height: "50vh", width: "100%" }}>
               <ReactMapGL
                 {...viewport}
-                mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNrZzJraGl1NTAwcjkyeXFyMHljNjExcmoifQ.RxhYWJnYveNc1LjK6wB9sQ"
+                mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNsNWEwcTg3bTJmdmEzbm10YXNyam11dncifQ.sd4ANl8aHUgxmv-iXBGexw"
                 width="100%"
                 height="100%"
                 onViewportChange={(viewport) => setViewport(viewport)}

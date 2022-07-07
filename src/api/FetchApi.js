@@ -161,7 +161,7 @@ const FetchApi = () => {
   // this useEffect will run once
   // similar to componentDidMount()
   useEffect(() => {
-    fetch("https://restcountries.eu/rest/v2/all")
+    fetch("https://restcountries.com/v2/all")
       .then((res) => res.json())
       .then(
         (result) => {

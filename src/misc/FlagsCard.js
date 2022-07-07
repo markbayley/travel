@@ -63,7 +63,7 @@ const FlagsCard = ({
     ActivateModal(true);
     DetailRequest(true);
 
-      fetch(`https://restcountries.eu/rest/v2/name/${name}`)
+      fetch(`https://restcountries.com/v2/name/${name}`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {
