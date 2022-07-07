@@ -48,7 +48,7 @@ const Travel = () => {
     setError(null);
     // setData(null);
 
-    fetch(`https://restcountries.eu/rest/v2/all`)
+    fetch(`https://restcountries.com/v2/all`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {
@@ -284,7 +284,7 @@ const Travel = () => {
             onCancel={() => setActivateModal(false)}
             footer={null}
             width={750}
-            // height={500}
+            height={500}
           >
             {detailRequest === false ? (
               <FlagsDetail
