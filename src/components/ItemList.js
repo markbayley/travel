@@ -104,7 +104,7 @@ const ItemList = ({
                         item.status == "Closed"
                           ? "secondary"
                           : item.status == "Open"
-                          ? "green"
+                          ? "primary"
                           : item.status == "Restricted"
                           ? "error"
                           : "primary"

@@ -1,5 +1,10 @@
 import { useState, useCallback } from "react";
 import ReactMapGL, { Source, Layer, Marker, Popup } from "react-map-gl";
+
+
+
+
+
 // import MapControlsComponent from "./MapControlsComponent";
 import "./Map.css";
 import Loader from "./Loader";
@@ -9,6 +14,12 @@ import {
   NavigationControl,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from '!mapbox-gl';
+
+
 
 import { Badge } from "@material-ui/core";
 import {
@@ -83,6 +94,8 @@ const Map = ({
       });
   };
 
+
+
   const classes = useStyles();
 
   const [viewport, setViewport] = useState({
@@ -95,7 +108,7 @@ const Map = ({
   const size = 25;
 
   console.log(filteredFlags, "filteredFlags(map)");
-
+  
   return (
     <div className="map">
       <ReactMapGL
