@@ -68,7 +68,7 @@ const Map2 = ({
     ActivateModal(true);
     DetailRequest(true);
 
-    fetch(`https://restcountries.eu/rest/v2/name/${item.name}`)
+    fetch(`https://restcountries.com/v2/name/${item.name}`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {
@@ -99,7 +99,7 @@ const Map2 = ({
     <div className="map">
       <ReactMapGL
         {...viewport}
-        mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNrZzJraGl1NTAwcjkyeXFyMHljNjExcmoifQ.RxhYWJnYveNc1LjK6wB9sQ"
+        mapboxApiAccessToken="pk.eyJ1IjoibWFya3liMTUyIiwiYSI6ImNsNWEwcTg3bTJmdmEzbm10YXNyam11dncifQ.sd4ANl8aHUgxmv-iXBGexw"
         width="100%"
         height="100%"
         onViewportChange={(viewport) => setViewport(viewport)}

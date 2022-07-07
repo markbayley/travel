@@ -67,9 +67,9 @@ export const RadioButtons = ({
   const [value, setValue] = useState("All");
   //   const [filteredStatus, setStatus] = useState("Any");
 
-  const Restricted = items.filter((item) => item?.status[0] === "Restricted");
-  const Closed = items.filter((item) => item?.status[0] === "Closed");
-  const Open = items.filter((item) => item?.status[0] === "Open");
+  const Restricted = items.filter((item) => item?.status?.[0] === "Restricted");
+  const Closed = items.filter((item) => item?.status?.[0] === "Closed");
+  const Open = items.filter((item) => item?.status?.[0] === "Open");
 
   const filterAny = () => {
     setStatus("Any");
