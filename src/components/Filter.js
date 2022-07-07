@@ -233,7 +233,7 @@ const Filter = ({
           variant={filteredRegion === "Americas" ? "contained" : "outlined"}
           onClick={filterAmericas}
           className={filteredRegion === "Americas" ? classes.Americas : null}
-          disableElevation
+      
           style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Americas.length} */}
@@ -242,7 +242,7 @@ const Filter = ({
         <Button
           // size="small"
           variant={filteredRegion === "Europe" ? "contained" : "outlined"}
-          disableElevation
+      
           onClick={filterEurope}
           className={filteredRegion === "Europe" ? classes.Europe : null}
           style={{ marginRight: 10, marginBottom: 10 }}
@@ -255,7 +255,7 @@ const Filter = ({
           variant={filteredRegion === "Asia" ? "contained" : "outlined"}
           onClick={filterAsia}
           className={filteredRegion === "Asia" ? classes.Asia : null}
-          disableElevation
+     
           style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Asia.length} */}
@@ -266,7 +266,7 @@ const Filter = ({
           variant={filteredRegion === "Africa" ? "contained" : "outlined"}
           onClick={filterAfrica}
           className={filteredRegion === "Africa" ? classes.Africa : null}
-          disableElevation
+       
           style={{ marginRight: 10, marginBottom: 10 }}
         >
           {/* {Africa.length} */}
@@ -275,7 +275,7 @@ const Filter = ({
         <Button
           // size="small"
           variant={filteredRegion === "Oceania" ? "contained" : "outlined"}
-          disableElevation
+  
           onClick={filterOceania}
           className={filteredRegion === "Oceania" ? classes.Oceania : null}
           style={{ marginRight: 10, marginBottom: 10 }}
@@ -285,7 +285,7 @@ const Filter = ({
         </Button>
         {/* <Button
           size="small"
-            disableElevation
+       
           variant={filteredRegion === "All Regions" ? "contained" : "outlined"}
           onClick={filterAllCountries}
           className={
@@ -310,7 +310,7 @@ const Filter = ({
               marginRight: 10,
               marginBottom: 10,
             }}
-            disableElevation
+     
           >
             {/* {items.length} */}
             <ReplayIcon />
@@ -335,7 +335,7 @@ const Filter = ({
             className={
               filteredPopulation === "Ascending" ? classes.Europe : null
             }
-            disableElevation
+           
             style={{
               marginRight: 10,
               borderRadius: 100,
@@ -354,7 +354,7 @@ const Filter = ({
             variant={filteredPopulation === "LowPop" ? "contained" : "outlined"}
             onClick={filterLowPop}
             className={filteredPopulation === "LowPop" ? classes.LowPop : null}
-            disableElevation
+         
             style={{
               marginRight: 5,
               borderRadius: 100,
@@ -373,7 +373,7 @@ const Filter = ({
             variant={filteredPopulation === "MedPop" ? "contained" : "outlined"}
             onClick={filterMedPop}
             className={filteredPopulation === "MedPop" ? classes.MedPop : null}
-            disableElevation
+          
             style={{
               marginRight: 5,
               borderRadius: 100,
@@ -396,7 +396,7 @@ const Filter = ({
             className={
               filteredPopulation === "HighPop" ? classes.HighPop : null
             }
-            disableElevation
+           
             style={{
               marginRight: 5,
               borderRadius: 100,
@@ -418,7 +418,7 @@ const Filter = ({
             className={
               filteredPopulation === "Descending" ? classes.Europe : null
             }
-            disableElevation
+         
             style={{
               marginLeft: 5,
               borderRadius: 100,
